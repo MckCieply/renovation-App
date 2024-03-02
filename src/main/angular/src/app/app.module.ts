@@ -9,6 +9,7 @@ import { RoomComponent } from './room/room.component';
 import { WorkTypeComponent } from './work-type/work-type.component';
 import { WorksComponent } from './works/works.component';
 import { ContractorsComponent } from './contractors/contractors.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ContractorsComponent } from './contractors/contractors.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
