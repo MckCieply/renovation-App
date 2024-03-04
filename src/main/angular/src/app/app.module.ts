@@ -10,6 +10,10 @@ import { WorkTypeComponent } from './work-type/work-type.component';
 import { WorksComponent } from './works/works.component';
 import { ContractorsComponent } from './contractors/contractors.component';
 import {HttpClientModule} from "@angular/common/http";
+import { RoomFormComponent } from './room/room-form/room-form.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -19,14 +23,19 @@ import {HttpClientModule} from "@angular/common/http";
     RoomComponent,
     WorkTypeComponent,
     WorksComponent,
-    ContractorsComponent
+    ContractorsComponent,
+    RoomFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatFormFieldModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync('noop')
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
