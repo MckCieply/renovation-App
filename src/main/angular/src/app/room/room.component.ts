@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {RoomFormComponent} from "./room-form/room-form.component";
 import {MatDialog} from "@angular/material/dialog";
 
+
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
@@ -23,10 +24,16 @@ export class RoomComponent implements OnInit{
   }
 
   createForm(){
-    const dialogRef = this.dialog.open(RoomFormComponent, {});
+    const dialogRef = this.dialog.open(RoomFormComponent, {
+      data: {name: "", budgetPlanned: ""}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if(result)
+        this.roomService.addRoom(result).subscribe({
+          next: (data) => this.rooms.push(data),
+          error: (err) => console.error(err)
+      });
     });
   }
 }

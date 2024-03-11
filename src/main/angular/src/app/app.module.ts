@@ -14,6 +14,11 @@ import { RoomFormComponent } from './room/room-form/room-form.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatInput} from "@angular/material/input";
+import {MatFooterRow} from "@angular/material/table";
+import {MatButton} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -31,10 +36,16 @@ import {MatDialogModule} from "@angular/material/dialog";
     AppRoutingModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInput,
+    MatFooterRow,
+    MatButton,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
-    provideAnimationsAsync('noop')
+    provideAnimationsAsync('noop'),
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
   bootstrap: [AppComponent]
 })

@@ -13,4 +13,8 @@ export class RoomService {
   getAllRooms() {
     return this.httpClient.get(this.api + '/all');
   }
+
+  addRoom(room: any) {
+    return this.httpClient.post(this.api + '/add', room);
+  }
 }
