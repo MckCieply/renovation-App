@@ -16,9 +16,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInput} from "@angular/material/input";
 import {MatFooterRow} from "@angular/material/table";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
+import {MatIcon} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,10 @@ import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material
     MatFooterRow,
     MatButton,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIcon,
+    MatFabButton,
+    MatMiniFabButton
   ],
   providers: [
     provideAnimationsAsync('noop'),

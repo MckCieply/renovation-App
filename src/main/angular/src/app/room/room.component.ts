@@ -36,4 +36,11 @@ export class RoomComponent implements OnInit{
       });
     });
   }
+
+  removeForm(room:any){
+    this.roomService.deleteRoom(room).subscribe({
+      next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
+      error: (err) => console.error(err)
+    });
+  }
 }

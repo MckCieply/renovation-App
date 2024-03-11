@@ -17,4 +17,8 @@ export class RoomService {
   addRoom(room: any) {
     return this.httpClient.post(this.api + '/add', room);
   }
+
+  deleteRoom(room: any) {
+    return this.httpClient.delete(this.api + '/delete/' + room.id);
+  }
 }

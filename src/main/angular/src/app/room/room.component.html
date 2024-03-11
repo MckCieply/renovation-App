@@ -1,24 +1,31 @@
 <div class="container-fluid">
   <div class="row text-center justify-content-center">
   <h1 >Rooms</h1>
-    <button type="button" class="col-3 btn btn-outline-warning " (click)="createForm()">Add Room</button>
-    <button type="button" class="col-3 btn btn-outline-danger " >Delete Room</button>
+    <button mat-raised-button color="primary" class="col-3" (click)="createForm()">Add Room</button>
   </div>
   <table class="table table-dark">
     <thead>
     <tr>
-      <th scope="col">Select</th>
       <th scope="col">Name</th>
       <th scope="col">Budget Planned</th>
       <th scope="col">Budget Share</th>
+      <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let room of rooms">
-      <td></td>
       <td>{{room.name}}</td>
-      <td>{{room.budgetPlanned}}</td>
+      <td>{{room.budgetPlanned}} PLN</td>
       <td></td>
+      <td class="col-2">
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)= "removeForm(room)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
 
     </tbody>
   </table>

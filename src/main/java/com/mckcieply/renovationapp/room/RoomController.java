@@ -23,8 +23,14 @@ public class RoomController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Room> addRoom(@RequestBody Room room){;
+    public ResponseEntity<Room> addRoom(@RequestBody Room room){
         roomService.addRoom(room);
         return new ResponseEntity<>(room, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteRoom(@PathVariable("id") Long id){
+        roomService.deleteRoom(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
