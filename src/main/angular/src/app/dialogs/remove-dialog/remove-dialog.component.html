@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Confirmation Required </h2>
+<mat-dialog-content class="mat-typography">
+  <span>Are you sure you want to remove this item?</span>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">Remove</button>
+</mat-dialog-actions>
+

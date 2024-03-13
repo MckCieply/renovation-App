@@ -3,6 +3,7 @@ import {RoomService} from "./room.service";
 import {Router} from "@angular/router";
 import {RoomFormComponent} from "./room-form/room-form.component";
 import {MatDialog} from "@angular/material/dialog";
+import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 
 
 @Component({
@@ -38,9 +39,15 @@ export class RoomComponent implements OnInit{
   }
 
   removeForm(room:any){
-    this.roomService.deleteRoom(room).subscribe({
-      next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
-      error: (err) => console.error(err)
+    const dialogRef = this.dialog.open(RemoveDialogComponent)
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.roomService.deleteRoom(room).subscribe({
+          next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
+          error: (err) => console.error(err)
+        });
+      }
     });
   }
 }

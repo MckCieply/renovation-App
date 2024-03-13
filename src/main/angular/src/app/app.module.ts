@@ -20,6 +20,7 @@ import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/butto
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
 import {MatIcon} from "@angular/material/icon";
+import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {MatIcon} from "@angular/material/icon";
     WorkTypeComponent,
     WorksComponent,
     ContractorsComponent,
-    RoomFormComponent
+    RoomFormComponent,
+    RemoveDialogComponent
   ],
   imports: [
     BrowserModule,
