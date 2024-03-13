@@ -5,7 +5,7 @@ import {RoomComponent} from "./room/room.component";
 import {WorksComponent} from "./works/works.component";
 import {ContractorsComponent} from "./contractors/contractors.component";
 import {WorkTypeComponent} from "./work-type/work-type.component";
-import {RoomFormComponent} from "./room/room-form/room-form.component";
+import {AddDialogComponent} from "./room/add-dialog/add-dialog.component";
 
 const routes: Routes = [
   { path: 'Dashboard', component: DashboardComponent },
@@ -20,7 +20,7 @@ const routes: Routes = [
         },
         {
           path: ':id',
-          component: RoomFormComponent
+          component: AddDialogComponent
         }
       ]
   },

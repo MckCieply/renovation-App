@@ -21,4 +21,8 @@ export class RoomService {
   deleteRoom(room: any) {
     return this.httpClient.delete(this.api + '/delete/' + room.id);
   }
+
+  updateRoom(room: any) {
+    return this.httpClient.put(this.api + '/update', room);
+  }
 }

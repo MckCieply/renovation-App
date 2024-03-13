@@ -10,7 +10,7 @@ import { WorkTypeComponent } from './work-type/work-type.component';
 import { WorksComponent } from './works/works.component';
 import { ContractorsComponent } from './contractors/contractors.component';
 import {HttpClientModule} from "@angular/common/http";
-import { RoomFormComponent } from './room/room-form/room-form.component';
+import { AddDialogComponent } from './room/add-dialog/add-dialog.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -21,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
 import {MatIcon} from "@angular/material/icon";
 import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.component';
+import { EditDialogComponent } from './room/edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.com
     WorkTypeComponent,
     WorksComponent,
     ContractorsComponent,
-    RoomFormComponent,
-    RemoveDialogComponent
+    AddDialogComponent,
+    RemoveDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,

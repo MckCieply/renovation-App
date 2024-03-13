@@ -1,16 +1,15 @@
-import {Component, Inject, inject} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {RoomService} from "../room.service";
 import {ErrorStateMatcher} from "@angular/material/core";
 
 @Component({
-  selector: 'app-room-form',
-  templateUrl: './room-form.component.html',
+  selector: 'app-add-dialog',
+  templateUrl: './add-dialog.component.html',
   styles: ``
 })
-export class RoomFormComponent {
+export class AddDialogComponent {
   matcher = new ErrorStateMatcher();
-  constructor(public dialogRef: MatDialogRef<RoomFormComponent>,
+  constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {name: string, budgetPlanned: number}) {
 
 

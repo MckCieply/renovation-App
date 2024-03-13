@@ -33,4 +33,10 @@ public class RoomController {
         roomService.deleteRoom(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Room> updateRoom(@RequestBody Room room){
+        roomService.updateRoom(room);
+        return new ResponseEntity<>(room, HttpStatus.OK);
+    }
 }

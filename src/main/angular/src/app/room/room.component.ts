@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {RoomService} from "./room.service";
-import {Router} from "@angular/router";
-import {RoomFormComponent} from "./room-form/room-form.component";
+import {AddDialogComponent} from "./add-dialog/add-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
+import {EditDialogComponent} from "./edit-dialog/edit-dialog.component";
 
 
 @Component({
@@ -14,8 +14,7 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
 export class RoomComponent implements OnInit{
   rooms: any;
   roomService = inject(RoomService)
-  constructor(private router: Router,
-              public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.roomService.getAllRooms().subscribe({
@@ -25,7 +24,7 @@ export class RoomComponent implements OnInit{
   }
 
   createForm(){
-    const dialogRef = this.dialog.open(RoomFormComponent, {
+    const dialogRef = this.dialog.open(AddDialogComponent, {
       data: {name: "", budgetPlanned: ""}
     });
 
@@ -45,6 +44,24 @@ export class RoomComponent implements OnInit{
       if(result){
         this.roomService.deleteRoom(room).subscribe({
           next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
+          error: (err) => console.error(err)
+        });
+      }
+    });
+  }
+
+  editForm(room:any){
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: {id: room.id, name: room.name, budgetPlanned: room.budgetPlanned}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.roomService.updateRoom(result).subscribe({
+          next: (data) => {
+            this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id);
+            this.rooms.push(data);
+          },
           error: (err) => console.error(err)
         });
       }
