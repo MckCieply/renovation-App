@@ -3,13 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ErrorStateMatcher} from "@angular/material/core";
 
 @Component({
-  selector: 'app-add-dialog',
-  templateUrl: './add-dialog.component.html',
+  selector: 'app-add-room-dialog',
+  templateUrl: './add-room-dialog.component.html',
   styles: ``
 })
-export class AddDialogComponent {
+export class AddRoomDialogComponent {
   matcher = new ErrorStateMatcher();
-  constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<AddRoomDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {name: string, budgetPlanned: number}) {
 
 

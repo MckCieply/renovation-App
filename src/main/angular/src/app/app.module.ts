@@ -10,7 +10,7 @@ import { WorkTypeComponent } from './work-type/work-type.component';
 import { WorksComponent } from './works/works.component';
 import { ContractorsComponent } from './contractors/contractors.component';
 import {HttpClientModule} from "@angular/common/http";
-import { AddDialogComponent } from './room/add-dialog/add-dialog.component';
+import { AddRoomDialogComponent } from './room/add-room-dialog/add-room-dialog.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -21,8 +21,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
 import {MatIcon} from "@angular/material/icon";
 import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.component';
-import { EditDialogComponent } from './room/edit-dialog/edit-dialog.component';
+import { EditRoomDialogComponent } from './room/edit-room-dialog/edit-room-dialog.component';
 import { BudgetComponent } from './budget/budget.component';
+import { AddWorkTypeDialogComponent } from './work-type/add-work-type-dialog/add-work-type-dialog.component';
+import { EditWorkTypeDialogComponent } from './work-type/edit-work-type-dialog/edit-work-type-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,12 @@ import { BudgetComponent } from './budget/budget.component';
     WorkTypeComponent,
     WorksComponent,
     ContractorsComponent,
-    AddDialogComponent,
+    AddRoomDialogComponent,
     RemoveDialogComponent,
-    EditDialogComponent,
-    BudgetComponent
+    EditRoomDialogComponent,
+    BudgetComponent,
+    AddWorkTypeDialogComponent,
+    EditWorkTypeDialogComponent
   ],
   imports: [
     BrowserModule,
