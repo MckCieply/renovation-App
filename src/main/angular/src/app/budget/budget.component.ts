@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {RoomService} from "../room/room.service";
+import {BudgetService} from "./budget.service";
 
 @Component({
   selector: 'app-budget',
@@ -9,19 +11,19 @@ import {HttpClient} from "@angular/common/http";
 export class BudgetComponent implements OnInit{
 
   budget: any;
-  constructor(private httpClient: HttpClient) {
-  }
 
-  private api = "http://localhost:8080/api/budget";
+  budgetService = inject(BudgetService)
+  constructor() {
+  }
   updateBudget(budget: any){
-    return this.httpClient.put(this.api + '/update', budget).subscribe({
+    this.budgetService.updateBudget(budget).subscribe({
       next: (data) => this.budget = data,
       error: (err) => console.error(err)
-    })
+    });
   }
 
   ngOnInit() {
-    this.httpClient.get(this.api + '/get').subscribe({
+    this.budgetService.getBudget().subscribe({
       next: (data) => this.budget = data,
       error: (err) => console.error(err)
     });

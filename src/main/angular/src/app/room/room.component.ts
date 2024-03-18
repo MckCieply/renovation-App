@@ -4,6 +4,7 @@ import {AddDialogComponent} from "./add-dialog/add-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {EditDialogComponent} from "./edit-dialog/edit-dialog.component";
+import {BudgetService} from "../budget/budget.service";
 
 
 @Component({
@@ -13,12 +14,20 @@ import {EditDialogComponent} from "./edit-dialog/edit-dialog.component";
 })
 export class RoomComponent implements OnInit{
   rooms: any;
+  totalBudget: any;
   roomService = inject(RoomService)
+  budgetService = inject(BudgetService)
+  protected readonly Math = Math;
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.roomService.getAllRooms().subscribe({
       next: (data) => this.rooms = data,
+      error: (err) => console.error(err)
+    });
+
+    this.budgetService.getBudget().subscribe({
+      next: (data) => this.totalBudget = data,
       error: (err) => console.error(err)
     });
   }
@@ -67,4 +76,5 @@ export class RoomComponent implements OnInit{
       }
     });
   }
+
 }

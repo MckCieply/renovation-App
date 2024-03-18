@@ -16,7 +16,7 @@
     <tr *ngFor="let room of rooms">
       <td>{{room.name}}</td>
       <td>{{room.budgetPlanned}} PLN</td>
-      <td></td>
+      <td>{{ (Math.round(room.budgetPlanned / totalBudget.value * 100) || 0) }}%</td>
       <td class="col-2">
         <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(room)">
           <mat-icon>edit</mat-icon>
