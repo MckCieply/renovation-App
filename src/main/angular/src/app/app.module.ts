@@ -22,6 +22,7 @@ import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material
 import {MatIcon} from "@angular/material/icon";
 import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.component';
 import { EditDialogComponent } from './room/edit-dialog/edit-dialog.component';
+import { BudgetComponent } from './budget/budget.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EditDialogComponent } from './room/edit-dialog/edit-dialog.component';
     ContractorsComponent,
     AddDialogComponent,
     RemoveDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    BudgetComponent
   ],
   imports: [
     BrowserModule,

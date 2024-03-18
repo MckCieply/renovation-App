@@ -1,0 +1,12 @@
+<div class="container-fluid">
+  <div class="row text-center justify-content-center">
+    <h1>Budget</h1>
+    <mat-form-field>
+      <mat-label>Budget</mat-label>
+      <input matInput [(ngModel)]="budget.value">
+    </mat-form-field><br>
+    <button mat-raised-button color="primary" class="col-3" (click)="updateBudget(budget)">Update</button>
+  </div>
+
+</div>
+
