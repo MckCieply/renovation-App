@@ -13,9 +13,12 @@ public class Contractor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstname;
+    private String firstName;           // For private person or contactPerson for company
 
-    private String lastname;
+    private String lastName;
+
+    @Transient
+    private String fullName;
 
     private String email;
 
@@ -41,6 +44,5 @@ public class Contractor {
     private String bankAccount;
 
     private String description;
-
 
 }

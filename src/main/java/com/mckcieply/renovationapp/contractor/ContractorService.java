@@ -12,7 +12,11 @@ public class ContractorService {
     private ContractorRepository contractorRepository;
 
     public List<Contractor> getAllContractors(){
-        return contractorRepository.findAll();
+        List<Contractor> contractors = contractorRepository.findAll();
+        for(Contractor contractor : contractors)
+            if(!contractor.getFirstName().isEmpty() && !contractor.getLastName().isEmpty())
+                contractor.setFullName(contractor.getFirstName() + " " + contractor.getLastName());
+        return contractors;
     }
 
     public void addContractor(Contractor contractor){
