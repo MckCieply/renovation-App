@@ -25,6 +25,8 @@ import { EditRoomDialogComponent } from './room/edit-room-dialog/edit-room-dialo
 import { BudgetComponent } from './budget/budget.component';
 import { AddWorkTypeDialogComponent } from './work-type/add-work-type-dialog/add-work-type-dialog.component';
 import { EditWorkTypeDialogComponent } from './work-type/edit-work-type-dialog/edit-work-type-dialog.component';
+import { AddContractorDialogComponent } from './contractors/add-contractor-dialog/add-contractor-dialog.component';
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { EditWorkTypeDialogComponent } from './work-type/edit-work-type-dialog/e
     EditRoomDialogComponent,
     BudgetComponent,
     AddWorkTypeDialogComponent,
-    EditWorkTypeDialogComponent
+    EditWorkTypeDialogComponent,
+    AddContractorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,9 @@ import { EditWorkTypeDialogComponent } from './work-type/edit-work-type-dialog/e
     ReactiveFormsModule,
     MatIcon,
     MatFabButton,
-    MatMiniFabButton
+    MatMiniFabButton,
+    MatRadioButton,
+    MatRadioGroup
   ],
   providers: [
     provideAnimationsAsync('noop'),

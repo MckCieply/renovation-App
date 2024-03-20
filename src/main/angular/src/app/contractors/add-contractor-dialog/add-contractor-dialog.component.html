@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>Add </h2>
+<mat-dialog-content class="mat-typography">
+
+  <mat-radio-group [(ngModel)]="contractor.type">
+    <mat-label>Contractor Type</mat-label>
+    <mat-radio-button [value]="'PRIVATE'">Private</mat-radio-button>
+    <mat-radio-button [value]="'COMPANY'">Company</mat-radio-button>
+  </mat-radio-group>
+  <br>
+  <div *ngIf="contractor.type.length > 0">
+    <mat-label>Contact Information</mat-label><br>
+    <mat-form-field>
+      <input matInput placeholder="First Name" [(ngModel)]="contractor.firstName" name="firstName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" [(ngModel)]="contractor.lastName" name="lastName">
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="contractor.email" name="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Phone" [(ngModel)]="contractor.phone" name="phone">
+    </mat-form-field>
+  </div>
+  <div *ngIf="contractor.type == 'COMPANY'">
+    <mat-label>Company Information</mat-label><br>
+    <mat-form-field>
+      <input matInput placeholder="Company Name" [(ngModel)]="contractor.companyName" name="companyName">
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput placeholder="NIP" [(ngModel)]="contractor.nip" name="nip">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="REGON" [(ngModel)]="contractor.regon" name="regon">
+    </mat-form-field>
+  </div>
+  <div *ngIf="contractor.type.length > 0">
+    <mat-label>Address Information</mat-label><br>
+    <mat-form-field>
+      <input matInput placeholder="Address" [(ngModel)]="contractor.address" name="address">
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput placeholder="City" [(ngModel)]="contractor.city" name="city">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Postal Code" [(ngModel)]="contractor.postalCode" name="postalCode">
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput placeholder="Country" [(ngModel)]="contractor.country" name="country">
+    </mat-form-field>
+    <br>
+    <mat-label>Banking Information</mat-label><br>
+    <mat-form-field>
+      <input matInput placeholder="Bank Account" [(ngModel)]="contractor.bankAccount" name="bankName">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="contractor" [disabled]="">Add</button>
+</mat-dialog-actions>
+

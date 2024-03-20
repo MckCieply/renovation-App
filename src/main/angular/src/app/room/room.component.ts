@@ -61,7 +61,7 @@ export class RoomComponent implements OnInit{
 
   editForm(room:any){
     const dialogRef = this.dialog.open(EditRoomDialogComponent, {
-      data: {id: room.id, name: room.name, budgetPlanned: room.budgetPlanned}
+      data: {...room}
     });
 
     dialogRef.afterClosed().subscribe(result => {

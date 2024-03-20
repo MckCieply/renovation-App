@@ -1,1 +1,36 @@
-<p>contractors works!</p>
+<div class="container-fluid">
+  <div class="row text-center justify-content-center">
+    <h1>Contractors</h1>
+    <button mat-raised-button color="primary" class="col-3" (click)="createForm()">Add Contractor</button>
+  </div>
+  <table class="table table-dark">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Type</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col-2">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contractor of contractors">
+      <td>{{contractor.fullName}}</td>
+      <!-- TODO: Set either companyName or fullName based on contractorType -->
+      <td>{{contractor.type}}</td>
+      <td>{{contractor.email}}</td>
+      <td>{{contractor.phone}}</td>
+      <td class="col-2">
+<!--        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(type)">-->
+<!--          <mat-icon>edit</mat-icon>-->
+<!--        </button>-->
+<!--        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)= "removeForm(type)">-->
+<!--          <mat-icon>delete</mat-icon>-->
+<!--        </button>-->
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
