@@ -27,6 +27,8 @@ import { AddWorkTypeDialogComponent } from './work-type/add-work-type-dialog/add
 import { EditWorkTypeDialogComponent } from './work-type/edit-work-type-dialog/edit-work-type-dialog.component';
 import { AddContractorDialogComponent } from './contractors/add-contractor-dialog/add-contractor-dialog.component';
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import { EditContractorDialogComponent } from './contractors/edit-contractor-dialog/edit-contractor-dialog.component';
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     BudgetComponent,
     AddWorkTypeDialogComponent,
     EditWorkTypeDialogComponent,
-    AddContractorDialogComponent
+    AddContractorDialogComponent,
+    EditContractorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,9 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     MatFabButton,
     MatMiniFabButton,
     MatRadioButton,
-    MatRadioGroup
+    MatRadioGroup,
+    MatTabGroup,
+    MatTab
   ],
   providers: [
     provideAnimationsAsync('noop'),
