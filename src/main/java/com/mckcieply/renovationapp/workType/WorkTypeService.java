@@ -1,29 +1,16 @@
 package com.mckcieply.renovationapp.workType;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mckcieply.core.BaseService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class WorkTypeService {
+public class WorkTypeService extends BaseService<WorkType, Long> {
 
-    @Autowired
-    private WorkTypeRepository workTypeRepository;
+    private final WorkTypeRepository workTypeRepository;
 
-    public List<WorkType> getAllWorkTypes(){
-        return workTypeRepository.findAll();
+    public WorkTypeService(WorkTypeRepository workTypeRepository) {
+        super(workTypeRepository);
+        this.workTypeRepository = workTypeRepository;
     }
 
-    public void addWorkType(WorkType workType){
-        workTypeRepository.save(workType);
-    }
-
-    public void deleteWorkType(Long id){
-        workTypeRepository.deleteById(id);
-    }
-
-    public void updateWorkType(WorkType workType){
-        workTypeRepository.save(workType);
-    }
 }

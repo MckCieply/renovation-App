@@ -1,6 +1,6 @@
 package com.mckcieply.renovationapp.budget;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mckcieply.core.BaseController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/budget")
 @CrossOrigin(origins = "http://localhost:4200")
-public class BudgetController {
+public class BudgetController extends BaseController<Budget, Long> {
 
-    @Autowired
-    private BudgetService budgetService;
+    private final BudgetService budgetService;
+
+    public BudgetController(BudgetService budgetService) {
+        super(budgetService);
+        this.budgetService = budgetService;
+    }
 
     @GetMapping("/get")
     private ResponseEntity<Budget> getBudget(){
@@ -19,9 +23,4 @@ public class BudgetController {
         return new ResponseEntity<>(budget, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Budget> updateBudget(@RequestBody Budget budget){
-        budgetService.updateBudget(budget);
-        return new ResponseEntity<>(budget, HttpStatus.OK);
-    }
 }

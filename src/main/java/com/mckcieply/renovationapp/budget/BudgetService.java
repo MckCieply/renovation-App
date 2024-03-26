@@ -1,19 +1,20 @@
 package com.mckcieply.renovationapp.budget;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mckcieply.core.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BudgetService {
+public class BudgetService extends BaseService<Budget, Long> {
 
-    @Autowired
-    private BudgetRepository budgetRepository;
+    private final BudgetRepository budgetRepository;
+
+    public BudgetService(BudgetRepository budgetRepository) {
+        super(budgetRepository);
+        this.budgetRepository = budgetRepository;
+    }
 
     public Budget getBudget(){
         return budgetRepository.findAll().get(0);
     }
 
-    public void updateBudget(Budget budget){
-        budgetRepository.save(budget);
-    }
 }

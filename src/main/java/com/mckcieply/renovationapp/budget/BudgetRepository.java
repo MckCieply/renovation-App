@@ -1,8 +1,8 @@
 package com.mckcieply.renovationapp.budget;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.mckcieply.core.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BudgetRepository extends JpaRepository<Budget, Long> {
+public interface BudgetRepository extends BaseRepository<Budget, Long> {
 }

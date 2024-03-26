@@ -1,28 +1,16 @@
 package com.mckcieply.renovationapp.room;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mckcieply.core.BaseService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class RoomService {
+public class RoomService extends BaseService<Room, Long> {
 
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
-    public List<Room> getAllRooms(){
-        return roomRepository.findAll();
+    public RoomService(RoomRepository roomRepository) {
+        super(roomRepository);
+        this.roomRepository = roomRepository;
     }
 
-    public void addRoom(Room room){
-        roomRepository.save(room);
-    }
-
-    public void deleteRoom(Long id){
-        roomRepository.deleteById(id);
-    }
-    public void updateRoom(Room room){
-        roomRepository.save(room);
-    }
 }
