@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {RoomComponent} from "./room/room.component";
-import {WorksComponent} from "./works/works.component";
+import {WorkComponent} from "./work/work.component";
 import {ContractorsComponent} from "./contractors/contractors.component";
 import {WorkTypeComponent} from "./work-type/work-type.component";
-import {AddRoomDialogComponent} from "./room/add-room-dialog/add-room-dialog.component";
 import {BudgetComponent} from "./budget/budget.component";
 
 const routes: Routes = [
   { path: 'Dashboard', component: DashboardComponent },
-  { path: 'Works', component: WorksComponent },
+  { path: 'Work', component: WorkComponent },
   { path: 'Contractors', component: ContractorsComponent },
   { path: 'WorkType', component: WorkTypeComponent},
   { path: 'Room', component: RoomComponent},

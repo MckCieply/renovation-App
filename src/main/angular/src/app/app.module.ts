@@ -7,7 +7,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoomComponent } from './room/room.component';
 import { WorkTypeComponent } from './work-type/work-type.component';
-import { WorksComponent } from './works/works.component';
 import { ContractorsComponent } from './contractors/contractors.component';
 import {HttpClientModule} from "@angular/common/http";
 import { AddRoomDialogComponent } from './room/add-room-dialog/add-room-dialog.component';
@@ -29,6 +28,9 @@ import { AddContractorDialogComponent } from './contractors/add-contractor-dialo
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import { EditContractorDialogComponent } from './contractors/edit-contractor-dialog/edit-contractor-dialog.component';
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import { WorkComponent } from './work/work.component';
+import { AddWorkDialogComponent } from './work/add-work-dialog/add-work-dialog.component';
+import { EditWorkDialogComponent } from './work/edit-work-dialog/edit-work-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,6 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
     DashboardComponent,
     RoomComponent,
     WorkTypeComponent,
-    WorksComponent,
     ContractorsComponent,
     AddRoomDialogComponent,
     RemoveDialogComponent,
@@ -46,7 +47,10 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
     AddWorkTypeDialogComponent,
     EditWorkTypeDialogComponent,
     AddContractorDialogComponent,
-    EditContractorDialogComponent
+    EditContractorDialogComponent,
+    WorkComponent,
+    AddWorkDialogComponent,
+    EditWorkDialogComponent
   ],
   imports: [
     BrowserModule,
