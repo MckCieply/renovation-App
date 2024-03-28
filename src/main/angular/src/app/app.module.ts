@@ -17,7 +17,12 @@ import {MatInput} from "@angular/material/input";
 import {MatFooterRow} from "@angular/material/table";
 import {MatButton, MatFabButton, MatMiniFabButton} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
+import {
+  ErrorStateMatcher,
+  MatOption,
+  provideNativeDateAdapter,
+  ShowOnDirtyErrorStateMatcher
+} from "@angular/material/core";
 import {MatIcon} from "@angular/material/icon";
 import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.component';
 import { EditRoomDialogComponent } from './room/edit-room-dialog/edit-room-dialog.component';
@@ -31,6 +36,14 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import { WorkComponent } from './work/work.component';
 import { AddWorkDialogComponent } from './work/add-work-dialog/add-work-dialog.component';
 import { EditWorkDialogComponent } from './work/edit-work-dialog/edit-work-dialog.component';
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatSelect} from "@angular/material/select";
+import {
+  MatDatepickerInput,
+  MatDatepickerToggle,
+  MatDateRangeInput,
+  MatDateRangePicker
+} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -69,11 +82,19 @@ import { EditWorkDialogComponent } from './work/edit-work-dialog/edit-work-dialo
     MatRadioButton,
     MatRadioGroup,
     MatTabGroup,
-    MatTab
+    MatTab,
+    MatCheckbox,
+    MatSelect,
+    MatOption,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDateRangeInput,
+    MatDateRangePicker
   ],
   providers: [
     provideAnimationsAsync('noop'),
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    provideNativeDateAdapter()
   ],
   bootstrap: [AppComponent]
 })

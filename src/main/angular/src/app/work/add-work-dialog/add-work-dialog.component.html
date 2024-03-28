@@ -1,1 +1,50 @@
-<p>add-work-dialog works!</p>
+<h2 mat-dialog-title>Add Work</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="data.description">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date">
+      <input matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Est. Labor cost" [(ngModel)]="data.estLaborCost">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Est. Material cost" [(ngModel)]="data.estMaterialCost">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Final Labor cost" [(ngModel)]="data.finalLaborCost">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Final Material cost" [(ngModel)]="data.finalMaterialCost">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Room</mat-label>
+    <mat-select [(ngModel)]="data.room">
+      <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="data.state">
+      <mat-option *ngFor="let element of status" [value]="element">{{element}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="data.paid">Paid</mat-checkbox>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data" [disabled]="!data.description">Add</button>
+</mat-dialog-actions>
