@@ -4,16 +4,16 @@ import {RoomService} from "../../room/room.service";
 import {WorkService} from "../work.service";
 
 @Component({
-  selector: 'app-add-work-dialog',
-  templateUrl: './add-work-dialog.component.html',
+  selector: 'app-work-dialog',
+  templateUrl: './work-dialog.component.html',
   styles: ``
 })
-export class AddWorkDialogComponent implements OnInit{
+export class WorkDialogComponent implements OnInit{
   rooms: any;
   status: any;
   roomService= inject(RoomService);
   workService = inject(WorkService);
-  constructor(public dialogRef: MatDialogRef<AddWorkDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<WorkDialogComponent>,
               @Inject(MAT_DIALOG_DATA)
               public data: {
                 description: string,
@@ -26,6 +26,8 @@ export class AddWorkDialogComponent implements OnInit{
                 startDate: string,
                 endDate: string,
                 room: object,
+
+                action: string,
               }){
   }
 

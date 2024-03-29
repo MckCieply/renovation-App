@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {WorkService} from "./work.service";
 import {MatDialog} from "@angular/material/dialog";
-import {AddWorkDialogComponent} from "./add-work-dialog/add-work-dialog.component";
+import {WorkDialogComponent} from "./work-dialog/work-dialog.component";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 
 @Component({
@@ -23,19 +23,8 @@ export class WorkComponent implements OnInit{
   }
 
   createForm(){
-    const dialogRef = this.dialog.open(AddWorkDialogComponent, {
-      data: {
-        description: "",
-        estMaterialCost: 0,
-        estLaborCost: 0,
-        finalMaterialCost: 0,
-        finalLaborCost: 0,
-        state: "",
-        paid: false,
-        startDate: "",
-        endDate: "",
-
-      }
+    const dialogRef = this.dialog.open(WorkDialogComponent, {
+      data: { action: 'Add' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -47,7 +36,25 @@ export class WorkComponent implements OnInit{
     });
   }
 
-  deleteWork(work: any){
+  editForm(work: any) {
+    const dialogRef = this.dialog.open(WorkDialogComponent, {
+      data: {...work, action: 'Edit'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.worksService.updateWork(result).subscribe({
+          next: (data)  => {
+            this.works = this.works.filter((r: { id: any; }) => r.id !== work.id);
+            this.works.push(data);
+          },
+          error: (err) => console.error(err)
+        });
+      }
+    });
+  }
+
+  removeForm(work: any){
     const dialogRef = this.dialog.open(RemoveDialogComponent)
 
     dialogRef.afterClosed().subscribe(result => {

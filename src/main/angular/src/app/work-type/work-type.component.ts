@@ -2,8 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {WorkTypeService} from "./work-type.service";
-import {AddWorkTypeDialogComponent} from "./add-work-type-dialog/add-work-type-dialog.component";
-import {EditWorkTypeDialogComponent} from "./edit-work-type-dialog/edit-work-type-dialog.component";
+import {WorkTypeDialogComponent} from "./work-type-dialog/work-type-dialog.component";
 
 @Component({
   selector: 'app-work-type',
@@ -16,8 +15,8 @@ export class WorkTypeComponent implements OnInit{
   workTypeService = inject(WorkTypeService)
   constructor(public dialog: MatDialog) {}
   createForm(){
-    const dialogRef = this.dialog.open(AddWorkTypeDialogComponent, {
-      data: { action: 'Add'}
+    const dialogRef = this.dialog.open(WorkTypeDialogComponent, {
+      data: {action: 'Add'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -43,7 +42,7 @@ export class WorkTypeComponent implements OnInit{
   }
 
   editForm(type:any){
-    const dialogRef = this.dialog.open(AddWorkTypeDialogComponent, {
+    const dialogRef = this.dialog.open(WorkTypeDialogComponent, {
       data: {...type, action: 'Edit'}
     });
 

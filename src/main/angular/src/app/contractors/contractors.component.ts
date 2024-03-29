@@ -1,9 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ContractorsService} from "./contractors.service";
-import {AddContractorDialogComponent} from "./add-contractor-dialog/add-contractor-dialog.component";
+import {ContractorDialogComponent} from "./contractor-dialog/contractor-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
-import {EditContractorDialogComponent} from "./edit-contractor-dialog/edit-contractor-dialog.component";
 
 @Component({
   selector: 'app-contractors',
@@ -24,23 +23,8 @@ export class ContractorsComponent implements OnInit{
   }
 
   createForm(){
-    const dialogRef = this.dialog.open(AddContractorDialogComponent, {
-      data: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        type: "",
-        companyName: "",
-        nip: "",
-        regon: "",
-        address: "",
-        city: "",
-        postalCode: "",
-        country: "",
-        bankAccount: "",
-        description: ""
-      }
+    const dialogRef = this.dialog.open(ContractorDialogComponent, {
+      data: { action: "Add" }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -67,8 +51,8 @@ export class ContractorsComponent implements OnInit{
   }
 
   editForm(contractor:any){
-    const dialogRef = this.dialog.open(EditContractorDialogComponent, {
-      data: {...contractor}
+    const dialogRef = this.dialog.open(ContractorDialogComponent, {
+      data: {...contractor, action: 'Edit' }
     });
 
     dialogRef.afterClosed().subscribe(result => {

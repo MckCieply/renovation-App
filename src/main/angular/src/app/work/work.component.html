@@ -21,10 +21,10 @@
       <td *ngIf="work.paid"> <i class="bi bi-check-lg"></i> </td>
       <td *ngIf="!work.paid"> <i class="bi bi-x-lg"></i> </td>
       <td class="col-2">
-        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" >
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(work)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="deleteWork(work)" >
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="removeForm(work)" >
           <mat-icon>delete</mat-icon>
         </button>
       </td>

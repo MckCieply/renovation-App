@@ -9,7 +9,7 @@ import { RoomComponent } from './room/room.component';
 import { WorkTypeComponent } from './work-type/work-type.component';
 import { ContractorsComponent } from './contractors/contractors.component';
 import {HttpClientModule} from "@angular/common/http";
-import { AddRoomDialogComponent } from './room/add-room-dialog/add-room-dialog.component';
+import { RoomDialogComponent } from './room/room-dialog/room-dialog.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -25,17 +25,13 @@ import {
 } from "@angular/material/core";
 import {MatIcon} from "@angular/material/icon";
 import { RemoveDialogComponent } from './dialogs/remove-dialog/remove-dialog.component';
-import { EditRoomDialogComponent } from './room/edit-room-dialog/edit-room-dialog.component';
 import { BudgetComponent } from './budget/budget.component';
-import { AddWorkTypeDialogComponent } from './work-type/add-work-type-dialog/add-work-type-dialog.component';
-import { EditWorkTypeDialogComponent } from './work-type/edit-work-type-dialog/edit-work-type-dialog.component';
-import { AddContractorDialogComponent } from './contractors/add-contractor-dialog/add-contractor-dialog.component';
+import { WorkTypeDialogComponent } from './work-type/work-type-dialog/work-type-dialog.component';
+import { ContractorDialogComponent } from './contractors/contractor-dialog/contractor-dialog.component';
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
-import { EditContractorDialogComponent } from './contractors/edit-contractor-dialog/edit-contractor-dialog.component';
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import { WorkComponent } from './work/work.component';
-import { AddWorkDialogComponent } from './work/add-work-dialog/add-work-dialog.component';
-import { EditWorkDialogComponent } from './work/edit-work-dialog/edit-work-dialog.component';
+import { WorkDialogComponent } from './work/work-dialog/work-dialog.component';
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatSelect} from "@angular/material/select";
 import {
@@ -53,17 +49,13 @@ import {
     RoomComponent,
     WorkTypeComponent,
     ContractorsComponent,
-    AddRoomDialogComponent,
+    RoomDialogComponent,
     RemoveDialogComponent,
-    EditRoomDialogComponent,
     BudgetComponent,
-    AddWorkTypeDialogComponent,
-    EditWorkTypeDialogComponent,
-    AddContractorDialogComponent,
-    EditContractorDialogComponent,
+    WorkTypeDialogComponent,
+    ContractorDialogComponent,
     WorkComponent,
-    AddWorkDialogComponent,
-    EditWorkDialogComponent
+    WorkDialogComponent,
   ],
   imports: [
     BrowserModule,

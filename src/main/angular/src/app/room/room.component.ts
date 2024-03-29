@@ -1,9 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {RoomService} from "./room.service";
-import {AddRoomDialogComponent} from "./add-room-dialog/add-room-dialog.component";
+import {RoomDialogComponent} from "./room-dialog/room-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
-import {EditRoomDialogComponent} from "./edit-room-dialog/edit-room-dialog.component";
 import {BudgetService} from "../budget/budget.service";
 
 
@@ -33,8 +32,8 @@ export class RoomComponent implements OnInit{
   }
 
   createForm(){
-    const dialogRef = this.dialog.open(AddRoomDialogComponent, {
-      data: {name: "", budgetPlanned: ""}
+    const dialogRef = this.dialog.open(RoomDialogComponent, {
+      data: {action: "Add"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -60,8 +59,8 @@ export class RoomComponent implements OnInit{
   }
 
   editForm(room:any){
-    const dialogRef = this.dialog.open(EditRoomDialogComponent, {
-      data: {...room}
+    const dialogRef = this.dialog.open(RoomDialogComponent, {
+      data: {...room, action: 'Edit'}
     });
 
     dialogRef.afterClosed().subscribe(result => {

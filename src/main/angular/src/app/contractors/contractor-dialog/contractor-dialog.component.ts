@@ -1,17 +1,16 @@
 import {Component, Inject} from '@angular/core';
-import {ErrorStateMatcher} from "@angular/material/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-edit-contractor-dialog',
-  templateUrl: './edit-contractor-dialog.component.html',
+  selector: 'app-contractor-dialog',
+  templateUrl: './contractor-dialog.component.html',
   styles: ``
 })
-export class EditContractorDialogComponent {
+export class ContractorDialogComponent {
 
-  matcher = new ErrorStateMatcher();
-  constructor(public dialogRef: MatDialogRef<EditContractorDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public contractor: {
+  constructor(public dialogRef: MatDialogRef<ContractorDialogComponent>,
+              @Inject(MAT_DIALOG_DATA)
+              public data: {
                 firstName: string,
                 lastName: string,
                 email: string,
@@ -26,5 +25,9 @@ export class EditContractorDialogComponent {
                 country: string;
                 bankAccount: string;
                 description: string;
-              }) {}
+
+                action: string
+              }) {
+  }
+
 }
