@@ -18,12 +18,13 @@
       <td>{{work.description}}</td>
       <td>{{work.createdAt}}</td>
       <td>{{work.room?.name}}</td>
-      <td>{{work.paid}}</td>
+      <td *ngIf="work.paid"> <i class="bi bi-check-lg"></i> </td>
+      <td *ngIf="!work.paid"> <i class="bi bi-x-lg"></i> </td>
       <td class="col-2">
         <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" >
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" >
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="deleteWork(work)" >
           <mat-icon>delete</mat-icon>
         </button>
       </td>

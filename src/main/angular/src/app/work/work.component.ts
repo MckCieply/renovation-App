@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {WorkService} from "./work.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddWorkDialogComponent} from "./add-work-dialog/add-work-dialog.component";
+import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 
 @Component({
   selector: 'app-work',
@@ -45,5 +46,19 @@ export class WorkComponent implements OnInit{
       });
     });
   }
+
+  deleteWork(work: any){
+    const dialogRef = this.dialog.open(RemoveDialogComponent)
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.worksService.deleteWork(work).subscribe({
+          next: (data) => this.works = this.works.filter((w: { id: any; }) => w.id !== work.id),
+          error: (err) => console.error(err)
+        });
+      }
+    });
+  }
+
 
 }

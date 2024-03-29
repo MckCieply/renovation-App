@@ -17,7 +17,7 @@ export class WorkTypeComponent implements OnInit{
   constructor(public dialog: MatDialog) {}
   createForm(){
     const dialogRef = this.dialog.open(AddWorkTypeDialogComponent, {
-      data: {name: "", budgetPlanned: ""}
+      data: { action: 'Add'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -43,8 +43,8 @@ export class WorkTypeComponent implements OnInit{
   }
 
   editForm(type:any){
-    const dialogRef = this.dialog.open(EditWorkTypeDialogComponent, {
-      data: {id: type.id, name: type.name}
+    const dialogRef = this.dialog.open(AddWorkTypeDialogComponent, {
+      data: {...type, action: 'Edit'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
