@@ -4,15 +4,17 @@
     <input matInput placeholder="Description" [(ngModel)]="data.description">
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Enter a date range</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date">
-      <input matEndDate placeholder="End date">
-    </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
+    <input matInput [matDatepicker]="pickerStart" placeholder="Start date" [(ngModel)]="data.startDate">
+    <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+    <mat-datepicker #pickerStart></mat-datepicker>
   </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerEnd" placeholder="End date" [(ngModel)]="data.endDate">
+    <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+    <mat-datepicker #pickerEnd></mat-datepicker>
+  </mat-form-field>
+
   <mat-form-field>
     <input matInput placeholder="Est. Labor cost" [(ngModel)]="data.estLaborCost">
   </mat-form-field>
@@ -30,6 +32,13 @@
     <mat-label>Room</mat-label>
     <mat-select [(ngModel)]="data.room">
       <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Work Type</mat-label>
+    <mat-select [(ngModel)]="data.workType">
+      <mat-option *ngFor="let type of workTypes" [value]="type">{{type.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 

@@ -2,6 +2,7 @@ package com.mckcieply.renovationapp.work;
 
 import com.mckcieply.renovationapp.enumerable.EnumWorkState;
 import com.mckcieply.renovationapp.room.Room;
+import com.mckcieply.renovationapp.workType.WorkType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -48,4 +49,7 @@ public class Work {
 
     @ManyToOne
     private Room room;
+
+    @ManyToOne
+    private WorkType workType;
 }

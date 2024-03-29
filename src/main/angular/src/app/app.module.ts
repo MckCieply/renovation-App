@@ -35,6 +35,7 @@ import { WorkDialogComponent } from './work/work-dialog/work-dialog.component';
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatSelect} from "@angular/material/select";
 import {
+  MatDatepicker,
   MatDatepickerInput,
   MatDatepickerToggle,
   MatDateRangeInput,
@@ -81,7 +82,8 @@ import {
     MatDatepickerInput,
     MatDatepickerToggle,
     MatDateRangeInput,
-    MatDateRangePicker
+    MatDateRangePicker,
+    MatDatepicker
   ],
   providers: [
     provideAnimationsAsync('noop'),

@@ -2,6 +2,7 @@ import {Component, inject, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {RoomService} from "../../room/room.service";
 import {WorkService} from "../work.service";
+import {WorkTypeService} from "../../work-type/work-type.service";
 
 @Component({
   selector: 'app-work-dialog',
@@ -11,8 +12,10 @@ import {WorkService} from "../work.service";
 export class WorkDialogComponent implements OnInit{
   rooms: any;
   status: any;
+  workTypes: any;
   roomService= inject(RoomService);
   workService = inject(WorkService);
+  workTypeService = inject(WorkTypeService);
   constructor(public dialogRef: MatDialogRef<WorkDialogComponent>,
               @Inject(MAT_DIALOG_DATA)
               public data: {
@@ -26,6 +29,7 @@ export class WorkDialogComponent implements OnInit{
                 startDate: string,
                 endDate: string,
                 room: object,
+                workType: object,
 
                 action: string,
               }){
@@ -39,6 +43,11 @@ export class WorkDialogComponent implements OnInit{
 
     this.workService.getEnumWorkStatus().subscribe({
       next: (data) => this.status = data,
+      error: (err) => console.error(err)
+    });
+
+    this.workTypeService.getAllTypes().subscribe({
+      next: (data) => this.workTypes = data,
       error: (err) => console.error(err)
     });
   }
