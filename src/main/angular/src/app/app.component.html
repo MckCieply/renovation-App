@@ -1,10 +1,12 @@
-<div class="d-flex flex-column container-fluid">
-  <div class="row">
-    <div class="col-1 h-100 d-inline-block sidebar">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col h-100 d-inline-block">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened>
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <app-toolbar (sidenavEmit)="sidenav.toggle()" ></app-toolbar>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

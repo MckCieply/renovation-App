@@ -8,10 +8,7 @@ import {Router} from "@angular/router";
 })
 export class SidebarComponent {
 
-  constructor(private router: Router) {
+  constructor() {
   }
 
-  goToPage(pageName: string): void {
-    this.router.navigate([`${pageName}`])
-  }
 }

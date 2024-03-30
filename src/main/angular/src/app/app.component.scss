@@ -1,15 +1,24 @@
-.container-fluid{
-  overflow: hidden;
+
+mat-sidenav-container{
+  height: 100%;
 }
 
-.sidebar{
-  background-color: #2d2d2d;
-  box-shadow: 0 0 2vw 0 rgba(0,0,0,0.6);
-  z-index: 1;
-  min-width: 200px;
+mat-sidenav{
+  width: 15%;
 }
-*{
-  background-color: #181818;
-  color: #CCCCCC;
-  height: 100vh;
-}
+
+//.container-fluid{
+//  overflow: hidden;
+//}
+//
+//.sidebar{
+//  background-color: #2d2d2d;
+//  box-shadow: 0 0 2vw 0 rgba(0,0,0,0.6);
+//  z-index: 1;
+//  min-width: 200px;
+//}
+//*{
+//  background-color: #181818;
+//  color: #CCCCCC;
+//  height: 100vh;
+//}
