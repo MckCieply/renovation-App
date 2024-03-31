@@ -5,7 +5,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {BudgetService} from "../budget/budget.service";
 
-
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
@@ -14,9 +13,12 @@ import {BudgetService} from "../budget/budget.service";
 export class RoomComponent implements OnInit{
   rooms: any;
   totalBudget: any;
+  tableColumns = ['name','budgetPlanned','budgetShare','actions'];
+  protected readonly Math = Math;
+
   roomService = inject(RoomService)
   budgetService = inject(BudgetService)
-  protected readonly Math = Math;
+
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -39,22 +41,10 @@ export class RoomComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if(result)
         this.roomService.addRoom(result).subscribe({
-          next: (data) => this.rooms.push(data),
+          // Table wouldn't refresh on push
+          next: (data) => this.rooms = [...this.rooms, data],
           error: (err) => console.error(err)
       });
-    });
-  }
-
-  removeForm(room:any){
-    const dialogRef = this.dialog.open(RemoveDialogComponent)
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.roomService.deleteRoom(room).subscribe({
-          next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
-          error: (err) => console.error(err)
-        });
-      }
     });
   }
 
@@ -70,6 +60,19 @@ export class RoomComponent implements OnInit{
             this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id);
             this.rooms.push(data);
           },
+          error: (err) => console.error(err)
+        });
+      }
+    });
+  }
+
+  removeForm(room:any){
+    const dialogRef = this.dialog.open(RemoveDialogComponent)
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.roomService.deleteRoom(room).subscribe({
+          next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
           error: (err) => console.error(err)
         });
       }

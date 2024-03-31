@@ -10,8 +10,9 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
   styleUrl: './contractors.component.scss'
 })
 export class ContractorsComponent implements OnInit{
-
   contractors: any;
+  tableColumns = ['fullName', 'type', 'email', 'phone', 'actions'];
+
   contractorsService = inject(ContractorsService);
   constructor(public dialog: MatDialog) {}
 
@@ -31,22 +32,9 @@ export class ContractorsComponent implements OnInit{
       console.log(result)
       if(result)
         this.contractorsService.addContractor(result).subscribe({
-          next: (data) => this.contractors.push(data),
+          next: (data) => this.contractors = [...this.contractors, data],
           error: (err) => console.error(err)
       });
-    });
-  }
-
-  removeForm(contractor:any){
-    const dialogRef = this.dialog.open(RemoveDialogComponent)
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.contractorsService.deleteContractor(contractor).subscribe({
-          next: (data) => this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id),
-          error: (err) => console.error(err)
-        });
-      }
     });
   }
 
@@ -62,6 +50,19 @@ export class ContractorsComponent implements OnInit{
             this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id);
             this.contractors.push(data);
           },
+          error: (err) => console.error(err)
+        });
+      }
+    });
+  }
+
+  removeForm(contractor:any){
+    const dialogRef = this.dialog.open(RemoveDialogComponent)
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.contractorsService.deleteContractor(contractor).subscribe({
+          next: (data) => this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id),
           error: (err) => console.error(err)
         });
       }

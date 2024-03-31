@@ -14,7 +14,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInput} from "@angular/material/input";
-import {MatFooterRow} from "@angular/material/table";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatFooterRow,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from "@angular/material/table";
 import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
@@ -50,6 +58,7 @@ import {
 import {MatListItem, MatListItemIcon, MatNavList} from "@angular/material/list";
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import {MatToolbar} from "@angular/material/toolbar";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -68,42 +77,54 @@ import {MatToolbar} from "@angular/material/toolbar";
     WorkDialogComponent,
     ToolbarComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        MatFormFieldModule,
-        MatDialogModule,
-        MatInput,
-        MatFooterRow,
-        MatButton,
-        FormsModule,
-        ReactiveFormsModule,
-        MatIcon,
-        MatFabButton,
-        MatMiniFabButton,
-        MatRadioButton,
-        MatRadioGroup,
-        MatTabGroup,
-        MatTab,
-        MatCheckbox,
-        MatSelect,
-        MatOption,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatDateRangeInput,
-        MatDateRangePicker,
-        MatDatepicker,
-        MatSidenavContent,
-        MatSidenav,
-        MatSidenavContainer,
-        MatSidenavModule,
-        MatNavList,
-        MatListItem,
-        MatToolbar,
-        MatIconButton,
-        MatListItemIcon
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInput,
+    MatFooterRow,
+    MatButton,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIcon,
+    MatFabButton,
+    MatMiniFabButton,
+    MatRadioButton,
+    MatRadioGroup,
+    MatTabGroup,
+    MatTab,
+    MatCheckbox,
+    MatSelect,
+    MatOption,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDateRangeInput,
+    MatDateRangePicker,
+    MatDatepicker,
+    MatSidenavContent,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavModule,
+    MatNavList,
+    MatListItem,
+    MatToolbar,
+    MatIconButton,
+    MatListItemIcon,
+    MatGridList,
+    MatGridTile,
+    MatTable,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatRow
+  ],
   providers: [
     provideAnimationsAsync('noop'),
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},

@@ -3,35 +3,44 @@
     <h1>Contractors</h1>
     <button mat-raised-button color="primary" class="col-3" (click)="createForm()">Add Contractor</button>
   </div>
-  <table class="table table-dark">
-    <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Type</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col-2">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let contractor of contractors">
-      <td>{{contractor.fullName}}</td>
-      <!-- TODO: Set either companyName or fullName based on contractorType -->
-      <!-- TODO: Fix name concat on create -->
-      <td>{{contractor.type}}</td>
-      <td>{{contractor.email}}</td>
-      <td>{{contractor.phone}}</td>
-      <td class="col-2">
-        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(contractor)">
+  <table mat-table [dataSource]="contractors" class="mat-elevation-z8">
+
+          <!-- TODO: Set either companyName or fullName based on contractorType -->
+          <!-- TODO: Fix name concat on create -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(element)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)= "removeForm(contractor)">
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)= "removeForm(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
-    </tr>
+    </ng-container>
 
-    </tbody>
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
   </table>
 </div>
 

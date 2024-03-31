@@ -1,36 +1,47 @@
-.container-fluid{
-  box-sizing: border-box;
-  margin: 20px 0;
-  height: calc(100% - 40px);
+.header {
+  padding-top: 10px;
+  text-align:center;
+}
+
+mat-grid-tile{
   border: solid 0.5px;
-  border-radius: 25px;
 }
-.row{
-  height: 45%;
-}
-.col-md-4{
-  width: calc(100%/3 - 10px);
-  border: solid 0.5px;
-  margin: 10px 5px;
-  border-radius: 25px;
-}
-.col-md-6{
-  width: calc(100%/2 - 10px);
-  border: solid 0.5px;
-  margin: 10px 5px;
-  border-radius: 25px;
+mat-grid-list{
 }
 
-.budget{
-  background-color: #395e55;
-}
-
-.budget-job{
-  background-color: #425942;
-}
-
-.budget-room{
-  background-color: #52483f;
-}
-
+//.container-fluid{
+//  box-sizing: border-box;
+//  margin: 20px 0;
+//  height: calc(100% - 40px);
+//  border: solid 0.5px;
+//  border-radius: 25px;
+//}
+//.row{
+//  height: 45%;
+//}
+//.col-md-4{
+//  width: calc(100%/3 - 10px);
+//  border: solid 0.5px;
+//  margin: 10px 5px;
+//  border-radius: 25px;
+//}
+//.col-md-6{
+//  width: calc(100%/2 - 10px);
+//  border: solid 0.5px;
+//  margin: 10px 5px;
+//  border-radius: 25px;
+//}
+//
+//.budget{
+//  background-color: #395e55;
+//}
+//
+//.budget-job{
+//  background-color: #425942;
+//}
+//
+//.budget-room{
+//  background-color: #52483f;
+//}
+//
 

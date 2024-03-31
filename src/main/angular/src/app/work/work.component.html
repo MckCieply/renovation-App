@@ -3,35 +3,46 @@
     <h1>Works</h1>
     <button mat-raised-button color="primary" class="col-3" (click)="createForm()">Add Work</button>
   </div>
-  <table class="table table-dark">
-    <thead>
-    <tr>
-      <th scope="col">Type</th>
-      <th scope="col">CreatedAt</th>
-      <th scope="col">Room</th>
-      <th scope="col">Paid</th>
-      <th scope="col-2">Actions</th>
-<!--      TODO: Display Date, either Start or End date depends whether it started-->
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let work of works">
-      <td>{{work.workType?.name}}</td>
-      <td>{{work.createdAt}}</td>
-      <td>{{work.room?.name}}</td>
-      <td *ngIf="work.paid"> <i class="bi bi-check-lg"></i> </td>
-      <td *ngIf="!work.paid"> <i class="bi bi-x-lg"></i> </td>
-      <td class="col-2">
-        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(work)">
+  <table mat-table [dataSource]="works" class="mat-elevation-z8">
+    <!--      TODO: Display Date, either Start or End date depends whether it started-->
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let element">{{element.workType?.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>CreatedAt</th>
+      <td mat-cell *matCellDef="let element">{{element.createdAt}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef>Room</th>
+      <td mat-cell *matCellDef="let element">{{element.room?.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="paid">
+      <th mat-header-cell *matHeaderCellDef>Paid</th>
+      <td mat-cell *matCellDef="let element">
+        <i *ngIf="element.paid" class="bi bi-check-lg"></i>
+        <i *ngIf="!element.paid" class="bi bi-x-lg"></i>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element" class="col-2">
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon" (click)="editForm(element)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="removeForm(work)" >
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="removeForm(element)" >
           <mat-icon>delete</mat-icon>
         </button>
       </td>
-    </tr>
+    </ng-container>
 
-    </tbody>
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
   </table>
 </div>
 

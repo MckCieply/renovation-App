@@ -10,7 +10,9 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
   styleUrl: './work.component.scss'
 })
 export class WorkComponent implements OnInit{
+  tableColumns = ['type', 'createdAt', 'room', 'paid', 'actions'];
   works: any;
+
   worksService = inject(WorkService)
 
   constructor(public dialog: MatDialog) {}
@@ -30,7 +32,7 @@ export class WorkComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if(result)
         this.worksService.addWork(result).subscribe({
-          next: (data) => this.works.push(data),
+          next: (data) => this.works = [...this.works, data],
           error: (err) => console.error(err)
       });
     });
