@@ -59,6 +59,9 @@ import {MatListItem, MatListItemIcon, MatNavList} from "@angular/material/list";
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import { LoginComponent } from './auth/login/login.component';
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -76,6 +79,7 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
     WorkComponent,
     WorkDialogComponent,
     ToolbarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,7 +127,14 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
     MatHeaderRow,
     MatHeaderRowDef,
     MatRowDef,
-    MatRow
+    MatRow,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle
   ],
   providers: [
     provideAnimationsAsync('noop'),

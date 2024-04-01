@@ -6,6 +6,7 @@ import {WorkComponent} from "./work/work.component";
 import {ContractorsComponent} from "./contractors/contractors.component";
 import {WorkTypeComponent} from "./work-type/work-type.component";
 import {BudgetComponent} from "./budget/budget.component";
+import {LoginComponent} from "./auth/login/login.component";
 
 const routes: Routes = [
   { path: 'Dashboard', component: DashboardComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'Contractors', component: ContractorsComponent },
   { path: 'WorkType', component: WorkTypeComponent},
   { path: 'Room', component: RoomComponent},
-  { path: 'Budget', component: BudgetComponent},
+  { path: 'Budget', component: BudgetComponent },
+  { path: 'Login', component: LoginComponent },
 ];
 
 @NgModule({

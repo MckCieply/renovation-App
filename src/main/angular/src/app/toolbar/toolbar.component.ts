@@ -14,4 +14,8 @@ export class ToolbarComponent {
     toggleSidenav(){
       this.sidenavEmit.emit()
     }
+
+    toggleAccount(){
+
+    }
 }
