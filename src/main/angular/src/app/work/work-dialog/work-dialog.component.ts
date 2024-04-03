@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {RoomService} from "../../room/room.service";
 import {WorkService} from "../work.service";
 import {WorkTypeService} from "../../work-type/work-type.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-work-dialog',
@@ -27,12 +27,12 @@ export class WorkDialogComponent implements OnInit{
         estLaborCost: [data.estLaborCost],
         finalMaterialCost: [data.finalMaterialCost],
         finalLaborCost: [data.finalLaborCost],
-        state: [data.state],
+        state: [data.state, Validators.required],
         paid: [data.paid],
         startDate: [data.startDate],
         endDate: [data.endDate],
-        room: [data.room],
-        workType: [data.workType]
+        room: [data.room, Validators.required],
+        workType: [data.workType, Validators.required]
     });
 
   }

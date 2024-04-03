@@ -19,9 +19,10 @@
         </mat-form-field><br>
         <mat-form-field>
           <input matInput placeholder="Email" formControlName="email" name="email">
+          <mat-error>It isn't an <strong>email</strong>.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Phone" formControlName="phone" name="phone">
+          <input matInput [maskito]="phoneMask" placeholder="Phone" formControlName="phone" name="phone">
         </mat-form-field>
       </mat-tab>
 
@@ -34,7 +35,7 @@
           <input matInput placeholder="City" formControlName="city" name="city">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Postal Code" formControlName="postalCode" name="postalCode">
+          <input matInput [maskito]="postalMask" placeholder="Postal Code" formControlName="postalCode" name="postalCode">
         </mat-form-field><br>
         <mat-form-field>
           <input matInput placeholder="Country" formControlName="country" name="country">
@@ -42,8 +43,8 @@
       </mat-tab>
 
       <mat-tab label="Banking" [disabled]="contractorForm.get('type')?.value == null">
-        <mat-form-field>
-          <input matInput placeholder="Bank Account" formControlName="bankAccount" name="bankName">
+        <mat-form-field style="width: 100%">
+          <input matInput [maskito]="bankingMask" placeholder="Bank Account" formControlName="bankAccount" name="bankName">
         </mat-form-field>
       </mat-tab>
 
