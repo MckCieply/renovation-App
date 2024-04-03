@@ -1,68 +1,70 @@
-<h2 mat-dialog-title>{{ data.action }}</h2>
-<mat-dialog-content class="mat-typography">
-  <mat-tab-group>
-    <mat-tab label="Type">
-      <mat-radio-group [(ngModel)]="data.type" required>
-        <mat-label>Contractor Type</mat-label><br>
-        <mat-radio-button [value]="'PRIVATE'">Private</mat-radio-button><br>
-        <mat-radio-button [value]="'COMPANY'">Company</mat-radio-button>
-      </mat-radio-group>
-    </mat-tab>
+<form [formGroup] ="contractorForm" (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title>{{ data.action }}</h2>
+  <mat-dialog-content class="mat-typography">
+    <mat-tab-group>
+      <mat-tab label="Type">
+        <mat-radio-group formControlName="type" required>
+          <mat-label>Contractor Type</mat-label><br>
+          <mat-radio-button [value]="'PRIVATE'">Private</mat-radio-button><br>
+          <mat-radio-button [value]="'COMPANY'">Company</mat-radio-button>
+        </mat-radio-group>
+      </mat-tab>
 
-    <mat-tab label="Contact" [disabled]="!data.type">
-      <mat-form-field>
-        <input matInput placeholder="First Name" [(ngModel)]="data.firstName" name="firstName">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Last Name" [(ngModel)]="data.lastName" name="lastName">
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput placeholder="Email" [(ngModel)]="data.email" name="email">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Phone" [(ngModel)]="data.phone" name="phone">
-      </mat-form-field>
-    </mat-tab>
+      <mat-tab label="Contact" [disabled]="contractorForm.get('type')?.value == null">
+        <mat-form-field>
+          <input matInput placeholder="First Name" formControlName="firstName" name="firstName">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" formControlName="lastName" name="lastName">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email" name="email">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Phone" formControlName="phone" name="phone">
+        </mat-form-field>
+      </mat-tab>
 
-    <mat-tab label="Address" [disabled]="!data.type">
-      <mat-label>Address Information</mat-label><br>
-      <mat-form-field>
-        <input matInput placeholder="Address" [(ngModel)]="data.address" name="address">
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput placeholder="City" [(ngModel)]="data.city" name="city">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Postal Code" [(ngModel)]="data.postalCode" name="postalCode">
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput placeholder="Country" [(ngModel)]="data.country" name="country">
-      </mat-form-field>
-    </mat-tab>
+      <mat-tab label="Address" [disabled]="contractorForm.get('type')?.value == null">
+        <mat-label>Address Information</mat-label><br>
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="address" name="address">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="City" formControlName="city" name="city">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Postal Code" formControlName="postalCode" name="postalCode">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="Country" formControlName="country" name="country">
+        </mat-form-field>
+      </mat-tab>
 
-    <mat-tab label="Banking" [disabled]="!data.type">
-      <mat-form-field>
-        <input matInput placeholder="Bank Account" [(ngModel)]="data.bankAccount" name="bankName">
-      </mat-form-field>
-    </mat-tab>
+      <mat-tab label="Banking" [disabled]="contractorForm.get('type')?.value == null">
+        <mat-form-field>
+          <input matInput placeholder="Bank Account" formControlName="bankAccount" name="bankName">
+        </mat-form-field>
+      </mat-tab>
 
-    <mat-tab label="Company" [disabled]="!(data.type == 'COMPANY')">
-      <mat-label>Company Information</mat-label><br>
-      <mat-form-field>
-        <input matInput placeholder="Company Name" [(ngModel)]="data.companyName" name="companyName">
-      </mat-form-field><br>
-      <mat-form-field>
-        <input matInput placeholder="NIP" [(ngModel)]="data.nip" name="nip">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="REGON" [(ngModel)]="data.regon" name="regon">
-      </mat-form-field>
-    </mat-tab>
-  </mat-tab-group>
-</mat-dialog-content>
+      <mat-tab label="Company" [disabled]="contractorForm.get('type')?.value != 'COMPANY'">
+        <mat-label>Company Information</mat-label><br>
+        <mat-form-field>
+          <input matInput placeholder="Company Name" formControlName="companyName" name="companyName">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="NIP" formControlName="nip" name="nip">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="REGON" formControlName="regon" name="regon">
+        </mat-form-field>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data" [disabled]="!data.type">{{ data.action }}</button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
+  </mat-dialog-actions>
+</form>
 

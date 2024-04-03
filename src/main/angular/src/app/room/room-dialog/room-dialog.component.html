@@ -1,22 +1,24 @@
-<h2 mat-dialog-title>{{ data.action }}</h2>
-<mat-dialog-content class="mat-typography">
+<form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title>{{ data.action }}</h2>
+  <mat-dialog-content class="mat-typography">
 
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name" required [errorStateMatcher]="matcher">
-    <mat-error>Name is <strong>required</strong></mat-error>
-  </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" [errorStateMatcher]="matcher">
+      <mat-error>Name is <strong>required</strong></mat-error>
+    </mat-form-field><br>
 
-  <mat-form-field>
-    <mat-label>Planned Budget</mat-label>
-    <input matInput [(ngModel)]="data.budgetPlanned" type="number" class="example-right-align" placeholder="0" required [errorStateMatcher]="matcher">
-    <span matTextSuffix> PLN</span>
-    <mat-error>Planned Budget is <strong>required</strong></mat-error>
-  </mat-form-field> <br>
+    <mat-form-field>
+      <mat-label>Planned Budget</mat-label>
+      <input matInput formControlName="budgetPlanned" type="number" class="example-right-align" placeholder="0" [errorStateMatcher]="matcher">
+      <span matTextSuffix> PLN</span>
+      <mat-error>Planned Budget is <strong>required</strong></mat-error>
+    </mat-form-field> <br>
 
-</mat-dialog-content>
+  </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data" [disabled]="!data.budgetPlanned || !data.name">{{ data.action }}</button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" >{{ data.action }}</button>
+  </mat-dialog-actions>
+</form>
