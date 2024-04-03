@@ -1,59 +1,61 @@
-<h2 mat-dialog-title>{{data.action}}</h2>
-<mat-dialog-content class="mat-typography">
-  <mat-form-field>
-    <input matInput placeholder="Description" [(ngModel)]="data.description">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [matDatepicker]="pickerStart" placeholder="Start date" [(ngModel)]="data.startDate">
-    <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
-    <mat-datepicker #pickerStart></mat-datepicker>
-  </mat-form-field>
+<form [formGroup]="workForm" (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title>{{data.action}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="description">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerStart" placeholder="Start date" formControlName="startDate">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput [matDatepicker]="pickerEnd" placeholder="End date" [(ngModel)]="data.endDate">
-    <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-    <mat-datepicker #pickerEnd></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerEnd" placeholder="End date" formControlName="endDate">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Est. Labor cost" [(ngModel)]="data.estLaborCost">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Est. Material cost" [(ngModel)]="data.estMaterialCost">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Final Labor cost" [(ngModel)]="data.finalLaborCost">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Final Material cost" [(ngModel)]="data.finalMaterialCost">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Room</mat-label>
-    <mat-select [(ngModel)]="data.room">
-      <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Est. Labor cost" formControlName="estLaborCost">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Est. Material cost" formControlName="estMaterialCost">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Final Labor cost" formControlName="finalLaborCost">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Final Material cost" formControlName="finalMaterialCost">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Room</mat-label>
+      <mat-select formControlName="room">
+        <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Work Type</mat-label>
-    <mat-select [(ngModel)]="data.workType">
-      <mat-option *ngFor="let type of workTypes" [value]="type">{{type.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Work Type</mat-label>
+      <mat-select formControlName="workType">
+        <mat-option *ngFor="let type of workTypes" [value]="type">{{type.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Status</mat-label>
-    <mat-select [(ngModel)]="data.state">
-      <mat-option *ngFor="let element of status" [value]="element">{{element}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="state">
+        <mat-option *ngFor="let element of status" [value]="element">{{element}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-checkbox [(ngModel)]="data.paid">Paid</mat-checkbox>
+    <mat-checkbox formControlName="paid">Paid</mat-checkbox>
 
-</mat-dialog-content>
+  </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data" [disabled]="!data.description">{{ data.action }}</button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
+  </mat-dialog-actions>
+</form>
