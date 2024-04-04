@@ -8,7 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoomComponent } from './room/room.component';
 import { WorkTypeComponent } from './work-type/work-type.component';
 import { ContractorsComponent } from './contractors/contractors.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { RoomDialogComponent } from './room/room-dialog/room-dialog.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -63,6 +63,8 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import { LoginComponent } from './auth/login/login.component';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MaskitoDirective} from "@maskito/angular";
+import { RegisterComponent } from './auth/register/register.component';
+import {InterceptorService} from "./auth/interceptor.service";
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import {MaskitoDirective} from "@maskito/angular";
     WorkDialogComponent,
     ToolbarComponent,
     LoginComponent,
+    RegisterComponent,
   ],
     imports: [
         BrowserModule,
@@ -142,7 +145,8 @@ import {MaskitoDirective} from "@maskito/angular";
   providers: [
     provideAnimationsAsync('noop'),
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-    provideNativeDateAdapter()
+    provideNativeDateAdapter(),
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })
