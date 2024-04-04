@@ -3,32 +3,31 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class RegisterComponent {
+  registerForm: FormGroup;
 
   authService = inject(AuthService)
 
   constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
+    this.registerForm = this.fb.group({
       username: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-
   onSubmit() {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value)
-      this.authService.login(this.loginForm.value).subscribe({
+    if (this.registerForm.valid) {
+      this.authService.register(this.registerForm.value).subscribe({
         next: response => this.authService.setToken(response.token),
         error: error => console.error(error)
       });
     }
   }
-
-
 }
