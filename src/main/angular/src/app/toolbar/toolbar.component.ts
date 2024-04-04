@@ -18,10 +18,6 @@ export class ToolbarComponent {
       this.sidenavEmit.emit()
     }
 
-    toggleAccount(){
-
-    }
-
   logout(){
     this.authService.logout();
     this.router.navigate(['/Login']);

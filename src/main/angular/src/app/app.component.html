@@ -1,10 +1,10 @@
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" opened>
+  <mat-sidenav #sidenav mode="side" [opened]="authService.isAuthenticated()">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar>
+    <mat-toolbar *ngIf="authService.isAuthenticated()">
       <app-toolbar (sidenavEmit)="sidenav.toggle()" ></app-toolbar>
     </mat-toolbar>
     <router-outlet></router-outlet>

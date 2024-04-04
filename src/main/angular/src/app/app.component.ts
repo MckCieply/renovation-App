@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import {MatSidenav} from "@angular/material/sidenav";
 })
 export class AppComponent {
   title = 'angular';
+
+  authService = inject(AuthService);
 
   toggleSidenav() {
 
