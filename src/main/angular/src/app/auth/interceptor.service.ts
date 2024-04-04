@@ -12,9 +12,13 @@ export class InterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const userToken = this.authService.getToken();
-    const modifiedReq = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${userToken}`),
-    });
-    return next.handle(modifiedReq);
+    if(userToken) {
+      const modifiedReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${userToken}`),
+      });
+      return next.handle(modifiedReq);
+    } else {
+      return next.handle(req);
+    }
   }
 }

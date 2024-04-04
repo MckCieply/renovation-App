@@ -7,15 +7,18 @@ import {ContractorsComponent} from "./contractors/contractors.component";
 import {WorkTypeComponent} from "./work-type/work-type.component";
 import {BudgetComponent} from "./budget/budget.component";
 import {LoginComponent} from "./auth/login/login.component";
+import {RegisterComponent} from "./auth/register/register.component";
+import {authGuard} from "./auth/guards/auth.guard";
 
 const routes: Routes = [
-  { path: 'Dashboard', component: DashboardComponent },
-  { path: 'Work', component: WorkComponent },
-  { path: 'Contractors', component: ContractorsComponent },
-  { path: 'WorkType', component: WorkTypeComponent},
-  { path: 'Room', component: RoomComponent},
-  { path: 'Budget', component: BudgetComponent },
   { path: 'Login', component: LoginComponent },
+  { path: 'Register', component: RegisterComponent },
+  { path: 'Dashboard', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'Work', component: WorkComponent, canActivate: [authGuard] },
+  { path: 'Contractors', component: ContractorsComponent, canActivate: [authGuard] },
+  { path: 'WorkType', component: WorkTypeComponent, canActivate: [authGuard] },
+  { path: 'Room', component: RoomComponent, canActivate: [authGuard] },
+  { path: 'Budget', component: BudgetComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

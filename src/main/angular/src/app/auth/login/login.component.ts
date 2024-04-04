@@ -24,7 +24,10 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value)
       this.authService.login(this.loginForm.value).subscribe({
-        next: response => this.authService.setToken(response.token),
+        next: response => {
+          this.authService.setToken(response.token)
+          this.authService.authSuccess()
+        },
         error: error => console.error(error)
       });
     }

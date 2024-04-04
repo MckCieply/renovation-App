@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, inject, Output, ViewChild} from '@angular/core';
+import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -6,9 +8,10 @@ import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 })
 export class ToolbarComponent {
 
+  authService = inject(AuthService);
   @Output() sidenavEmit = new EventEmitter<void>();
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     toggleSidenav(){
@@ -18,4 +21,9 @@ export class ToolbarComponent {
     toggleAccount(){
 
     }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/Login']);
+  }
 }

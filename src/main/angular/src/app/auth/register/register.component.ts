@@ -25,7 +25,10 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
-        next: response => this.authService.setToken(response.token),
+        next: response => {
+          this.authService.setToken(response.token)
+            this.authService.authSuccess()
+        },
         error: error => console.error(error)
       });
     }
