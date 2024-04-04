@@ -27,7 +27,7 @@ export class RegisterComponent {
       this.authService.register(this.registerForm.value).subscribe({
         next: response => {
           this.authService.setToken(response.token)
-            this.authService.authSuccess()
+          this.authService.authSuccess(this.registerForm.value.username)
         },
         error: error => console.error(error)
       });

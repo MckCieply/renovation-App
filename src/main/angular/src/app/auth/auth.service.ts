@@ -26,8 +26,9 @@ export class AuthService {
     this.clearToken();
   }
 
-  authSuccess(){
+  authSuccess(username: string){
     this.router.navigate(['/Dashboard']);
+    this.setUsername(username);
   }
 
   setToken(token: string) {
@@ -49,6 +50,14 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return this.getToken() != null;
+  }
+
+  setUsername(username: string){
+    localStorage.setItem('username', username);
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('username');
   }
 
 

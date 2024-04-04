@@ -1,6 +1,16 @@
 .account{
   position:fixed;
   right:5px;
-  top:var(--mat-toolbar-standard-height/2);
+  top: 0;
+  height: var(--mat-toolbar-standard-height);
+  display: flex;
+  align-items: center;
+}
 
+span{
+  font-size: 16px !important;
+}
+
+.account-button mat-icon {
+  vertical-align: middle;
 }

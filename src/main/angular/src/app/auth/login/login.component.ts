@@ -26,7 +26,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: response => {
           this.authService.setToken(response.token)
-          this.authService.authSuccess()
+          this.authService.authSuccess(this.loginForm.value.username)
         },
         error: error => console.error(error)
       });

@@ -1,9 +1,14 @@
 <button mat-icon-button (click)="toggleSidenav()">
   <mat-icon>menu</mat-icon>
 </button>
-<button mat-icon-button class="account" [matMenuTriggerFor]="accountMenu">
-<mat-icon>account_circle</mat-icon>
-</button>
+<div class="account">
+  <button mat-button class="account-button" [matMenuTriggerFor]="accountMenu">
+    <span>
+      {{ loggedUser }}
+      <mat-icon>account_circle</mat-icon>
+    </span>
+  </button>
+</div>
 <mat-menu #accountMenu="matMenu">
   <button mat-menu-item>Profile</button>
   <button mat-menu-item>Settings</button>
