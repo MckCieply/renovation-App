@@ -25,6 +25,7 @@ This application helps users manage their renovation budgets effectively. It all
 - ...
 - ~~Implement user authentication and authorization using Spring Security and JWT~~.
 - Set flushing localStorage with expiration time
+- Hash password between front and back-end
 - Add charts to dashboard
 - Secure Dashboard for Admins
 - Move budget to user settings
