@@ -1,6 +1,8 @@
 import {Component, inject} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
+import {ErrorStateMatcher} from "@angular/material/core";
+import {passwordConfirmValidator} from "../../validators";
 
 @Component({
   selector: 'app-register',
@@ -10,6 +12,7 @@ import {AuthService} from "../auth.service";
 export class RegisterComponent {
   registerForm: FormGroup;
 
+  matcher = new ErrorStateMatcher();
   authService = inject(AuthService)
 
   constructor(private fb: FormBuilder) {
@@ -17,14 +20,16 @@ export class RegisterComponent {
       username: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required]
+    }, {validators: passwordConfirmValidator});
   }
 
   onSubmit() {
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe({
+      const {passwordConfirm, ...formData} = this.registerForm.value;
+      this.authService.register(formData).subscribe({
         next: response => {
           this.authService.setToken(response.token)
           this.authService.authSuccess(this.registerForm.value.username)

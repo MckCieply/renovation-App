@@ -6,36 +6,50 @@
     <mat-card-content>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Username" formControlName="username">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+          <mat-error>This field is <strong>required</strong></mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="First Name" formControlName="firstName">
+          <mat-label>First Name</mat-label>
+          <input matInput  formControlName="firstName">
+          <mat-error>This field is <strong>required</strong></mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Last Name" formControlName="lastName">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+          <mat-error>This field is <strong>required</strong></mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Email" formControlName="email">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">This field is <strong>required</strong></mat-error>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Password" type="password">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">This field is <strong>required</strong></mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Repeat Password" id="password2">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput type="password" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="registerForm.get('passwordConfirm')?.hasError('required')">This field is <strong>required</strong></mat-error>
+          <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</mat-error>
         </mat-form-field>
       </p>
-      <p class="small">Forgot password? <a href="">You have a problem</a></p>
-      <button mat-raised-button color="primary">Login</button>
+      <p class="small">Have account? <a href="/Login">Login</a></p>
+      <button mat-raised-button color="primary" [disabled]="registerForm.invalid">Login</button>
     </mat-card-content>
   </mat-card>
 </form>
