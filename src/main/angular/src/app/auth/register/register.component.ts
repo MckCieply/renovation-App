@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {ErrorStateMatcher} from "@angular/material/core";
-import {passwordConfirmValidator} from "../../validators";
+import {passwordConfirmValidator, passwordStrengthValidator} from "../../validators";
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       passwordConfirm: ['', Validators.required]
-    }, {validators: passwordConfirmValidator});
+    }, {validators: [passwordConfirmValidator, passwordStrengthValidator]});
   }
 
   onSubmit() {

@@ -10,6 +10,7 @@ mat-card-header{
 h1{
   width: 100%;
   text-align: center;
+  margin: 0;
 }
 mat-form-field{
   width: 100%;
@@ -18,5 +19,19 @@ mat-form-field{
   font-size: 0.8em;
   color: #a5a5a5;
 }
+
+.passwordStrength{
+  display: flex;
+  align-items: center;
+}
+
+.passwordCancel{
+  color: #ff8383;
+}
+
+.passwordCheck{
+  color: #83ff83;
+}
+
 
 

@@ -65,6 +65,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/mat
 import {MaskitoDirective} from "@maskito/angular";
 import { RegisterComponent } from './auth/register/register.component';
 import {InterceptorService} from "./auth/interceptor.service";
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {InterceptorService} from "./auth/interceptor.service";
     ToolbarComponent,
     LoginComponent,
     RegisterComponent,
+    UserComponent,
   ],
     imports: [
         BrowserModule,
