@@ -1,0 +1,32 @@
+<!--User Profile-->
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div id="container">
+    <mat-grid-list cols="2">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Confirm Password</mat-label>
+          <input matInput formControlName="confirmPassword" type="password">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</form>
