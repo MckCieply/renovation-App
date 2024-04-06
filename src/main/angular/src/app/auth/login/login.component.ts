@@ -8,6 +8,8 @@ import {AuthService} from "../auth.service";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  invalidCredentials = false;
+  serverError = false;
   loginForm: FormGroup;
 
   authService = inject(AuthService)
@@ -28,7 +30,15 @@ export class LoginComponent {
           this.authService.setToken(response.token)
           this.authService.authSuccess(this.loginForm.value.username)
         },
-        error: error => console.error(error)
+        error: error => {
+          if(error.status === 403 || error.status === 401)
+            this.invalidCredentials = true;
+
+          if(error.status === 500) {
+            this.serverError = true;
+            console.error("Internal server error")
+          }
+        }
       });
     }
   }
