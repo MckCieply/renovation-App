@@ -26,8 +26,9 @@ export class UserComponent implements OnInit{
     });
     this.passwordForm = this.fb.group({
       username: this.authService.getUsername(),
-      password: ['', Validators.required],
-      passwordConfirm: ['', Validators.required]
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      newPasswordConfirm: ['', Validators.required]
     });
   }
 
@@ -55,9 +56,16 @@ export class UserComponent implements OnInit{
   }
 
   onSubmitPassword(){
-    const {passwordConfirm, ...formData} = this.passwordForm.value;
+    const {newPasswordConfirm, ...formData} = this.passwordForm.value;
     if(this.passwordForm.valid){
-      console.log(formData)
+      this.userService.changePassword(formData).subscribe({
+        next: response => {
+          console.log(response)
+          // TODO: Success dialog, countdown to logout
+          this.authService.logout();
+        },
+        error: error => console.error(error)
+      });
     }
   }
 }

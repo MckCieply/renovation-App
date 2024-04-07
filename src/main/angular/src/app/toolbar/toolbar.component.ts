@@ -12,7 +12,7 @@ export class ToolbarComponent implements OnInit{
   authService = inject(AuthService);
   @Output() sidenavEmit = new EventEmitter<void>();
 
-    constructor(private router: Router) {
+    constructor() {
     }
 
     ngOnInit() {
@@ -25,6 +25,5 @@ export class ToolbarComponent implements OnInit{
 
   logout(){
     this.authService.logout();
-    this.router.navigate(['/Login']);
   }
 }

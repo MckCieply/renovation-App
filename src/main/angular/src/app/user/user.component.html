@@ -35,17 +35,26 @@
 
   <form [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword()">
     <mat-grid-list cols="2" rowHeight="15vh">
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Old Password</mat-label>
+          <input matInput formControlName="oldPassword" type="password">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+      </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password">
+          <input matInput formControlName="newPassword" type="password">
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
         <mat-form-field>
           <mat-label>Confirm Password</mat-label>
-          <input matInput formControlName="passwordConfirm" type="password">
+          <input matInput formControlName="newPasswordConfirm" type="password">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile colspan="2">

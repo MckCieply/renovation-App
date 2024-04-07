@@ -24,6 +24,7 @@ export class AuthService {
 
   logout(){
     this.clearToken();
+    this.router.navigate(['/Login']);
   }
 
   authSuccess(username: string){

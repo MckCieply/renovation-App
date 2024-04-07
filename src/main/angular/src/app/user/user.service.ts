@@ -18,5 +18,9 @@ export class UserService {
     return this.httpClient.put(this.api + '/update', user);
   }
 
+  changePassword(user: any){
+    return this.httpClient.put(this.api + '/change-password', user);
+  }
+
   // update password that logs off the user with dialog info
 }
