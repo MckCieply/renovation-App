@@ -45,7 +45,12 @@ export class UserComponent implements OnInit{
 
   onSubmitUser(){
     if(this.userForm.valid){
-      console.log(this.userForm)
+      this.userService.updateUser(this.userForm.value).subscribe({
+        next: response => {
+          console.log(response)
+        },
+        error: error => console.error(error)
+      });
     }
   }
 

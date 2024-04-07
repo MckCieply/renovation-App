@@ -28,12 +28,26 @@ public class AppUserService {
         return appUserRepository.findAll();
     }
 
+    public AppUserProfileDTO updateUser(AppUserProfileDTO appUserProfileDTO) {
+        appUserRepository.save(mapAppUserProfileDTOToAppUser(appUserProfileDTO));
+        return appUserProfileDTO;
+    }
+
     private AppUserProfileDTO mapAppUserToAppUserProfileDTO(AppUser appUser) {
         return AppUserProfileDTO.builder()
                 .username(appUser.getUsername())
                 .firstName(appUser.getFirstName())
                 .lastName(appUser.getLastName())
                 .email(appUser.getEmail())
+                .build();
+    }
+
+    private AppUser mapAppUserProfileDTOToAppUser(AppUserProfileDTO appUserProfileDTO) {
+        return AppUser.builder()
+                .username(appUserProfileDTO.getUsername())
+                .firstName(appUserProfileDTO.getFirstName())
+                .lastName(appUserProfileDTO.getLastName())
+                .email(appUserProfileDTO.getEmail())
                 .build();
     }
 
