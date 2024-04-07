@@ -20,12 +20,21 @@ public class AppUserService {
         // todo: change static user to dynamic
     }
 
-    public AppUser getUser(String username) {
-        return appUserRepository.findByUsername(username);
+    public AppUserProfileDTO getUser(String username) {
+        return mapAppUserToAppUserProfileDTO(appUserRepository.findByUsername(username));
     }
 
     public List<AppUser> getAllUsers() {
         return appUserRepository.findAll();
+    }
+
+    private AppUserProfileDTO mapAppUserToAppUserProfileDTO(AppUser appUser) {
+        return AppUserProfileDTO.builder()
+                .username(appUser.getUsername())
+                .firstName(appUser.getFirstName())
+                .lastName(appUser.getLastName())
+                .email(appUser.getEmail())
+                .build();
     }
 
 }
