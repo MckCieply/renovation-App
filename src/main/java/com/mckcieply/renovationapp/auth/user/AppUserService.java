@@ -1,6 +1,7 @@
 package com.mckcieply.renovationapp.auth.user;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
+    PasswordEncoder passwordEncoder;
 
     public void saveUser(AppUser user) {
         appUserRepository.save(user);
@@ -28,9 +30,24 @@ public class AppUserService {
         return appUserRepository.findAll();
     }
 
-    public AppUserProfileDTO updateUser(AppUserProfileDTO appUserProfileDTO) {
-        appUserRepository.save(mapAppUserProfileDTOToAppUser(appUserProfileDTO));
-        return appUserProfileDTO;
+    public void updateUser(AppUserProfileDTO profileDTO) {
+        appUserRepository.save(mapAppUserProfileDTOToAppUser(profileDTO));
+    }
+
+    public void changePassword(AppUserChangePasswordDTO changePasswordDTO) {
+        AppUser user = appUserRepository.findByUsername(changePasswordDTO.getUsername());
+
+        if (user == null)
+            throw new IllegalArgumentException("User not found");
+
+
+        if(passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+            appUserRepository.save(user);
+        }
+        else
+            throw new IllegalArgumentException("Incorrect Password");
+
     }
 
     private AppUserProfileDTO mapAppUserToAppUserProfileDTO(AppUser appUser) {
@@ -42,12 +59,12 @@ public class AppUserService {
                 .build();
     }
 
-    private AppUser mapAppUserProfileDTOToAppUser(AppUserProfileDTO appUserProfileDTO) {
+    private AppUser mapAppUserProfileDTOToAppUser(AppUserProfileDTO profileDTO) {
         return AppUser.builder()
-                .username(appUserProfileDTO.getUsername())
-                .firstName(appUserProfileDTO.getFirstName())
-                .lastName(appUserProfileDTO.getLastName())
-                .email(appUserProfileDTO.getEmail())
+                .username(profileDTO.getUsername())
+                .firstName(profileDTO.getFirstName())
+                .lastName(profileDTO.getLastName())
+                .email(profileDTO.getEmail())
                 .build();
     }
 
