@@ -1,15 +1,13 @@
 <!--User Profile-->
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <div id="container">
-    <mat-grid-list cols="2">
+<div class="container">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmitUser()">
+    <h1> Profile </h1>
+    <mat-grid-list cols="2" rowHeight="15vh">
       <mat-grid-tile>
+
         <mat-form-field>
           <mat-label>First Name</mat-label>
           <input matInput formControlName="firstName">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email">
         </mat-form-field>
       </mat-grid-tile>
 
@@ -18,15 +16,42 @@
           <mat-label>Last Name</mat-label>
           <input matInput formControlName="lastName">
         </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2">
+        <mat-form-field style="width:92.5%">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" >
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+
+  <h1> Change Password </h1>
+
+  <form [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword()">
+    <mat-grid-list cols="2" rowHeight="15vh">
+      <mat-grid-tile>
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input matInput formControlName="password" type="password">
         </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
         <mat-form-field>
           <mat-label>Confirm Password</mat-label>
-          <input matInput formControlName="confirmPassword" type="password">
+          <input matInput formControlName="passwordConfirm" type="password">
         </mat-form-field>
       </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <button mat-raised-button color="primary" type="submit">Change Password</button>
+      </mat-grid-tile>
     </mat-grid-list>
-  </div>
-</form>
+  </form>
+
+
+</div>

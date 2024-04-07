@@ -9,6 +9,7 @@ import {BudgetComponent} from "./budget/budget.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {authGuard} from "./auth/guards/auth.guard";
+import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'WorkType', component: WorkTypeComponent, canActivate: [authGuard] },
   { path: 'Room', component: RoomComponent, canActivate: [authGuard] },
   { path: 'Budget', component: BudgetComponent, canActivate: [authGuard] },
+  {path: 'User', component: UserComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

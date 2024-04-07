@@ -6,12 +6,12 @@ import {HttpClient} from "@angular/common/http";
 })
 export class UserService {
 
-  private api = 'http://localhost:8080/api/users';
+  private api = 'http://localhost:8080/api/user';
   constructor(private httpClient: HttpClient ) {
   }
 
-  getUser(){
-    return this.httpClient.get(this.api + '/single');
+  getUser(username: string){
+    return this.httpClient.get(this.api + '/get', {params: {username}});
   }
 
   updateUser(user: any){

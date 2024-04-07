@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../auth/auth.service";
+import {UserService} from "./user.service";
 ;
 
 @Component({
@@ -7,20 +9,50 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent {
+export class UserComponent implements OnInit{
+  loggedUser: any = {};
   userForm: FormGroup;
+  passwordForm: FormGroup;
+
+  authService = inject(AuthService)
+  userService = inject(UserService)
 
   constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
+      username: this.loggedUser.username,
+      firstName: [this.loggedUser.firstName, Validators.required],
+      lastName: [this.loggedUser.lastName, Validators.required],
+      email: [this.loggedUser.email, Validators.required],
+    });
+    this.passwordForm = this.fb.group({
+      username: this.authService.getUsername(),
       password: ['', Validators.required],
       passwordConfirm: ['', Validators.required]
     });
   }
 
-  onSubmit(){
+  ngOnInit() {
+    const username = this.authService.getUsername() || '';
+    console.log(username)
+    this.userService.getUser(username).subscribe({
+      next: response => {
+        this.loggedUser = response;
+        this.userForm.patchValue(response);
+      },
+      error: error => console.error(error)
+    });
+  }
 
+  onSubmitUser(){
+    if(this.userForm.valid){
+      console.log(this.userForm)
+    }
+  }
+
+  onSubmitPassword(){
+    const {passwordConfirm, ...formData} = this.passwordForm.value;
+    if(this.passwordForm.valid){
+      console.log(formData)
+    }
   }
 }

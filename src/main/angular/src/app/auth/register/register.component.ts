@@ -27,15 +27,15 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    const {passwordConfirm, ...formData} = this.registerForm.value;
+    this.authService.register(formData).subscribe({
+      next: response => {
+        this.authService.setToken(response.token)
+        this.authService.authSuccess(this.registerForm.value.username)
+      },
+      error: error => console.error(error)
+    });
     if (this.registerForm.valid) {
-      const {passwordConfirm, ...formData} = this.registerForm.value;
-      this.authService.register(formData).subscribe({
-        next: response => {
-          this.authService.setToken(response.token)
-          this.authService.authSuccess(this.registerForm.value.username)
-        },
-        error: error => console.error(error)
-      });
     }
   }
 }
