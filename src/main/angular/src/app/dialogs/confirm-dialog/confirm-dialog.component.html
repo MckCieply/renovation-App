@@ -1,0 +1,9 @@
+<h2 mat-dialog-title> Confirmation Required </h2>
+
+<mat-dialog-content>
+  <p>Are you sure you want to {{ data.action }}?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Yes</button>
+</mat-dialog-actions>

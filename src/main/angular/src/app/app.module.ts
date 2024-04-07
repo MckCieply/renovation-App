@@ -66,6 +66,7 @@ import {MaskitoDirective} from "@maskito/angular";
 import { RegisterComponent } from './auth/register/register.component';
 import {InterceptorService} from "./auth/interceptor.service";
 import { UserComponent } from './user/user.component';
+import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { UserComponent } from './user/user.component';
     LoginComponent,
     RegisterComponent,
     UserComponent,
+    ConfirmDialogComponent,
   ],
     imports: [
         BrowserModule,

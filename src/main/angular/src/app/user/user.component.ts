@@ -2,6 +2,8 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth/auth.service";
 import {UserService} from "./user.service";
+import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 ;
 
 @Component({
@@ -17,7 +19,8 @@ export class UserComponent implements OnInit{
   authService = inject(AuthService)
   userService = inject(UserService)
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private dialog: MatDialog) {
     this.userForm = this.fb.group({
       username: this.loggedUser.username,
       firstName: [this.loggedUser.firstName, Validators.required],
@@ -58,14 +61,16 @@ export class UserComponent implements OnInit{
   onSubmitPassword(){
     const {newPasswordConfirm, ...formData} = this.passwordForm.value;
     if(this.passwordForm.valid){
-      this.userService.changePassword(formData).subscribe({
-        next: response => {
-          console.log(response)
-          // TODO: Success dialog, countdown to logout
-          this.authService.logout();
-        },
-        error: error => console.error(error)
-      });
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {action: "change password"}})
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          this.userService.changePassword(formData).subscribe({
+            next: response => this.authService.logout(), // TODO: Success dialog, countdown to logout
+            error: error => console.error(error)
+          });
+        }
+      })
     }
   }
+
 }
