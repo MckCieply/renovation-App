@@ -61,7 +61,7 @@ export class UserComponent implements OnInit{
   onSubmitPassword(){
     const {newPasswordConfirm, ...formData} = this.passwordForm.value;
     if(this.passwordForm.valid){
-      const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {action: "change password"}})
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {action: "change password, you will be logged out"}});
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
           this.userService.changePassword(formData).subscribe({
