@@ -4,6 +4,7 @@ import {AuthService} from "../auth/auth.service";
 import {UserService} from "./user.service";
 import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {passwordConfirmValidator, passwordStrengthValidator} from "../validators";
 ;
 
 @Component({
@@ -30,9 +31,15 @@ export class UserComponent implements OnInit{
     this.passwordForm = this.fb.group({
       username: this.authService.getUsername(),
       oldPassword: ['', Validators.required],
-      newPassword: ['', Validators.required],
-      newPasswordConfirm: ['', Validators.required]
-    });
+      password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required]
+    }, {
+      validators: [
+        passwordConfirmValidator,
+        passwordStrengthValidator
+      ]
+    }
+    );
   }
 
   ngOnInit() {
@@ -59,7 +66,7 @@ export class UserComponent implements OnInit{
   }
 
   onSubmitPassword(){
-    const {newPasswordConfirm, ...formData} = this.passwordForm.value;
+    const {passwordConfirm, ...formData} = this.passwordForm.value;
     if(this.passwordForm.valid){
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {action: "change password, you will be logged out"}});
       dialogRef.afterClosed().subscribe(result => {

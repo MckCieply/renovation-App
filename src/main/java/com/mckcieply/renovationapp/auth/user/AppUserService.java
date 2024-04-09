@@ -42,7 +42,7 @@ public class AppUserService {
 
 
         if(passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
-            user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+            user.setPassword(passwordEncoder.encode(changePasswordDTO.getPassword()));
             appUserRepository.save(user);
         }
         else
