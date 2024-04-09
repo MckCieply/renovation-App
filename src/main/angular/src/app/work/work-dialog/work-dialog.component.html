@@ -1,57 +1,72 @@
 <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
   <h2 mat-dialog-title>{{data.action}}</h2>
   <mat-dialog-content class="mat-typography">
-    <mat-form-field>
-      <input matInput placeholder="Description" formControlName="description">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [matDatepicker]="pickerStart" placeholder="Start date" formControlName="startDate">
-      <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
-      <mat-datepicker #pickerStart></mat-datepicker>
-    </mat-form-field>
+    <mat-tab-group>
 
-    <mat-form-field>
-      <input matInput [matDatepicker]="pickerEnd" placeholder="End date" formControlName="endDate">
-      <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-      <mat-datepicker #pickerEnd></mat-datepicker>
-    </mat-form-field>
+      <mat-tab label="General">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Room</mat-label>
+          <mat-select formControlName="room">
+            <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Work Type</mat-label>
+          <mat-select formControlName="workType">
+            <mat-option *ngFor="let type of workTypes" [value]="type">{{type.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Est. Labor cost" formControlName="estLaborCost">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Est. Material cost" formControlName="estMaterialCost">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Final Labor cost" formControlName="finalLaborCost">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Final Material cost" formControlName="finalMaterialCost">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-label>Room</mat-label>
-      <mat-select formControlName="room">
-        <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let element of status" [value]="element">{{element}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="paid">Paid</mat-checkbox>
+      </mat-tab>
 
-    <mat-form-field>
-      <mat-label>Work Type</mat-label>
-      <mat-select formControlName="workType">
-        <mat-option *ngFor="let type of workTypes" [value]="type">{{type.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-tab label="Dates">
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerStart" placeholder="Start date" formControlName="startDate">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [matDatepicker]="pickerEnd" placeholder="End date" formControlName="endDate">
+          <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+      </mat-tab>
 
-    <mat-form-field>
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="state">
-        <mat-option *ngFor="let element of status" [value]="element">{{element}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-tab label="Costs">
+        <mat-form-field>
+          <mat-label>Est. Labor cost</mat-label>
+          <input matInput formControlName="estLaborCost">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Est. Material cost</mat-label>
+          <input matInput formControlName="estMaterialCost">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Final Labor cost</mat-label>
+          <input matInput formControlName="finalLaborCost">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Final Material cost</mat-label>
+          <input matInput formControlName="finalMaterialCost">
+        </mat-form-field>
+      </mat-tab>
 
-    <mat-checkbox formControlName="paid">Paid</mat-checkbox>
-
+    </mat-tab-group>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
