@@ -1,6 +1,8 @@
 import {Component, EventEmitter, inject, OnInit, Output, ViewChild} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -12,7 +14,7 @@ export class ToolbarComponent implements OnInit{
   authService = inject(AuthService);
   @Output() sidenavEmit = new EventEmitter<void>();
 
-    constructor() {
+    constructor(public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -24,6 +26,10 @@ export class ToolbarComponent implements OnInit{
     }
 
   logout(){
-    this.authService.logout();
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {action: "logout"}});
+      dialogRef.afterClosed().subscribe(result => {
+        if (result)
+          this.authService.logout()
+      })
   }
 }
