@@ -1,4 +1,4 @@
-package com.mckcieply.renovationapp.serviceTests;
+package com.mckcieply.renovationapp.apiTests.serviceTests;
 
 import com.mckcieply.core.BaseService;
 import com.mckcieply.renovationapp.workType.WorkType;
