@@ -17,6 +17,8 @@ public abstract class BaseController<T, ID> {
     @GetMapping("/all")
     public ResponseEntity<List<T>> getAll() {
         List<T> entities = baseService.getAll();
+        if(entities.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
@@ -29,7 +31,7 @@ public abstract class BaseController<T, ID> {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") ID id) {
         baseService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update")

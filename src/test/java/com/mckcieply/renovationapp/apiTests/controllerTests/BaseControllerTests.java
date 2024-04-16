@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
@@ -38,6 +39,16 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
         // Assert
         assertEquals(entities, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        // Arrange for empty list
+        when(service().getAll()).thenReturn(List.of());
+
+        // Act
+        response = controller().getAll();
+
+        // Assert
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     @Test
@@ -64,7 +75,7 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
 
         // Assert
         verify(service(), times(1)).delete(id);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     @Test
