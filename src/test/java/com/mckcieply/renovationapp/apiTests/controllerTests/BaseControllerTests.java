@@ -39,5 +39,46 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Test
+    public void testAdd() {
+        // Arrange
+        T entity = createDummyEntity();
+        when(controller().add(entity)).thenReturn(new ResponseEntity<>(entity, HttpStatus.CREATED));
+
+        // Act
+        ResponseEntity<T> response = controller().add(entity);
+
+        // Assert
+        assertEquals(entity, response.getBody());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    public void testDelete() {
+        // Arrange
+        Long id = 1L;
+        when(controller().delete(id)).thenReturn(new ResponseEntity<>(HttpStatus.OK));
+
+        // Act
+        ResponseEntity<?> response = controller().delete(id);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testUpdate() {
+        // Arrange
+        T entity = createDummyEntity();
+        when(controller().update(entity)).thenReturn(new ResponseEntity<>(entity, HttpStatus.OK));
+
+        // Act
+        ResponseEntity<T> response = controller().update(entity);
+
+        // Assert
+        assertEquals(entity, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
 
 }
