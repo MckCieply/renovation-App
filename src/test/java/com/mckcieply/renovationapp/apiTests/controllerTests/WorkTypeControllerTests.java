@@ -15,7 +15,7 @@ public class WorkTypeControllerTests extends BaseControllerTests<WorkType, WorkT
     @Mock
     private WorkTypeService service;
 
-    @Mock
+    @InjectMocks
     private WorkTypeController controller;
 
     @Override

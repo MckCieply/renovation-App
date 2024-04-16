@@ -7,6 +7,7 @@ import com.mckcieply.renovationapp.work.Work;
 import com.mckcieply.renovationapp.work.WorkController;
 import com.mckcieply.renovationapp.work.WorkService;
 import com.mckcieply.renovationapp.workType.WorkType;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class WorkControllerTests extends BaseControllerTests<Work, WorkService>{
     @Mock
     private WorkService service;
 
-    @Mock
+    @InjectMocks
     private WorkController controller;
 
     Room room = mock(Room.class);

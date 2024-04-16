@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,8 +30,7 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
     public void testGetAll() {
         // Arrange
         List<T> entities = createDummyEntities();
-        when(controller().getAll()).thenReturn(new ResponseEntity<>(entities, HttpStatus.OK));
-        //doReturn(new ResponseEntity<>(entities, HttpStatus.OK)).when(controller()).getAll();
+        when(service().getAll()).thenReturn(entities);
 
         // Act
         ResponseEntity<List<T>> response = controller().getAll();
@@ -43,7 +44,7 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
     public void testAdd() {
         // Arrange
         T entity = createDummyEntity();
-        when(controller().add(entity)).thenReturn(new ResponseEntity<>(entity, HttpStatus.CREATED));
+        when(service().add(entity)).thenReturn(entity);
 
         // Act
         ResponseEntity<T> response = controller().add(entity);
@@ -57,12 +58,12 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
     public void testDelete() {
         // Arrange
         Long id = 1L;
-        when(controller().delete(id)).thenReturn(new ResponseEntity<>(HttpStatus.OK));
 
         // Act
         ResponseEntity<?> response = controller().delete(id);
 
         // Assert
+        verify(service(), times(1)).delete(id);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 

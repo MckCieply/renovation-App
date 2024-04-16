@@ -4,6 +4,7 @@ import com.mckcieply.core.BaseController;
 import com.mckcieply.renovationapp.contractor.Contractor;
 import com.mckcieply.renovationapp.contractor.ContractorController;
 import com.mckcieply.renovationapp.contractor.ContractorService;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ContractorControllerTests extends BaseControllerTests<Contractor, C
     @Mock
     private ContractorService service;
 
-    @Mock
+    @InjectMocks
     private ContractorController controller;
 
     @Override

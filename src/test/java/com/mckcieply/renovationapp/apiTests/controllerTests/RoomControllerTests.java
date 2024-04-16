@@ -4,6 +4,7 @@ import com.mckcieply.core.BaseController;
 import com.mckcieply.renovationapp.room.Room;
 import com.mckcieply.renovationapp.room.RoomController;
 import com.mckcieply.renovationapp.room.RoomService;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class RoomControllerTests extends BaseControllerTests<Room, RoomService>{
     @Mock
     private RoomService service;
 
-    @Mock
+    @InjectMocks
     private RoomController controller;
 
     @Override
