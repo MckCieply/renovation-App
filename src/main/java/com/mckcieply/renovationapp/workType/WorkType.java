@@ -1,27 +1,19 @@
 package com.mckcieply.renovationapp.workType;
 
+import com.mckcieply.core.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "work-types")
-public class WorkType {
+public class WorkType extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "Name is mandatory")
-    @Size(min=3, max = 100, message = "Name must be between 3 and 100 characters long")
-    private String name;
 
 }

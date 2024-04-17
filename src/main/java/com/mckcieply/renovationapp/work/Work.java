@@ -1,30 +1,22 @@
 package com.mckcieply.renovationapp.work;
 
+import com.mckcieply.core.BaseEntity;
 import com.mckcieply.renovationapp.enumerable.EnumWorkState;
 import com.mckcieply.renovationapp.room.Room;
 import com.mckcieply.renovationapp.workType.WorkType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.sql.Date;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Builder
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
 @Table(name = "works")
-public class Work {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "created_at")
-    private Date createdAt;
+public class Work extends BaseEntity {
 
     @Column(name = "description")
     private String description;

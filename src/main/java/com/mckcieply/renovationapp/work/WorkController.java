@@ -20,12 +20,6 @@ public class WorkController extends BaseController<Work, Long> {
         this.workService = workService;
     }
 
-    @Override
-    @PostMapping("/add")
-    public ResponseEntity<Work> add(@RequestBody Work work) {
-        work.setCreatedAt(new Date(System.currentTimeMillis()));
-        return super.add(work);
-    }
 
     @GetMapping("/getEnumWorkState")
     public ResponseEntity<EnumWorkState[]> getEnumWorkState() {

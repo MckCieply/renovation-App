@@ -1,30 +1,19 @@
 package com.mckcieply.renovationapp.room;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import com.mckcieply.core.BaseEntity;
+import lombok.*;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "rooms")
-public class Room {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "Name is mandatory")
-    @Size(min=3, max = 100, message = "Name must be between 3 and 100 characters long")
-    private String name;
+public class Room extends BaseEntity {
 
     private Long budgetPlanned;
 }

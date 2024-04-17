@@ -1,26 +1,21 @@
 package com.mckcieply.renovationapp.contractor;
 
+import com.mckcieply.core.BaseEntity;
 import com.mckcieply.renovationapp.enumerable.EnumContractorType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "contractors")
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class Contractor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Contractor extends BaseEntity {
 
     @NotBlank(message = "First name is mandatory")
     @Size(min=3, max = 100, message = "First name must be between 3 and 100 characters long")
