@@ -24,18 +24,25 @@ public abstract class BaseController<T, ID> {
 
     @PostMapping("/add")
     public ResponseEntity<T> add(@RequestBody T entity) {
+        if(entity == null)
+            throw new IllegalArgumentException("Entity cannot be null");
+
         baseService.add(entity);
         return new ResponseEntity<>(entity, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") ID id) {
+        if(id == null)
+            throw new IllegalArgumentException("Id cannot be null");
         baseService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update")
     public ResponseEntity<T> update(@RequestBody T entity) {
+        if(entity == null)
+            throw new IllegalArgumentException("Entity cannot be null");
         baseService.update(entity);
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }

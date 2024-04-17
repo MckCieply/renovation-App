@@ -4,6 +4,7 @@ import com.mckcieply.core.BaseService;
 import com.mckcieply.renovationapp.contractor.Contractor;
 import com.mckcieply.renovationapp.contractor.ContractorRepository;
 import com.mckcieply.renovationapp.contractor.ContractorService;
+import com.mckcieply.renovationapp.enumerable.EnumContractorType;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -59,6 +60,7 @@ public class ContractorServiceTests extends BaseServiceTests<Contractor, Contrac
                 .email("janedoe@gmail.com")
                 .phone("987654321")
                 .city("Warsaw")
+                .type(EnumContractorType.PRIVATE)
                 .build();
     }
 }

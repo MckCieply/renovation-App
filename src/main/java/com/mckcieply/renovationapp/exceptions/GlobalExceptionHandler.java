@@ -23,4 +23,14 @@ public class GlobalExceptionHandler {
                 ex.getConstraintViolations().stream().map(error -> error.getMessage()).toList()
         );
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionMessage illegalArgumentException(IllegalArgumentException ex) {
+        return new ExceptionMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                Arrays.asList(ex.getMessage())
+        );
+    }
 }

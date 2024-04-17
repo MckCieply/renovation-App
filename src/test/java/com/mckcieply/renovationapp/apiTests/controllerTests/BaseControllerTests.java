@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
@@ -52,6 +51,18 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
     }
 
     @Test
+    public void testGetAll_NoEntities() {
+        // Arrange
+        when(service().getAll()).thenReturn(List.of());
+
+        // Act
+        ResponseEntity<List<T>> response = controller().getAll();
+
+        // Assert
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+    }
+
+    @Test
     public void testAdd() {
         // Arrange
         T entity = createDummyEntity();
@@ -63,6 +74,12 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
         // Assert
         assertEquals(entity, response.getBody());
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+
+    @Test
+    public void testAdd_NullEntity() {
+        assertThrows(IllegalArgumentException.class, () -> controller().add(null));
     }
 
     @Test
@@ -79,6 +96,11 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
     }
 
     @Test
+    public void testDelete_NullId() {
+        assertThrows(IllegalArgumentException.class, () -> controller().delete(null));
+    }
+
+    @Test
     public void testUpdate() {
         // Arrange
         T entity = createDummyEntity();
@@ -90,6 +112,11 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
         // Assert
         assertEquals(entity, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testUpdate_NullEntity() {
+        assertThrows(IllegalArgumentException.class, () -> controller().update(null));
     }
 
 
