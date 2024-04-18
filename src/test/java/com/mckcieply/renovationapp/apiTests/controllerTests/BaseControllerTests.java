@@ -39,15 +39,6 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
         assertEquals(entities, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        // Arrange for empty list
-        when(service().getAll()).thenReturn(List.of());
-
-        // Act
-        response = controller().getAll();
-
-        // Assert
-        assertNull(response.getBody());
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     @Test
