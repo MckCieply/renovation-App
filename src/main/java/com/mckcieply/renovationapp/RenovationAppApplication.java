@@ -1,17 +1,32 @@
 package com.mckcieply.renovationapp;
 
+import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
+import com.mckcieply.renovationapp.auth.user.role.RoleService;
+import com.mckcieply.renovationapp.enumerable.EnumRole;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.security.Key;
 
 @SpringBootApplication
-public class RenovationAppApplication {
+@EnableJpaAuditing
+public class RenovationAppApplication implements CommandLineRunner {
+
+	@Autowired
+	RoleService roleService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RenovationAppApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		roleService.rolesInit();
 	}
 
 

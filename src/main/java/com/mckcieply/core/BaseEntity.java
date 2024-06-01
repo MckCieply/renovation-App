@@ -1,19 +1,21 @@
 package com.mckcieply.core;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
 @SuperBuilder
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+
 public abstract class BaseEntity {
 
     @Id
@@ -24,6 +26,11 @@ public abstract class BaseEntity {
 //    @Size(min=3, max = 100, message = "Name must be between 3 and 100 characters long")
     private String name;
 
-    @Column(name = "created_at")
-    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

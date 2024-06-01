@@ -1,6 +1,6 @@
 package com.mckcieply.renovationapp.auth.user;
 
-import com.mckcieply.renovationapp.enumerable.EnumRole;
+import com.mckcieply.renovationapp.auth.user.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -37,7 +36,7 @@ public class AppUser implements UserDetails {
 
     private String lastName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
 
