@@ -3,7 +3,7 @@ package com.mckcieply.renovationapp.auth;
 
 import com.mckcieply.renovationapp.auth.config.JwtService;
 import com.mckcieply.renovationapp.auth.user.*;
-import com.mckcieply.renovationapp.enumerable.EnumRole;
+import com.mckcieply.renovationapp.auth.user.role.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

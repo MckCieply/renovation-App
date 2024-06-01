@@ -1,6 +1,7 @@
-package com.mckcieply.renovationapp.auth.user;
+package com.mckcieply.renovationapp.auth.user.role;
 
 import com.mckcieply.core.BaseEntity;
+import com.mckcieply.renovationapp.auth.user.AppUser;
 import com.mckcieply.renovationapp.enumerable.EnumRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
