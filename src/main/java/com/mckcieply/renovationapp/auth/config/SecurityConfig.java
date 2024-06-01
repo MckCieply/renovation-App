@@ -26,9 +26,9 @@ public class SecurityConfig {
                 .csrf( csrf -> csrf.disable())                                        // disable Cross Site Request Forgery protection
                 .authorizeHttpRequests( authz ->
                         authz
-                                .requestMatchers("/api/auth/**").permitAll()         // permit all requests to /api/auth/**
-                                .requestMatchers("/api/budget/**").hasRole("ADMIN")  // require ADMIN role for requests to /api/budget/**
-                                .anyRequest().authenticated()                         // require authentication for all other requests
+                                .requestMatchers("/api/auth/**").permitAll()            // permit all requests to /api/auth/**
+                                .requestMatchers("/api/*/delete/**").hasRole("ADMIN")   // require ADMIN role for requests to /api/budget/**
+                                .requestMatchers("/api/**").hasRole("USER")             // require USER role for requests to /api/**
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
