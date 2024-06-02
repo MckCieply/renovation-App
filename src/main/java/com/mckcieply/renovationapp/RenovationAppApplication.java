@@ -2,6 +2,7 @@ package com.mckcieply.renovationapp;
 
 import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
 import com.mckcieply.renovationapp.auth.user.role.RoleService;
+import com.mckcieply.renovationapp.budget.BudgetService;
 import com.mckcieply.renovationapp.enumerable.EnumRole;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class RenovationAppApplication implements CommandLineRunner {
 
 	@Autowired
 	RoleService roleService;
+	
+    @Autowired
+    private BudgetService budgetService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RenovationAppApplication.class, args);
@@ -27,6 +31,7 @@ public class RenovationAppApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		roleService.rolesInit();
+		budgetService.budgetInit();
 	}
 
 

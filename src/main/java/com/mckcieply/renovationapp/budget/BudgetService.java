@@ -17,4 +17,12 @@ public class BudgetService extends BaseService<Budget, Long> {
         return budgetRepository.findAll().get(0);
     }
 
+    public void budgetInit(){
+        if(budgetRepository.findAll().isEmpty()){
+            Budget budget = new Budget();
+            budget.setValue(0);
+            budgetRepository.save(budget);
+        }
+    }
+
 }
