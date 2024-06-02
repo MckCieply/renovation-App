@@ -16,7 +16,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.security.Key;
 
 @SpringBootApplication
-@EnableJpaAuditing
 public class RenovationAppApplication implements CommandLineRunner {
 
 	@Autowired
