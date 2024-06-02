@@ -49,4 +49,21 @@ public class AuthService {
                 .token(jwtToken)
                 .build();
     }
+
+    public void adminInit() {
+        if(appUserRepository.findByUsername("admin") == null) {
+            var admin = AppUser.builder()
+                    .firstName("Admin")
+                    .lastName("Admin")
+                    .username("admin")
+                    .email("adminoo@gmail.com")
+                    .password(passwordEncoder.encode("zaq1@WSX"))
+                    .roles(List.of(
+                            roleRepository.findByName("ADMIN"),
+                            roleRepository.findByName("USER")
+                    ))
+                    .build();
+            appUserRepository.save(admin);
+        }
+    }
 }

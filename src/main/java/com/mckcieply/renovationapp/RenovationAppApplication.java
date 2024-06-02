@@ -1,5 +1,6 @@
 package com.mckcieply.renovationapp;
 
+import com.mckcieply.renovationapp.auth.AuthService;
 import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
 import com.mckcieply.renovationapp.auth.user.role.RoleService;
 import com.mckcieply.renovationapp.budget.BudgetService;
@@ -24,6 +25,9 @@ public class RenovationAppApplication implements CommandLineRunner {
     @Autowired
     private BudgetService budgetService;
 
+	@Autowired
+	AuthService authService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(RenovationAppApplication.class, args);
 	}
@@ -32,6 +36,7 @@ public class RenovationAppApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		roleService.rolesInit();
 		budgetService.budgetInit();
+		authService.adminInit();
 	}
 
 
