@@ -1,5 +1,9 @@
 package com.mckcieply.renovationapp.auth.user;
 
+import com.mckcieply.renovationapp.auth.user.dto.AppUserChangePasswordDTO;
+import com.mckcieply.renovationapp.auth.user.dto.AppUserProfileDTO;
+import com.mckcieply.renovationapp.auth.user.role.Role;
+import com.mckcieply.renovationapp.auth.user.role.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,8 +22,10 @@ public class AppUserService {
     }
 
 
-    public void addRoleToUser(String username, String roleName) {
-        // todo: change static user to dynamic
+    public void updateRoles(String username, List<Role> roles) {
+        AppUser user = appUserRepository.findByUsername(username);
+        user.setRoles(roles);
+        appUserRepository.save(user);
     }
 
     public AppUserProfileDTO getUser(String username) {
@@ -56,6 +62,7 @@ public class AppUserService {
                 .firstName(appUser.getFirstName())
                 .lastName(appUser.getLastName())
                 .email(appUser.getEmail())
+                .roles(appUser.getRoles())
                 .build();
     }
 
@@ -65,6 +72,7 @@ public class AppUserService {
                 .firstName(profileDTO.getFirstName())
                 .lastName(profileDTO.getLastName())
                 .email(profileDTO.getEmail())
+                .roles(profileDTO.getRoles())
                 .build();
     }
 

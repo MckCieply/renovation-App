@@ -3,9 +3,9 @@ package com.mckcieply.renovationapp.auth;
 
 import com.mckcieply.renovationapp.auth.config.JwtService;
 import com.mckcieply.renovationapp.auth.user.*;
-import com.mckcieply.renovationapp.auth.user.role.Role;
+import com.mckcieply.renovationapp.auth.user.dto.AppUserLoginDTO;
+import com.mckcieply.renovationapp.auth.user.dto.AppUserRegisterDTO;
 import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
-import com.mckcieply.renovationapp.auth.user.role.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

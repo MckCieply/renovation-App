@@ -1,4 +1,4 @@
-package com.mckcieply.renovationapp.auth.user;
+package com.mckcieply.renovationapp.auth.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

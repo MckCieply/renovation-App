@@ -1,5 +1,7 @@
 package com.mckcieply.renovationapp.auth.user;
 
+import com.mckcieply.renovationapp.auth.user.dto.AppUserChangePasswordDTO;
+import com.mckcieply.renovationapp.auth.user.dto.AppUserProfileDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
