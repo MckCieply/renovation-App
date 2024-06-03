@@ -13,13 +13,7 @@ export class AdminComponent implements OnInit {
 
   adminService = inject(AdminService)
   ngOnInit() {
-    this.adminService.getAllUsers().subscribe({
-      next: response => {
-        this.users = response
-        console.log(this.users)
-      },
-      error: error => console.error(error)
-    });
+    this.getAllUsers();
   }
 
   getRolesAsString(user: any): string {
@@ -31,6 +25,27 @@ export class AdminComponent implements OnInit {
 
   capitalizeFirstLetter(role: string): string {
     return role.charAt(0).toUpperCase() + role.toLowerCase().slice(1);
+  }
+
+  addAdminPrivileges(user: any) {
+    this.adminService.isAdmin(user, true).subscribe({
+      next: () => this.getAllUsers(),
+      error: error => console.error(error)
+    });
+    }
+
+  removeAdminPrivileges(user: any) {
+    this.adminService.isAdmin(user, false).subscribe({
+      next: () => this.getAllUsers(),
+      error: error => console.error(error)
+    });
+  }
+
+  getAllUsers() {
+    this.adminService.getAllUsers().subscribe({
+      next: (data) => this.users = data,
+      error: (err) => console.error(err)
+    });
   }
 
 }

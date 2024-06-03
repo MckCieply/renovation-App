@@ -14,4 +14,8 @@ export class AdminService {
   getAllUsers() {
     return this.httpClient.get(this.api + '/get-all');
   }
+
+  isAdmin(user: any, admin: any){
+    return this.httpClient.put(this.api + '/update-roles', {user, isAdmin: admin});
+  }
 }

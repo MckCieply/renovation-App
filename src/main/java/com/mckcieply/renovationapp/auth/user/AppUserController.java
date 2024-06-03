@@ -2,7 +2,9 @@ package com.mckcieply.renovationapp.auth.user;
 
 import com.mckcieply.renovationapp.auth.user.dto.AppUserChangePasswordDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserProfileDTO;
+import com.mckcieply.renovationapp.auth.user.dto.AppUserUpdateRolesDTO;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +38,11 @@ public class AppUserController {
         @GetMapping("/get-all")
         public ResponseEntity<List<AppUserProfileDTO>> getAllUsers() {
             return ResponseEntity.ok(appUserService.getAllUsers());
+        }
+
+        @PutMapping("/update-roles")
+        public ResponseEntity<Void> updateRoles(@RequestBody AppUserUpdateRolesDTO payload) {
+            this.appUserService.updateRoles(payload.getUser(), payload.getIsAdmin());
+            return ResponseEntity.ok().build();
         }
 }

@@ -22,10 +22,15 @@ public class AppUserService {
     }
 
 
-    public void updateRoles(String username, List<Role> roles) {
-        AppUser user = appUserRepository.findByUsername(username);
-        user.setRoles(roles);
-        appUserRepository.save(user);
+    public void updateRoles(AppUserProfileDTO user, Boolean admin) {
+        if(admin)
+            // append ADMIN role to user roles
+            user.getRoles().add(Role.builder().name("ADMIN").build());
+        else
+            // remove ADMIN role from user roles
+            user.getRoles().removeIf(role -> role.getName().equals("ADMIN"));
+
+        appUserRepository.save(mapAppUserProfileDTOToAppUser(user));
     }
 
     public AppUserProfileDTO getUser(String username) {
