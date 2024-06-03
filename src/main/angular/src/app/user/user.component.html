@@ -24,6 +24,14 @@
           <input matInput formControlName="email" >
         </mat-form-field>
       </mat-grid-tile>
+
+      <mat-grid-tile>
+        <h2>User roles: {{ getRolesAsString() }}</h2>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="isAdmin">
+        <button mat-raised-button color="warn"> Manage Users </button>
+      </mat-grid-tile>
       <mat-grid-tile colspan="2">
         <button mat-raised-button color="primary" type="submit">Save</button>
       </mat-grid-tile>

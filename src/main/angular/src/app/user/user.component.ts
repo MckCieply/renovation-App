@@ -14,6 +14,7 @@ import {passwordConfirmValidator, passwordStrengthValidator} from "../validators
 })
 export class UserComponent implements OnInit{
   loggedUser: any = {};
+  isAdmin: boolean = false;
   userForm: FormGroup;
   passwordForm: FormGroup;
 
@@ -49,6 +50,7 @@ export class UserComponent implements OnInit{
       next: response => {
         this.loggedUser = response;
         this.userForm.patchValue(response);
+        this.isAdmin = this.loggedUser.roles.some((role: any) => role.name === 'ADMIN');
       },
       error: error => console.error(error)
     });
@@ -78,6 +80,17 @@ export class UserComponent implements OnInit{
         }
       })
     }
+  }
+
+  getRolesAsString(): string {
+    if (this.loggedUser.roles) {
+      return this.loggedUser.roles.map((role: any) => this.capitalizeFirstLetter(role.name)).join(', ');
+    }
+    return '';
+  }
+
+  capitalizeFirstLetter(role: string): string {
+    return role.charAt(0).toUpperCase() + role.toLowerCase().slice(1);
   }
 
 }

@@ -1,5 +1,6 @@
 package com.mckcieply.renovationapp.auth.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mckcieply.renovationapp.auth.user.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class AppUser implements UserDetails {
     private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Role> roles;
 
 

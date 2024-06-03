@@ -1,5 +1,6 @@
 package com.mckcieply.renovationapp.auth.user.role;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mckcieply.core.BaseEntity;
 import com.mckcieply.renovationapp.auth.user.AppUser;
 import com.mckcieply.renovationapp.enumerable.EnumRole;
@@ -22,6 +23,7 @@ import java.util.Set;
 public class Role extends BaseEntity {
 
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set<AppUser> appUsers;
 
     @Override
