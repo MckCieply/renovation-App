@@ -1,11 +1,12 @@
-.logoHolder{
-  display:flex;
+.logoHolder {
+  display: flex;
   align-items: center;
   width: 100%;
   height: var(--mat-toolbar-standard-height);
   background-color: var(--mat-toolbar-container-background-color);
 }
-.logoName{
+
+.logoName {
 
   width: 100%;
   text-align: center;
@@ -14,7 +15,7 @@
   hyphens: manual;
 }
 
-mat-nav-list{
+mat-nav-list {
 
 }
 

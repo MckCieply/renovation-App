@@ -2,30 +2,33 @@ mat-grid-list {
   width: 100%;
   height: 100%;
 }
-mat-grid-tile{
+
+mat-grid-tile {
 }
 
-h1{
+h1 {
   text-align: center;
   padding-top: 2%;
 }
-mat-form-field{
+
+mat-form-field {
   width: 85%;
 }
-button{
+
+button {
   width: 75%;
 }
 
-.passwordStrength{
+.passwordStrength {
   display: flex;
   align-items: center;
 }
 
-.passwordCancel{
+.passwordCancel {
   color: #ff8383;
 }
 
-.passwordCheck{
+.passwordCheck {
   color: #83ff83;
 }
 
@@ -36,7 +39,7 @@ button{
 
 .passwordReq {
   width: 85%;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 

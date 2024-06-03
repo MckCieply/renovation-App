@@ -5,6 +5,7 @@ import {UserService} from "./user.service";
 import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {passwordConfirmValidator, passwordStrengthValidator} from "../validators";
+
 ;
 
 @Component({
@@ -12,7 +13,7 @@ import {passwordConfirmValidator, passwordStrengthValidator} from "../validators
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
   loggedUser: any = {};
   isAdmin: boolean = false;
   userForm: FormGroup;
@@ -30,16 +31,16 @@ export class UserComponent implements OnInit{
       email: [this.loggedUser.email, Validators.required],
     });
     this.passwordForm = this.fb.group({
-      username: this.authService.getUsername(),
-      oldPassword: ['', Validators.required],
-      password: ['', Validators.required],
-      passwordConfirm: ['', Validators.required]
-    }, {
-      validators: [
-        passwordConfirmValidator,
-        passwordStrengthValidator
-      ]
-    }
+        username: this.authService.getUsername(),
+        oldPassword: ['', Validators.required],
+        password: ['', Validators.required],
+        passwordConfirm: ['', Validators.required]
+      }, {
+        validators: [
+          passwordConfirmValidator,
+          passwordStrengthValidator
+        ]
+      }
     );
   }
 
@@ -55,23 +56,22 @@ export class UserComponent implements OnInit{
     });
   }
 
-  onSubmitUser(){
-    if(this.userForm.valid){
+  onSubmitUser() {
+    if (this.userForm.valid) {
       this.userService.updateUser(this.userForm.value).subscribe({
         next: response => {
-          console.log(response)
         },
         error: error => console.error(error)
       });
     }
   }
 
-  onSubmitPassword(){
+  onSubmitPassword() {
     const {passwordConfirm, ...formData} = this.passwordForm.value;
-    if(this.passwordForm.valid){
+    if (this.passwordForm.valid) {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {action: "change password, you will be logged out"}});
       dialogRef.afterClosed().subscribe(result => {
-        if(result) {
+        if (result) {
           this.userService.changePassword(formData).subscribe({
             next: response => this.authService.logout(), // TODO: Success dialog, countdown to logout
             error: error => console.error(error)

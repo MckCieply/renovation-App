@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -8,7 +8,8 @@ export class WorkService {
 
   api = "http://localhost:8080/api/works";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   getAllWorks() {
     return this.httpClient.get(this.api + '/all');

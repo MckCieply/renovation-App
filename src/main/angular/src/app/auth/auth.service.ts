@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -12,26 +12,27 @@ export class AuthService {
   private jwtToken: string | null = null;
 
   constructor(private http: HttpClient,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   login(credentials: Object): Observable<any> {
     return this.http.post<any>(this.api + '/login', credentials);
   }
 
-  register(credentials:Object): Observable<any>{
+  register(credentials: Object): Observable<any> {
     return this.http.post<any>(this.api + '/register', credentials);
   }
 
-  roles(): Observable<any>{
+  roles(): Observable<any> {
     return this.http.get<any>(this.api + '/roles');
   }
 
-  logout(){
+  logout() {
     this.clearToken();
     this.router.navigate(['/Login']);
   }
 
-  authSuccess(username: string){
+  authSuccess(username: string) {
     this.router.navigate(['/Dashboard']);
     this.setUsername(username);
   }
@@ -57,7 +58,7 @@ export class AuthService {
     return this.getToken() != null;
   }
 
-  setUsername(username: string){
+  setUsername(username: string) {
     localStorage.setItem('username', username);
   }
 

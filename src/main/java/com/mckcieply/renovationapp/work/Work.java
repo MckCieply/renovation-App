@@ -5,7 +5,9 @@ import com.mckcieply.renovationapp.enumerable.EnumWorkState;
 import com.mckcieply.renovationapp.room.Room;
 import com.mckcieply.renovationapp.workType.WorkType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Date;

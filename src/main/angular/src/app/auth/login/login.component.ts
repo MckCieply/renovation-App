@@ -24,17 +24,16 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value)
       this.authService.login(this.loginForm.value).subscribe({
         next: response => {
           this.authService.setToken(response.token)
           this.authService.authSuccess(this.loginForm.value.username)
         },
         error: error => {
-          if(error.status === 403 || error.status === 401)
+          if (error.status === 403 || error.status === 401)
             this.invalidCredentials = true;
 
-          if(error.status === 500) {
+          if (error.status === 500) {
             this.serverError = true;
             console.error("Internal server error")
           }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -6,7 +6,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ContractorsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   private api = 'http://localhost:8080/api/contractors';
 

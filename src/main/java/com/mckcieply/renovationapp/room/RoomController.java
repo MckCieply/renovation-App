@@ -1,7 +1,9 @@
 package com.mckcieply.renovationapp.room;
 
 import com.mckcieply.core.BaseController;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/rooms")

@@ -21,7 +21,7 @@
       <mat-grid-tile colspan="2">
         <mat-form-field style="width:92.5%">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" >
+          <input matInput formControlName="email">
         </mat-form-field>
       </mat-grid-tile>
 
@@ -30,12 +30,12 @@
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="isAdmin">
-        <button mat-raised-button color="warn" routerLink="/Admin" type="button"> Manage Users </button>
+        <button mat-raised-button color="warn" routerLink="/Admin" type="button"> Manage Users</button>
       </mat-grid-tile>
       <mat-grid-tile colspan="2">
         <button mat-raised-button color="primary" type="submit">Save</button>
       </mat-grid-tile>
-<!--      TODO: Gotta add success field -->
+      <!--      TODO: Gotta add success field -->
     </mat-grid-list>
   </form>
 
@@ -67,23 +67,39 @@
       <mat-grid-tile id="passwordReqTile">
         <div class="passwordReq">
           <span class="small passwordStrength">
-              <mat-icon *ngIf="passwordForm.get('password')?.hasError('passwordTooShort') || !passwordForm.get('password')?.value" class="passwordCancel">close</mat-icon>
-              <mat-icon *ngIf="!passwordForm.get('password')?.hasError('passwordTooShort') && passwordForm.get('password')?.value" class="passwordCheck">check</mat-icon>
+              <mat-icon
+                *ngIf="passwordForm.get('password')?.hasError('passwordTooShort') || !passwordForm.get('password')?.value"
+                class="passwordCancel">close</mat-icon>
+              <mat-icon
+                *ngIf="!passwordForm.get('password')?.hasError('passwordTooShort') && passwordForm.get('password')?.value"
+                class="passwordCheck">check</mat-icon>
               Password is at least 8 characters long
           </span>
           <span class="small passwordStrength">
-            <mat-icon *ngIf="passwordForm.get('password')?.hasError('passwordNoLowercase') || !passwordForm.get('password')?.value" class="passwordCancel">close</mat-icon>
-            <mat-icon *ngIf="!passwordForm.get('password')?.hasError('passwordNoLowercase') && passwordForm.get('password')?.value" class="passwordCheck">check</mat-icon>
+            <mat-icon
+              *ngIf="passwordForm.get('password')?.hasError('passwordNoLowercase') || !passwordForm.get('password')?.value"
+              class="passwordCancel">close</mat-icon>
+            <mat-icon
+              *ngIf="!passwordForm.get('password')?.hasError('passwordNoLowercase') && passwordForm.get('password')?.value"
+              class="passwordCheck">check</mat-icon>
             Password contains at least one lowercase letter
           </span>
           <span class="small passwordStrength">
-            <mat-icon *ngIf="passwordForm.get('password')?.hasError('passwordNoUppercase') || !passwordForm.get('password')?.value" class="passwordCancel">close</mat-icon>
-            <mat-icon *ngIf="!passwordForm.get('password')?.hasError('passwordNoUppercase') && passwordForm.get('password')?.value" class="passwordCheck">check</mat-icon>
+            <mat-icon
+              *ngIf="passwordForm.get('password')?.hasError('passwordNoUppercase') || !passwordForm.get('password')?.value"
+              class="passwordCancel">close</mat-icon>
+            <mat-icon
+              *ngIf="!passwordForm.get('password')?.hasError('passwordNoUppercase') && passwordForm.get('password')?.value"
+              class="passwordCheck">check</mat-icon>
             Password contains at least one capital letter
           </span>
           <span class="small passwordStrength">
-            <mat-icon *ngIf="passwordForm.get('password')?.hasError('passwordNoNumber') || !passwordForm.get('password')?.value" class="passwordCancel">close</mat-icon>
-            <mat-icon *ngIf="!passwordForm.get('password')?.hasError('passwordNoNumber') && passwordForm.get('password')?.value" class="passwordCheck">check</mat-icon>
+            <mat-icon
+              *ngIf="passwordForm.get('password')?.hasError('passwordNoNumber') || !passwordForm.get('password')?.value"
+              class="passwordCancel">close</mat-icon>
+            <mat-icon
+              *ngIf="!passwordForm.get('password')?.hasError('passwordNoNumber') && passwordForm.get('password')?.value"
+              class="passwordCheck">check</mat-icon>
             Password contains at least one number
           </span>
         </div>

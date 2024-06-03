@@ -1,7 +1,8 @@
 package com.mckcieply.renovationapp.workType;
 
 import com.mckcieply.core.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

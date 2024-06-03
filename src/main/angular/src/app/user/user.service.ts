@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -7,18 +7,19 @@ import {HttpClient} from "@angular/common/http";
 export class UserService {
 
   private api = 'http://localhost:8080/api/user';
-  constructor(private httpClient: HttpClient ) {
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  getUser(username: string){
+  getUser(username: string) {
     return this.httpClient.get(this.api + '/get', {params: {username}});
   }
 
-  updateUser(user: any){
+  updateUser(user: any) {
     return this.httpClient.put(this.api + '/update', user);
   }
 
-  changePassword(user: any){
+  changePassword(user: any) {
     return this.httpClient.put(this.api + '/change-password', user);
   }
 

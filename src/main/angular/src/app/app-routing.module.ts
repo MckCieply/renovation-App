@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {RoomComponent} from "./room/room.component";
 import {WorkComponent} from "./work/work.component";
@@ -15,21 +15,22 @@ import {AdminComponent} from "./admin/admin.component";
 import {adminGuard} from "./auth/guards/admin.guard";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'Login', component: LoginComponent },
-  { path: 'Register', component: RegisterComponent },
-  { path: 'Dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'Work', component: WorkComponent, canActivate: [authGuard] },
-  { path: 'Contractors', component: ContractorsComponent, canActivate: [authGuard] },
-  { path: 'WorkType', component: WorkTypeComponent, canActivate: [authGuard] },
-  { path: 'Room', component: RoomComponent, canActivate: [authGuard] },
-  { path: 'Budget', component: BudgetComponent, canActivate: [authGuard] },
-  { path: 'User', component: UserComponent, canActivate: [authGuard] },
-  { path: 'Admin', component: AdminComponent, canActivate: [adminGuard] }
+  {path: '', component: HomeComponent},
+  {path: 'Login', component: LoginComponent},
+  {path: 'Register', component: RegisterComponent},
+  {path: 'Dashboard', component: DashboardComponent, canActivate: [authGuard]},
+  {path: 'Work', component: WorkComponent, canActivate: [authGuard]},
+  {path: 'Contractors', component: ContractorsComponent, canActivate: [authGuard]},
+  {path: 'WorkType', component: WorkTypeComponent, canActivate: [authGuard]},
+  {path: 'Room', component: RoomComponent, canActivate: [authGuard]},
+  {path: 'Budget', component: BudgetComponent, canActivate: [authGuard]},
+  {path: 'User', component: UserComponent, canActivate: [authGuard]},
+  {path: 'Admin', component: AdminComponent, canActivate: [adminGuard]}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -9,20 +9,21 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styles: ``
 })
 export class WorkTypeDialogComponent {
-    matcher = new ErrorStateMatcher();
-    workTypeForm: FormGroup;
-    constructor(public dialogRef: MatDialogRef<WorkTypeDialogComponent>,
+  matcher = new ErrorStateMatcher();
+  workTypeForm: FormGroup;
+
+  constructor(public dialogRef: MatDialogRef<WorkTypeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-                private fb: FormBuilder) {
+              private fb: FormBuilder) {
     this.workTypeForm = this.fb.group({
       name: [data.name, Validators.required],
-      });
-    }
+    });
+  }
 
-    onSubmit(){
-      if(this.workTypeForm.valid){
-        this.dialogRef.close(this.workTypeForm.value);
-      }
+  onSubmit() {
+    if (this.workTypeForm.valid) {
+      this.dialogRef.close(this.workTypeForm.value);
     }
+  }
 
 }

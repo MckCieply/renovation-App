@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {passwordConfirmValidator, passwordStrengthValidator} from "../../validators";

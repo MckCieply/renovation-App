@@ -1,35 +1,39 @@
-mat-card{
+mat-card {
   width: 400px;
   margin: auto auto 0;
   padding: 20px;
   text-align: center;
 }
-mat-card-header{
+
+mat-card-header {
   padding-bottom: 20px;
 }
-h1{
+
+h1 {
   width: 100%;
   text-align: center;
   margin: 0;
 }
-mat-form-field{
+
+mat-form-field {
   width: 100%;
 }
-.small{
+
+.small {
   font-size: 0.8em;
   color: #a5a5a5;
 }
 
-.passwordStrength{
+.passwordStrength {
   display: flex;
   align-items: center;
 }
 
-.passwordCancel{
+.passwordCancel {
   color: #ff8383;
 }
 
-.passwordCheck{
+.passwordCheck {
   color: #83ff83;
 }
 

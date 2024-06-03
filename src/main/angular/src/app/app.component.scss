@@ -1,16 +1,18 @@
 
-mat-sidenav-container{
+mat-sidenav-container {
   height: 100%;
 }
 
-mat-sidenav{
+mat-sidenav {
   width: 15%;
 }
-mat-toolbar{
-  position:fixed;
-  top:0;
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
   z-index: 5;
 }
-mat-sidenav-content{
+
+mat-sidenav-content {
   padding-top: var(--mat-toolbar-standard-height);
 }

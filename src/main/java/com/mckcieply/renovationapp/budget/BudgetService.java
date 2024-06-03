@@ -13,12 +13,12 @@ public class BudgetService extends BaseService<Budget, Long> {
         this.budgetRepository = budgetRepository;
     }
 
-    public Budget getBudget(){
+    public Budget getBudget() {
         return budgetRepository.findAll().get(0);
     }
 
-    public void budgetInit(){
-        if(budgetRepository.findAll().isEmpty()){
+    public void budgetInit() {
+        if (budgetRepository.findAll().isEmpty()) {
             Budget budget = new Budget();
             budget.setValue(0);
             budgetRepository.save(budget);

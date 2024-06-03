@@ -1,11 +1,13 @@
-<form [formGroup] ="contractorForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="contractorForm" (ngSubmit)="onSubmit()">
   <h2 mat-dialog-title>{{ data.action }}</h2>
   <mat-dialog-content class="mat-typography">
     <mat-tab-group>
       <mat-tab label="Type">
         <mat-radio-group formControlName="type" required>
-          <mat-label>Contractor Type</mat-label><br>
-          <mat-radio-button [value]="'PRIVATE'">Private</mat-radio-button><br>
+          <mat-label>Contractor Type</mat-label>
+          <br>
+          <mat-radio-button [value]="'PRIVATE'">Private</mat-radio-button>
+          <br>
           <mat-radio-button [value]="'COMPANY'">Company</mat-radio-button>
         </mat-radio-group>
       </mat-tab>
@@ -16,7 +18,8 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Last Name" formControlName="lastName" name="lastName">
-        </mat-form-field><br>
+        </mat-form-field>
+        <br>
         <mat-form-field>
           <input matInput placeholder="Email" formControlName="email" name="email">
           <mat-error>It isn't an <strong>email</strong>.</mat-error>
@@ -27,16 +30,20 @@
       </mat-tab>
 
       <mat-tab label="Address" [disabled]="contractorForm.get('type')?.value == null">
-        <mat-label>Address Information</mat-label><br>
+        <mat-label>Address Information</mat-label>
+        <br>
         <mat-form-field>
           <input matInput placeholder="Address" formControlName="address" name="address">
-        </mat-form-field><br>
+        </mat-form-field>
+        <br>
         <mat-form-field>
           <input matInput placeholder="City" formControlName="city" name="city">
         </mat-form-field>
         <mat-form-field>
-          <input matInput [maskito]="postalMask" placeholder="Postal Code" formControlName="postalCode" name="postalCode">
-        </mat-form-field><br>
+          <input matInput [maskito]="postalMask" placeholder="Postal Code" formControlName="postalCode"
+                 name="postalCode">
+        </mat-form-field>
+        <br>
         <mat-form-field>
           <input matInput placeholder="Country" formControlName="country" name="country">
         </mat-form-field>
@@ -44,15 +51,18 @@
 
       <mat-tab label="Banking" [disabled]="contractorForm.get('type')?.value == null">
         <mat-form-field style="width: 100%">
-          <input matInput [maskito]="bankingMask" placeholder="Bank Account" formControlName="bankAccount" name="bankName">
+          <input matInput [maskito]="bankingMask" placeholder="Bank Account" formControlName="bankAccount"
+                 name="bankName">
         </mat-form-field>
       </mat-tab>
 
       <mat-tab label="Company" [disabled]="contractorForm.get('type')?.value != 'COMPANY'">
-        <mat-label>Company Information</mat-label><br>
+        <mat-label>Company Information</mat-label>
+        <br>
         <mat-form-field>
           <input matInput placeholder="Company Name" formControlName="companyName" name="companyName">
-        </mat-form-field><br>
+        </mat-form-field>
+        <br>
         <mat-form-field>
           <input matInput placeholder="NIP" formControlName="nip" name="nip">
         </mat-form-field>

@@ -1,6 +1,5 @@
 package com.mckcieply.renovationapp.auth.config;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +19,14 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .csrf( csrf -> csrf.disable())                                        // disable Cross Site Request Forgery protection
-                .authorizeHttpRequests( authz ->
+                .csrf(csrf -> csrf.disable())                                        // disable Cross Site Request Forgery protection
+                .authorizeHttpRequests(authz ->
                         authz
                                 .requestMatchers("/api/auth/**").permitAll()            // permit all requests to /api/auth/**
-                                .requestMatchers("/api/*/delete/**").hasRole("ADMIN")   // require ADMIN role for requests to /api/budget/**
+                                .requestMatchers("/api/*/delete/**").hasRole("ADMIN")   // require ADMIN role for delete requests
                                 .requestMatchers("/api/**").hasRole("USER")             // require USER role for requests to /api/**
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->

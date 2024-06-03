@@ -16,10 +16,10 @@ public class ContractorService extends BaseService<Contractor, Long> {
     }
 
     @Override
-    public List<Contractor> getAll(){
+    public List<Contractor> getAll() {
         List<Contractor> contractors = contractorRepository.findAll();
-        for(Contractor contractor : contractors)
-            if(!contractor.getFirstName().isEmpty() && !contractor.getLastName().isEmpty())
+        for (Contractor contractor : contractors)
+            if (!contractor.getFirstName().isEmpty() && !contractor.getLastName().isEmpty())
                 contractor.setFullName(contractor.getFirstName() + " " + contractor.getLastName());
         return contractors;
     }

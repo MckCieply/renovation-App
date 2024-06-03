@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -7,7 +7,9 @@ import {HttpClient} from "@angular/common/http";
 export class WorkTypeService {
 
   private api = 'http://localhost:8080/api/work-types';
-  constructor(private httpClient: HttpClient) { }
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   getAllTypes() {
     return this.httpClient.get(this.api + '/all');

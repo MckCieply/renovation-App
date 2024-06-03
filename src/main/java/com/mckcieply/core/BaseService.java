@@ -11,7 +11,6 @@ public abstract class BaseService<T, ID> {
     }
 
 
-
     public List<T> getAll() {
         return repository.findAll();
     }

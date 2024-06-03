@@ -10,35 +10,36 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   templateUrl: './work-dialog.component.html',
   styles: ``
 })
-export class WorkDialogComponent implements OnInit{
+export class WorkDialogComponent implements OnInit {
   workForm: FormGroup;
   rooms: any;
   status: any;
   workTypes: any;
-  roomService= inject(RoomService);
+  roomService = inject(RoomService);
   workService = inject(WorkService);
   workTypeService = inject(WorkTypeService);
+
   constructor(public dialogRef: MatDialogRef<WorkDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private fb: FormBuilder){
+              private fb: FormBuilder) {
     this.workForm = this.fb.group({
-        description: [data.description],
-        estMaterialCost: [data.estMaterialCost],
-        estLaborCost: [data.estLaborCost],
-        finalMaterialCost: [data.finalMaterialCost],
-        finalLaborCost: [data.finalLaborCost],
-        state: [data.state, Validators.required],
-        paid: [data.paid],
-        startDate: [data.startDate],
-        endDate: [data.endDate],
-        room: [data.room, Validators.required],
-        workType: [data.workType, Validators.required]
+      description: [data.description],
+      estMaterialCost: [data.estMaterialCost],
+      estLaborCost: [data.estLaborCost],
+      finalMaterialCost: [data.finalMaterialCost],
+      finalLaborCost: [data.finalLaborCost],
+      state: [data.state, Validators.required],
+      paid: [data.paid],
+      startDate: [data.startDate],
+      endDate: [data.endDate],
+      room: [data.room, Validators.required],
+      workType: [data.workType, Validators.required]
     });
 
   }
 
-  onSubmit(){
-    if(this.workForm.valid){
+  onSubmit() {
+    if (this.workForm.valid) {
       this.dialogRef.close(this.workForm.value);
     }
   }

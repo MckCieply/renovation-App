@@ -24,7 +24,7 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotBlank(message = "Name is mandatory")
+    //    @NotBlank(message = "Name is mandatory")
 //    @Size(min=3, max = 100, message = "Name must be between 3 and 100 characters long")
     private String name;
 

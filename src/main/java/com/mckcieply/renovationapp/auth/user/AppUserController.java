@@ -4,7 +4,6 @@ import com.mckcieply.renovationapp.auth.user.dto.AppUserChangePasswordDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserProfileDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserUpdateRolesDTO;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,33 +15,33 @@ import java.util.List;
 @AllArgsConstructor
 public class AppUserController {
 
-        private final AppUserService appUserService;
+    private final AppUserService appUserService;
 
-        @GetMapping("/get")
-        public ResponseEntity<AppUserProfileDTO> getUser(@RequestParam String username) {
-            return ResponseEntity.ok(appUserService.getUser(username));
-        }
+    @GetMapping("/get")
+    public ResponseEntity<AppUserProfileDTO> getUser(@RequestParam String username) {
+        return ResponseEntity.ok(appUserService.getUser(username));
+    }
 
-        @PutMapping("/update")
-        public ResponseEntity<Void> updateUser(@RequestBody AppUserProfileDTO profileDTO) {
-            this.appUserService.updateUser(profileDTO);
-            return ResponseEntity.ok().build();
-        }
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateUser(@RequestBody AppUserProfileDTO profileDTO) {
+        this.appUserService.updateUser(profileDTO);
+        return ResponseEntity.ok().build();
+    }
 
-        @PutMapping("/change-password")
-        public ResponseEntity<Void> changePassword(@RequestBody AppUserChangePasswordDTO changePasswordDTO) {
-            this.appUserService.changePassword(changePasswordDTO);
-            return ResponseEntity.ok().build();
-        }
+    @PutMapping("/change-password")
+    public ResponseEntity<Void> changePassword(@RequestBody AppUserChangePasswordDTO changePasswordDTO) {
+        this.appUserService.changePassword(changePasswordDTO);
+        return ResponseEntity.ok().build();
+    }
 
-        @GetMapping("/get-all")
-        public ResponseEntity<List<AppUserProfileDTO>> getAllUsers() {
-            return ResponseEntity.ok(appUserService.getAllUsers());
-        }
+    @GetMapping("/get-all")
+    public ResponseEntity<List<AppUserProfileDTO>> getAllUsers() {
+        return ResponseEntity.ok(appUserService.getAllUsers());
+    }
 
-        @PutMapping("/update-roles")
-        public ResponseEntity<Void> updateRoles(@RequestBody AppUserUpdateRolesDTO payload) {
-            this.appUserService.updateRoles(payload.getUser(), payload.getIsAdmin());
-            return ResponseEntity.ok().build();
-        }
+    @PutMapping("/update-roles")
+    public ResponseEntity<Void> updateRoles(@RequestBody AppUserUpdateRolesDTO payload) {
+        this.appUserService.updateRoles(payload.getUser(), payload.getIsAdmin());
+        return ResponseEntity.ok().build();
+    }
 }

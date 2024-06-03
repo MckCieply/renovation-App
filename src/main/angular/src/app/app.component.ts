@@ -1,5 +1,4 @@
 import {Component, inject} from '@angular/core';
-import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "./auth/auth.service";
 
 @Component({

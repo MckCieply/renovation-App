@@ -6,19 +6,22 @@
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" [errorStateMatcher]="matcher">
       <mat-error>Name is <strong>required</strong></mat-error>
-    </mat-form-field><br>
+    </mat-form-field>
+    <br>
 
     <mat-form-field>
       <mat-label>Planned Budget</mat-label>
-      <input matInput formControlName="budgetPlanned" type="number" class="example-right-align" placeholder="0" [errorStateMatcher]="matcher">
+      <input matInput formControlName="budgetPlanned" type="number" class="example-right-align" placeholder="0"
+             [errorStateMatcher]="matcher">
       <span matTextSuffix> PLN</span>
       <mat-error>Planned Budget is <strong>required</strong></mat-error>
-    </mat-form-field> <br>
+    </mat-form-field>
+    <br>
 
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit" >{{ data.action }}</button>
+    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
   </mat-dialog-actions>
 </form>

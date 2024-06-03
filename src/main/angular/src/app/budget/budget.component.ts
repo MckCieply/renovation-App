@@ -1,6 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {RoomService} from "../room/room.service";
 import {BudgetService} from "./budget.service";
 
 @Component({
@@ -8,14 +6,16 @@ import {BudgetService} from "./budget.service";
   templateUrl: './budget.component.html',
   styleUrl: './budget.component.scss'
 })
-export class BudgetComponent implements OnInit{
+export class BudgetComponent implements OnInit {
 
   budget: any;
 
   budgetService = inject(BudgetService)
+
   constructor() {
   }
-  updateBudget(budget: any){
+
+  updateBudget(budget: any) {
     this.budgetService.updateBudget(budget).subscribe({
       next: (data) => this.budget = data,
       error: (err) => console.error(err)

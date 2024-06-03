@@ -3,7 +3,6 @@ package com.mckcieply.renovationapp.auth.user;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserChangePasswordDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserProfileDTO;
 import com.mckcieply.renovationapp.auth.user.role.Role;
-import com.mckcieply.renovationapp.auth.user.role.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class AppUserService {
 
 
     public void updateRoles(AppUserProfileDTO user, Boolean admin) {
-        if(admin)
+        if (admin)
             // append ADMIN role to user roles
             user.getRoles().add(Role.builder().name("ADMIN").build());
         else
@@ -54,11 +53,10 @@ public class AppUserService {
             throw new IllegalArgumentException("User not found");
 
 
-        if(passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
+        if (passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(changePasswordDTO.getPassword()));
             appUserRepository.save(user);
-        }
-        else
+        } else
             throw new IllegalArgumentException("Incorrect Password");
 
     }

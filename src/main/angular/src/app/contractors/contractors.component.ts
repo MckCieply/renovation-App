@@ -9,12 +9,14 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
   templateUrl: './contractors.component.html',
   styleUrl: './contractors.component.scss'
 })
-export class ContractorsComponent implements OnInit{
+export class ContractorsComponent implements OnInit {
   contractors: any;
   tableColumns = ['fullName', 'type', 'email', 'phone', 'actions'];
 
   contractorsService = inject(ContractorsService);
-  constructor(public dialog: MatDialog) {}
+
+  constructor(public dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.contractorsService.getAllContractors().subscribe({
@@ -23,28 +25,27 @@ export class ContractorsComponent implements OnInit{
     });
   }
 
-  createForm(){
+  createForm() {
     const dialogRef = this.dialog.open(ContractorDialogComponent, {
-      data: { action: "Add" }
+      data: {action: "Add"}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      if(result)
+      if (result)
         this.contractorsService.addContractor(result).subscribe({
           next: (data) => this.contractors = [...this.contractors, data],
           error: (err) => console.error(err)
-      });
+        });
     });
   }
 
-  editForm(contractor:any){
+  editForm(contractor: any) {
     const dialogRef = this.dialog.open(ContractorDialogComponent, {
-      data: {...contractor, action: 'Edit' }
+      data: {...contractor, action: 'Edit'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.contractorsService.updateContractor(result).subscribe({
           next: (data) => {
             this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id);
@@ -56,11 +57,11 @@ export class ContractorsComponent implements OnInit{
     });
   }
 
-  removeForm(contractor:any){
+  removeForm(contractor: any) {
     const dialogRef = this.dialog.open(RemoveDialogComponent)
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.contractorsService.deleteContractor(contractor).subscribe({
           next: (data) => this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id),
           error: (err) => console.error(err)

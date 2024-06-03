@@ -9,13 +9,14 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
   templateUrl: './work.component.html',
   styleUrl: './work.component.scss'
 })
-export class WorkComponent implements OnInit{
+export class WorkComponent implements OnInit {
   tableColumns = ['type', 'createdAt', 'room', 'paid', 'actions'];
   works: any;
 
   worksService = inject(WorkService)
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.worksService.getAllWorks().subscribe({
@@ -24,17 +25,17 @@ export class WorkComponent implements OnInit{
     });
   }
 
-  createForm(){
+  createForm() {
     const dialogRef = this.dialog.open(WorkDialogComponent, {
-      data: { action: 'Add' }
+      data: {action: 'Add'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
+      if (result)
         this.worksService.addWork(result).subscribe({
           next: (data) => this.works = [...this.works, data],
           error: (err) => console.error(err)
-      });
+        });
     });
   }
 
@@ -44,9 +45,9 @@ export class WorkComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.worksService.updateWork(result).subscribe({
-          next: (data)  => {
+          next: (data) => {
             this.works = this.works.filter((r: { id: any; }) => r.id !== work.id);
             this.works.push(data);
           },
@@ -56,11 +57,11 @@ export class WorkComponent implements OnInit{
     });
   }
 
-  removeForm(work: any){
+  removeForm(work: any) {
     const dialogRef = this.dialog.open(RemoveDialogComponent)
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.worksService.deleteWork(work).subscribe({
           next: (data) => this.works = this.works.filter((w: { id: any; }) => w.id !== work.id),
           error: (err) => console.error(err)

@@ -1,5 +1,5 @@
 <form [formGroup]="workForm" (ngSubmit)="onSubmit()">
-  <h2 mat-dialog-title>{{data.action}}</h2>
+  <h2 mat-dialog-title>{{ data.action }}</h2>
   <mat-dialog-content class="mat-typography">
     <mat-tab-group>
 
@@ -11,21 +11,21 @@
         <mat-form-field>
           <mat-label>Room</mat-label>
           <mat-select formControlName="room">
-            <mat-option *ngFor="let room of rooms" [value]="room">{{room.name}}</mat-option>
+            <mat-option *ngFor="let room of rooms" [value]="room">{{ room.name }}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field>
           <mat-label>Work Type</mat-label>
           <mat-select formControlName="workType">
-            <mat-option *ngFor="let type of workTypes" [value]="type">{{type.name}}</mat-option>
+            <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Status</mat-label>
           <mat-select formControlName="state">
-            <mat-option *ngFor="let element of status" [value]="element">{{element}}</mat-option>
+            <mat-option *ngFor="let element of status" [value]="element">{{ element }}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>

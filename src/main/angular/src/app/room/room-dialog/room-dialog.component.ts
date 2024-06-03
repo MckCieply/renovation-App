@@ -11,6 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class RoomDialogComponent {
   matcher = new ErrorStateMatcher();
   roomForm: FormGroup;
+
   constructor(public dialogRef: MatDialogRef<RoomDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder) {
@@ -21,8 +22,8 @@ export class RoomDialogComponent {
     });
   }
 
-  onSubmit(){
-    if(this.roomForm.valid){
+  onSubmit() {
+    if (this.roomForm.valid) {
       this.dialogRef.close(this.roomForm.value);
     }
   }

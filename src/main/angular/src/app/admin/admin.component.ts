@@ -1,5 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {UserService} from "../user/user.service";
 import {AdminService} from "./admin.service";
 
 @Component({
@@ -12,6 +11,7 @@ export class AdminComponent implements OnInit {
   tableColumns = ['username', 'firstName', 'lastName', 'roles', 'actions'];
 
   adminService = inject(AdminService)
+
   ngOnInit() {
     this.getAllUsers();
   }
@@ -32,7 +32,7 @@ export class AdminComponent implements OnInit {
       next: () => this.getAllUsers(),
       error: error => console.error(error)
     });
-    }
+  }
 
   removeAdminPrivileges(user: any) {
     this.adminService.isAdmin(user, false).subscribe({

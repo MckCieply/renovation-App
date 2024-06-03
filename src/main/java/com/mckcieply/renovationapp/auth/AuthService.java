@@ -2,7 +2,8 @@ package com.mckcieply.renovationapp.auth;
 
 
 import com.mckcieply.renovationapp.auth.config.JwtService;
-import com.mckcieply.renovationapp.auth.user.*;
+import com.mckcieply.renovationapp.auth.user.AppUser;
+import com.mckcieply.renovationapp.auth.user.AppUserRepository;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserLoginDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserRegisterDTO;
 import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
@@ -27,6 +28,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final RoleRepository roleRepository;
+
     public AuthResponse register(AppUserRegisterDTO appUserRegisterDTO) {
         var user = AppUser.builder()
                 .firstName(appUserRegisterDTO.getFirstName())
@@ -55,7 +57,7 @@ public class AuthService {
     }
 
     public void adminInit() {
-        if(appUserRepository.findByUsername("admin") == null) {
+        if (appUserRepository.findByUsername("admin") == null) {
             var admin = AppUser.builder()
                     .firstName("Admin")
                     .lastName("Admin")
