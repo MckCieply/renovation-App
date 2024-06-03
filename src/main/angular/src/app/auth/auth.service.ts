@@ -22,6 +22,10 @@ export class AuthService {
     return this.http.post<any>(this.api + '/register', credentials);
   }
 
+  roles(): Observable<any>{
+    return this.http.get<any>(this.api + '/roles');
+  }
+
   logout(){
     this.clearToken();
     this.router.navigate(['/Login']);

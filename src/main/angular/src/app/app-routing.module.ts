@@ -12,6 +12,7 @@ import {authGuard} from "./auth/guards/auth.guard";
 import {UserComponent} from "./user/user.component";
 import {HomeComponent} from "./home/home.component";
 import {AdminComponent} from "./admin/admin.component";
+import {adminGuard} from "./auth/guards/admin.guard";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'Room', component: RoomComponent, canActivate: [authGuard] },
   { path: 'Budget', component: BudgetComponent, canActivate: [authGuard] },
   { path: 'User', component: UserComponent, canActivate: [authGuard] },
-  { path: 'Admin', component: AdminComponent }
+  { path: 'Admin', component: AdminComponent, canActivate: [adminGuard] }
 ];
 
 @NgModule({
