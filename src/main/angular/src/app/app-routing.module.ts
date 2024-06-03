@@ -11,6 +11,7 @@ import {RegisterComponent} from "./auth/register/register.component";
 import {authGuard} from "./auth/guards/auth.guard";
 import {UserComponent} from "./user/user.component";
 import {HomeComponent} from "./home/home.component";
+import {AdminComponent} from "./admin/admin.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'WorkType', component: WorkTypeComponent, canActivate: [authGuard] },
   { path: 'Room', component: RoomComponent, canActivate: [authGuard] },
   { path: 'Budget', component: BudgetComponent, canActivate: [authGuard] },
-  {path: 'User', component: UserComponent, canActivate: [authGuard] },
+  { path: 'User', component: UserComponent, canActivate: [authGuard] },
+  { path: 'Admin', component: AdminComponent }
 ];
 
 @NgModule({

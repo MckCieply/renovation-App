@@ -32,8 +32,10 @@ public class AppUserService {
         return mapAppUserToAppUserProfileDTO(appUserRepository.findByUsername(username));
     }
 
-    public List<AppUser> getAllUsers() {
-        return appUserRepository.findAll();
+    public List<AppUserProfileDTO> getAllUsers() {
+        return appUserRepository.findAll().stream()
+                .map(user -> mapAppUserToAppUserProfileDTO(user))
+                .toList();
     }
 
     public void updateUser(AppUserProfileDTO profileDTO) {

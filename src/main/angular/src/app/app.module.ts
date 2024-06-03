@@ -68,6 +68,7 @@ import {InterceptorService} from "./auth/interceptor.service";
 import { UserComponent } from './user/user.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { HomeComponent } from './home/home.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { HomeComponent } from './home/home.component';
     UserComponent,
     ConfirmDialogComponent,
     HomeComponent,
+    AdminComponent,
   ],
     imports: [
         BrowserModule,

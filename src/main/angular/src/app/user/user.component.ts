@@ -45,7 +45,6 @@ export class UserComponent implements OnInit{
 
   ngOnInit() {
     const username = this.authService.getUsername() || '';
-    console.log(username)
     this.userService.getUser(username).subscribe({
       next: response => {
         this.loggedUser = response;

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/user")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -29,5 +31,10 @@ public class AppUserController {
         public ResponseEntity<Void> changePassword(@RequestBody AppUserChangePasswordDTO changePasswordDTO) {
             this.appUserService.changePassword(changePasswordDTO);
             return ResponseEntity.ok().build();
+        }
+
+        @GetMapping("/get-all")
+        public ResponseEntity<List<AppUserProfileDTO>> getAllUsers() {
+            return ResponseEntity.ok(appUserService.getAllUsers());
         }
 }
