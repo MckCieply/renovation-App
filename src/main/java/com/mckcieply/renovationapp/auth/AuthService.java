@@ -19,6 +19,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for handling authentication-related operations.
+ *
+ * <p>This service manages user registration, login, role initialization, and retrieval of user roles.</p>
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -29,6 +34,12 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final RoleRepository roleRepository;
 
+    /**
+     * Registers a new user and returns a JWT token.
+     *
+     * @param appUserRegisterDTO the user registration details.
+     * @return an AuthResponse containing the generated JWT token.
+     */
     public AuthResponse register(AppUserRegisterDTO appUserRegisterDTO) {
         var user = AppUser.builder()
                 .firstName(appUserRegisterDTO.getFirstName())
@@ -46,6 +57,12 @@ public class AuthService {
                 .build();
     }
 
+    /**
+     * Authenticates a user and returns a JWT token.
+     *
+     * @param appUserLoginDTO the user login details.
+     * @return an AuthResponse containing the generated JWT token.
+     */
     public AuthResponse login(AppUserLoginDTO appUserLoginDTO) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUserLoginDTO.getUsername(), appUserLoginDTO.getPassword()));
 
@@ -56,6 +73,10 @@ public class AuthService {
                 .build();
     }
 
+    /**
+     * Initializes the admin user if it doesn't already exist.
+     * DISABLE ON PRODUCTION!
+     */
     public void adminInit() {
         if (appUserRepository.findByUsername("admin") == null) {
             var admin = AppUser.builder()
@@ -73,6 +94,11 @@ public class AuthService {
         }
     }
 
+    /**
+     * Retrieves the roles of the currently authenticated user.
+     *
+     * @return a list of role names associated with the authenticated user.
+     */
     public List<String> getUserRoles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
