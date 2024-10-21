@@ -15,6 +15,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a user in the application, implementing Spring Security's UserDetails.
+ *
+ * This entity holds user information including credentials and roles, serving as the
+ * main entity for user-related operations and data transfer.
+ */
 @Entity
 @Table(name = "app_user")
 @Data
@@ -41,7 +47,11 @@ public class AppUser implements UserDetails {
     @JsonManagedReference
     private List<Role> roles;
 
-
+    /**
+     * Returns the user's granted authorities based on their roles.
+     *
+     * @return a collection of granted authorities.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()

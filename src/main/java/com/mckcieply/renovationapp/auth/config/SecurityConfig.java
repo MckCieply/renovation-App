@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz ->
                         authz
                                 .requestMatchers("/api/auth/**").permitAll()            // permit all requests to /api/auth/**
-                                .requestMatchers("/api/*/delete/**").hasRole("ADMIN")   // require ADMIN role for delete requests
+                                .requestMatchers("/api/user/get-all").hasRole("ADMIN") // require ADMIN role for get-all requests
+                                .requestMatchers("/api/user/update-roles").hasRole("ADMIN") // require ADMIN role for update-roles requests
                                 .requestMatchers("/api/**").hasRole("USER")             // require USER role for requests to /api/**
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->

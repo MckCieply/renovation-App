@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * DTO for changing a user's password.
+ */
 @Data
 @Builder
 @AllArgsConstructor

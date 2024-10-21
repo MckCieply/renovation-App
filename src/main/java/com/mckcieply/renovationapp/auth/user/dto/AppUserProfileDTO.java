@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO for user profile information.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

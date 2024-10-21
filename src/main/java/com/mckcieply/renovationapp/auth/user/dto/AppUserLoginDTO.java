@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-// DAO for AppUser for login
-
+/**
+ * DTO for user login information.
+ */
 @Data
 @Builder
 @AllArgsConstructor
