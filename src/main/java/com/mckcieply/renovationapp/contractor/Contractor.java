@@ -11,6 +11,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * Represents a contractor entity with details for private individuals or companies.
+ * Inherits common attributes from BaseEntity.
+ */
 @Entity
 @Table(name = "contractors")
 @Data

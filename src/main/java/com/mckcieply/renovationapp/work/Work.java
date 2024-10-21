@@ -12,6 +12,10 @@ import lombok.experimental.SuperBuilder;
 
 import java.sql.Date;
 
+/**
+ * Represents a work entity with details for renovation.
+ * Inherits common attributes from BaseEntity.
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

@@ -3,6 +3,9 @@ package com.mckcieply.renovationapp.budget;
 import jakarta.persistence.*;
 import lombok.Data;
 
+/**
+ * Represents a budget entry with a unique identifier and a monetary value.
+ */
 @Data
 @Entity
 @Table(name = "budget")

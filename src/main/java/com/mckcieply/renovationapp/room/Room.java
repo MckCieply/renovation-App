@@ -9,6 +9,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * Represents a room entity with details for renovation.
+ * Inherits common attributes from BaseEntity.
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

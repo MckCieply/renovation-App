@@ -8,6 +8,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * Represents a work type entity with details for renovation.
+ * Inherits common attributes from BaseEntity.
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity

@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for managing works in the renovation application.
+ * Provides RESTful endpoints for work-related operations.
+ * Extends the BaseController to inherit common CRUD functionalities.
+ */
 @RestController
 @RequestMapping("api/works")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -21,7 +26,11 @@ public class WorkController extends BaseController<Work, Long> {
         this.workService = workService;
     }
 
-
+    /**
+     * Retrieves all possible work states.
+     *
+     * @return a ResponseEntity containing an array of EnumWorkState values
+     */
     @GetMapping("/getEnumWorkState")
     public ResponseEntity<EnumWorkState[]> getEnumWorkState() {
         return new ResponseEntity<>(EnumWorkState.values(), HttpStatus.OK);

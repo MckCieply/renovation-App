@@ -5,6 +5,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class for managing contractors in the renovation application.
+ * Provides methods for contractor operations such as retrieval and processing.
+ * Extends BaseService to inherit common CRUD functionalities.
+ */
 @Service
 public class ContractorService extends BaseService<Contractor, Long> {
 
@@ -15,6 +20,11 @@ public class ContractorService extends BaseService<Contractor, Long> {
         this.contractorRepository = contractorRepository;
     }
 
+    /**
+     * Retrieves all contractors, setting their full names if both first and last names are provided.
+     *
+     * @return a list of contractors with their full names populated
+     */
     @Override
     public List<Contractor> getAll() {
         List<Contractor> contractors = contractorRepository.findAll();

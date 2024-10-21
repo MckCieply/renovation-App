@@ -3,6 +3,10 @@ package com.mckcieply.renovationapp.budget;
 import com.mckcieply.core.BaseService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for managing budget-related operations.
+ * Extends BaseService to inherit common CRUD functionalities.
+ */
 @Service
 public class BudgetService extends BaseService<Budget, Long> {
 
@@ -13,10 +17,19 @@ public class BudgetService extends BaseService<Budget, Long> {
         this.budgetRepository = budgetRepository;
     }
 
+    /**
+     * Retrieves the current budget.
+     *
+     * @return the first Budget in the repository
+     */
     public Budget getBudget() {
         return budgetRepository.findAll().get(0);
     }
 
+    /**
+     * Initializes the budget if none exists.
+     * Creates a new Budget with a value of 0.
+     */
     public void budgetInit() {
         if (budgetRepository.findAll().isEmpty()) {
             Budget budget = new Budget();
