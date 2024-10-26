@@ -18,4 +18,8 @@ public class RoomService extends BaseService<Room, Long> {
         this.roomRepository = roomRepository;
     }
 
+    @Override
+    protected Class<Room> getEntityClass() {
+        return Room.class;
+    }
 }

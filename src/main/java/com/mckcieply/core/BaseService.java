@@ -1,6 +1,16 @@
 package com.mckcieply.core;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Abstract base service that provides common CRUD operations for any entity type.
@@ -13,6 +23,9 @@ import java.util.List;
 public abstract class BaseService<T, ID> {
 
     private final BaseRepository<T, ID> repository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * Constructs a new BaseService with the provided repository.
@@ -61,4 +74,39 @@ public abstract class BaseService<T, ID> {
     public T update(T entity) {
         return repository.save(entity);
     }
+
+    /**
+     * Retrieves entities with optional filters applied.
+     *
+     * @param days (Optional) number of days to filter by creation date
+     * @param name (Optional) name filter
+     * @return a list of filtered entities
+     */
+    public List<T> getFiltered(Integer days, String name) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = cb.createQuery(getEntityClass());
+        Root<T> root = query.from(getEntityClass());
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        // Apply creation date filter if `days` is present
+       Optional.ofNullable(days).ifPresent(d -> {
+            LocalDateTime fromDate = LocalDateTime.now().minusDays(d);
+            predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"), fromDate));
+        });
+
+        // Apply name filter if `name` is present
+        Optional.ofNullable(name).ifPresent(n -> {
+            predicates.add(cb.like(cb.lower(root.get("name")), "%" + n.toLowerCase() + "%"));
+        });
+
+        query.where(cb.and(predicates.toArray(new Predicate[0])));
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    /**
+     * Helper method to get the class of the entity.
+     * Override in subclasses to return the appropriate entity class.
+     */
+    protected abstract Class<T> getEntityClass();
 }

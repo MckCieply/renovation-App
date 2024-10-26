@@ -17,4 +17,9 @@ public class WorkService extends BaseService<Work, Long> {
         super(workRepository);
         this.workRepository = workRepository;
     }
+
+    @Override
+    protected Class<Work> getEntityClass() {
+        return Work.class;
+    }
 }
