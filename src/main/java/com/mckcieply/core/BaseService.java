@@ -77,9 +77,11 @@ public abstract class BaseService<T, ID> {
      * @param daysCreated (Optional) number of days to filter by creation date
      * @param daysUpdated (Optional) number of days to filter by updated date
      * @param name (Optional) name filter
+     * @param createdBy (Optional) user who created the entity
+     * @param updatedBy (Optional) user who last updated the entity
      * @return a list of filtered entities
      */
-    public List<T> getFiltered(Integer daysCreated, Integer daysUpdated, String name) {
+    public List<T> getFiltered(Integer daysCreated, Integer daysUpdated, String name, String createdBy, String updatedBy) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> query = cb.createQuery(getEntityClass());
         Root<T> root = query.from(getEntityClass());
@@ -93,7 +95,13 @@ public abstract class BaseService<T, ID> {
             addDatePredicate(predicates, daysUpdated, root.get("updatedAt"), cb);
 
         if (name != null)
-            predicates.add(cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+            addStringPredicate(predicates, name, root.get("name"), cb);
+
+        if (createdBy != null)
+            addStringPredicate(predicates, createdBy, root.get("createdBy"), cb);
+
+        if (updatedBy != null)
+            addStringPredicate(predicates, updatedBy, root.get("updatedBy"), cb);
 
 
         query.where(cb.and(predicates.toArray(new Predicate[0])));
@@ -109,10 +117,20 @@ public abstract class BaseService<T, ID> {
      * @param cb            the CriteriaBuilder instance
      */
     private void addDatePredicate(List<Predicate> predicates, Integer days, Path<LocalDateTime> dateField, CriteriaBuilder cb) {
-        if (days != null) {
             LocalDateTime fromDate = LocalDateTime.now().minusDays(days);
             predicates.add(cb.greaterThanOrEqualTo(dateField, fromDate));
-        }
+    }
+
+    /**
+     * Helper method to add string predicates to the list of predicates.
+     *
+     * @param predicates     the list of predicates to which the new predicate will be added
+     * @param value         the string value to filter
+     * @param stringField   the string field to apply the predicate on
+     * @param cb            the CriteriaBuilder instance
+     */
+    private void addStringPredicate(List<Predicate> predicates, String value, Path<String> stringField, CriteriaBuilder cb) {
+            predicates.add(cb.like(cb.lower(stringField), "%" + value.toLowerCase() + "%"));
     }
 
     /**
