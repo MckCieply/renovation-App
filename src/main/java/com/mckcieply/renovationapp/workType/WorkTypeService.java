@@ -18,4 +18,8 @@ public class WorkTypeService extends BaseService<WorkType, Long> {
         this.workTypeRepository = workTypeRepository;
     }
 
+    @Override
+    protected Class<WorkType> getEntityClass() {
+        return WorkType.class;
+    }
 }

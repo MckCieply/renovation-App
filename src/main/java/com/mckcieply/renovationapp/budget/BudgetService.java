@@ -38,4 +38,8 @@ public class BudgetService extends BaseService<Budget, Long> {
         }
     }
 
+    @Override
+    protected Class<Budget> getEntityClass() {
+        return Budget.class;
+    }
 }

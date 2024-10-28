@@ -80,4 +80,28 @@ public abstract class BaseController<T, ID> {
         baseService.update(entity);
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }
+
+    /**
+     * Retrieves all entities or filtered entities based on optional query parameters.
+     *
+     * @param daysCreated (Optional) Number of days to filter by creation date
+     * @param daysUpdated (Optional) Number of days to filter by updated date
+     * @param name (Optional) Name filter
+     * @param createdBy (Optional) User who created the entity
+     * @param updatedBy (Optional) User who last updated the entity
+     * @return a ResponseEntity containing the filtered list of entities
+     */
+    @GetMapping("/filtered")
+    public ResponseEntity<List<T>> getFiltered(
+            @RequestParam(required = false) Integer daysCreated,
+            @RequestParam(required = false) Integer daysUpdated,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String createdBy,
+            @RequestParam(required = false) String updatedBy
+            ) {
+        List<T> entities = baseService.getFiltered(daysCreated, daysUpdated, name, createdBy, updatedBy);
+        if (entities.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
 }

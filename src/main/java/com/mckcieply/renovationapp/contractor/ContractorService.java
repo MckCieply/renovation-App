@@ -20,6 +20,11 @@ public class ContractorService extends BaseService<Contractor, Long> {
         this.contractorRepository = contractorRepository;
     }
 
+    @Override
+    protected Class<Contractor> getEntityClass() {
+        return Contractor.class;
+    }
+
     /**
      * Retrieves all contractors, setting their full names if both first and last names are provided.
      *
