@@ -1,9 +1,11 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {RoomService} from "./room.service";
 import {RoomDialogComponent} from "./room-dialog/room-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {BudgetService} from "../budget/budget.service";
+import { MatTableDataSource } from '@angular/material/table';
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-room',
@@ -14,6 +16,10 @@ export class RoomComponent implements OnInit {
   rooms: any;
   totalBudget: any;
   tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'actions'];
+  dataSource = new MatTableDataSource<any>;
+
+  @ViewChild(MatSort) sort!: MatSort;
+
   protected readonly Math = Math;
 
   roomService = inject(RoomService)
@@ -24,14 +30,27 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.roomService.getAllRooms().subscribe({
-      next: (data) => this.rooms = data,
+      next: (data) => {
+        this.rooms = data;
+        this.dataSource.data = this.rooms;
+        this.dataSource.sort = this.sort;
+        },
       error: (err) => console.error(err)
     });
+
 
     this.budgetService.getBudget().subscribe({
       next: (data) => this.totalBudget = data,
       error: (err) => console.error(err)
     });
+
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      if (property === 'budgetShare') {
+        return (Math.round(item.budgetPlanned / this.totalBudget.value * 100) || 0);
+      } else {
+        return item[property];
+      }
+    };
   }
 
   createForm() {
