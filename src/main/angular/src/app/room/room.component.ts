@@ -13,7 +13,6 @@ import {MatSort} from "@angular/material/sort";
   styleUrl: './room.component.scss'
 })
 export class RoomComponent implements OnInit {
-  rooms: any;
   totalBudget: any;
   tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'actions'];
   dataSource = new MatTableDataSource<any>;
@@ -31,8 +30,8 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.roomService.getAllRooms().subscribe({
       next: (data) => {
-        this.rooms = data;
-        this.dataSource.data = this.rooms;
+        // @ts-ignore
+        this.dataSource.data = data
         this.dataSource.sort = this.sort;
         },
       error: (err) => console.error(err)
@@ -62,7 +61,7 @@ export class RoomComponent implements OnInit {
       if (result)
         this.roomService.addRoom(result).subscribe({
           // Table wouldn't refresh on push
-          next: (data) => this.rooms = [...this.rooms, data],
+          next: (data) => this.dataSource.data = [...this.dataSource.data, data],
           error: (err) => console.error(err)
         });
     });
@@ -77,8 +76,8 @@ export class RoomComponent implements OnInit {
       if (result) {
         this.roomService.updateRoom(result).subscribe({
           next: (data) => {
-            this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id);
-            this.rooms.push(data);
+            this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== room.id);
+            this.dataSource.data.push(data);
           },
           error: (err) => console.error(err)
         });
@@ -92,7 +91,7 @@ export class RoomComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.roomService.deleteRoom(room).subscribe({
-          next: (data) => this.rooms = this.rooms.filter((r: { id: any; }) => r.id !== room.id),
+          next: (data) => this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== room.id),
           error: (err) => console.error(err)
         });
       }
