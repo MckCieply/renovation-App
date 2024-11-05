@@ -1,8 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {WorkService} from "./work.service";
 import {MatDialog} from "@angular/material/dialog";
 import {WorkDialogComponent} from "./work-dialog/work-dialog.component";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-work',
@@ -11,7 +13,9 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
 })
 export class WorkComponent implements OnInit {
   tableColumns = ['type', 'createdAt', 'room', 'paid', 'actions'];
-  works: any;
+  dataSource = new MatTableDataSource<any>;
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   worksService = inject(WorkService)
 
@@ -20,9 +24,23 @@ export class WorkComponent implements OnInit {
 
   ngOnInit() {
     this.worksService.getAllWorks().subscribe({
-      next: (data) => this.works = data,
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
       error: (err) => console.error(err)
     });
+
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'room':
+          return item.room?.name || ''; // Fallback to empty string if `name` is null or undefined
+        case 'type':
+          return item.workType?.name || ''; // Fallback to empty string if `name` is null or undefined
+        default:
+          return item[property];
+      }
+    }
   }
 
   createForm() {
@@ -33,7 +51,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.worksService.addWork(result).subscribe({
-          next: (data) => this.works = [...this.works, data],
+          next: (data) => this.dataSource.data= [...this.dataSource.data, data],
           error: (err) => console.error(err)
         });
     });
@@ -48,8 +66,8 @@ export class WorkComponent implements OnInit {
       if (result) {
         this.worksService.updateWork(result).subscribe({
           next: (data) => {
-            this.works = this.works.filter((r: { id: any; }) => r.id !== work.id);
-            this.works.push(data);
+            this.dataSource.data= this.dataSource.data.filter((r: { id: any; }) => r.id !== work.id);
+            this.dataSource.data.push(data);
           },
           error: (err) => console.error(err)
         });
@@ -63,7 +81,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.worksService.deleteWork(work).subscribe({
-          next: (data) => this.works = this.works.filter((w: { id: any; }) => w.id !== work.id),
+          next: (data) => this.dataSource.data= this.dataSource.data.filter((w: { id: any; }) => w.id !== work.id),
           error: (err) => console.error(err)
         });
       }
