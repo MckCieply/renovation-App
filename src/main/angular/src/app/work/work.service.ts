@@ -12,7 +12,7 @@ export class WorkService {
   }
 
   getAllWorks() {
-    return this.httpClient.get(this.api + '/all');
+    return this.httpClient.get<any[]>(this.api + '/all');
   }
 
   addWork(work: any) {

@@ -30,7 +30,6 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.roomService.getAllRooms().subscribe({
       next: (data) => {
-        // @ts-ignore
         this.dataSource.data = data
         this.dataSource.sort = this.sort;
         },
