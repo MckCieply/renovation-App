@@ -1,8 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {WorkTypeService} from "./work-type.service";
 import {WorkTypeDialogComponent} from "./work-type-dialog/work-type-dialog.component";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-work-type',
@@ -10,8 +12,10 @@ import {WorkTypeDialogComponent} from "./work-type-dialog/work-type-dialog.compo
   styleUrl: './work-type.component.scss'
 })
 export class WorkTypeComponent implements OnInit {
-  types: any;
   tableColumns = ['name', 'actions'];
+  dataSource = new MatTableDataSource<any>;
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   workTypeService = inject(WorkTypeService)
 
@@ -20,7 +24,10 @@ export class WorkTypeComponent implements OnInit {
 
   ngOnInit() {
     this.workTypeService.getAllTypes().subscribe({
-      next: (data) => this.types = data,
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
       error: (err) => console.error(err)
     });
   }
@@ -33,7 +40,7 @@ export class WorkTypeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.workTypeService.addType(result).subscribe({
-          next: (data) => this.types = [...this.types, data],
+          next: (data) => this.dataSource.data = [...this.dataSource.data, data],
           error: (err) => console.error(err)
         });
     });
@@ -48,8 +55,8 @@ export class WorkTypeComponent implements OnInit {
       if (result) {
         this.workTypeService.updateType(result).subscribe({
           next: (data) => {
-            this.types = this.types.filter((r: { id: any; }) => r.id !== type.id);
-            this.types.push(data);
+            this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== type.id);
+            this.dataSource.data.push(data);
           },
           error: (err) => console.error(err)
         });
@@ -63,7 +70,7 @@ export class WorkTypeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.workTypeService.deleteType(type).subscribe({
-          next: (data) => this.types = this.types.filter((r: { id: any; }) => r.id !== type.id),
+          next: (data) => this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== type.id),
           error: (err) => console.error(err)
         });
       }
