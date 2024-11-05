@@ -12,7 +12,7 @@ export class RoomService {
   }
 
   getAllRooms() {
-    return this.httpClient.get(this.api + '/all');
+    return this.httpClient.get<any[]>(this.api + '/all');
   }
 
   addRoom(room: any) {
