@@ -68,8 +68,8 @@ import {UserComponent} from './user/user.component';
 import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
 import {HomeComponent} from './home/home.component';
 import {AdminComponent} from './admin/admin.component';
-import { AdminDialogComponent } from './admin/admin-dialog/admin-dialog.component';
 import {MatSort, MatSortHeader} from "@angular/material/sort";
+import { RelativeTimePipe } from './pipes/relative-time.pipe';
 
 @NgModule({
   declarations: [
@@ -93,7 +93,7 @@ import {MatSort, MatSortHeader} from "@angular/material/sort";
     ConfirmDialogComponent,
     HomeComponent,
     AdminComponent,
-    AdminDialogComponent,
+    RelativeTimePipe,
   ],
   imports: [
     BrowserModule,
