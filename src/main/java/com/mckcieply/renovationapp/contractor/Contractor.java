@@ -43,7 +43,6 @@ public class Contractor extends BaseEntity {
     @Size(min = 8, max = 12, message = "Phone must be between 8 and 12 characters long")
     private String phone;
 
-    @NotBlank(message = "Type is mandatory")
     @Enumerated(EnumType.STRING)
     private EnumContractorType type;
 
