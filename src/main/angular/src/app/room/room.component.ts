@@ -14,7 +14,7 @@ import {MatSort} from "@angular/material/sort";
 })
 export class RoomComponent implements OnInit {
   totalBudget: any;
-  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'actions'];
+  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
 
   @ViewChild(MatSort) sort!: MatSort;
