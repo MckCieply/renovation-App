@@ -61,5 +61,16 @@ export class WorkDialogComponent implements OnInit {
     });
   }
 
+  /**
+   * Compares two objects by their ID property
+   * Used by mat-select to properly compare objects for selection
+   * @param obj1 - First object to compare
+   * @param obj2 - Second object to compare
+   * @returns boolean indicating if the objects have the same ID
+   */
+  compareById(obj1: any, obj2: any): boolean {
+    return obj1 && obj2 && obj1.id === obj2.id;
+  }
+
 
 }

@@ -10,14 +10,14 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Room</mat-label>
-          <mat-select formControlName="room">
+          <mat-select formControlName="room" [compareWith]="compareById">
             <mat-option *ngFor="let room of rooms" [value]="room">{{ room.name }}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>
         <mat-form-field>
           <mat-label>Work Type</mat-label>
-          <mat-select formControlName="workType">
+          <mat-select formControlName="workType" [compareWith]="compareById">
             <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
           </mat-select>
         </mat-form-field>
