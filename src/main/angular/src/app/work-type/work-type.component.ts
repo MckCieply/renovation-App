@@ -12,7 +12,7 @@ import {MatSort} from "@angular/material/sort";
   styleUrl: './work-type.component.scss'
 })
 export class WorkTypeComponent implements OnInit {
-  tableColumns = ['name', 'actions'];
+  tableColumns = ['name','updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
 
   @ViewChild(MatSort) sort!: MatSort;

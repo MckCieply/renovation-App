@@ -6,13 +6,20 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 
+import {formatDistanceToNowStrict, parseISO} from 'date-fns';
+
+
 @Component({
   selector: 'app-contractors',
   templateUrl: './contractors.component.html',
   styleUrl: './contractors.component.scss'
 })
 export class ContractorsComponent implements OnInit {
-  tableColumns = ['fullName', 'type', 'email', 'phone', 'actions'];
+  protected readonly formatDistanceToNowStrict = formatDistanceToNowStrict;
+  protected readonly parseISO = parseISO;
+
+
+  tableColumns = ['fullName', 'type', 'email', 'phone', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
 
   contractorsService = inject(ContractorsService);
