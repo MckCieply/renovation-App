@@ -1,8 +1,13 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ContractorsService} from "./contractors.service";
 import {ContractorDialogComponent} from "./contractor-dialog/contractor-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
+
+import {formatDistanceToNowStrict, parseISO} from 'date-fns';
+
 
 @Component({
   selector: 'app-contractors',
@@ -10,17 +15,25 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
   styleUrl: './contractors.component.scss'
 })
 export class ContractorsComponent implements OnInit {
-  contractors: any;
-  tableColumns = ['fullName', 'type', 'email', 'phone', 'actions'];
+  protected readonly formatDistanceToNowStrict = formatDistanceToNowStrict;
+  protected readonly parseISO = parseISO;
+
+
+  tableColumns = ['fullName', 'type', 'email', 'phone', 'updatedAt', 'actions'];
+  dataSource = new MatTableDataSource<any>;
 
   contractorsService = inject(ContractorsService);
 
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.contractorsService.getAllContractors().subscribe({
-      next: (data) => this.contractors = data,
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
       error: (err) => console.error(err)
     });
   }
@@ -33,7 +46,7 @@ export class ContractorsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.contractorsService.addContractor(result).subscribe({
-          next: (data) => this.contractors = [...this.contractors, data],
+          next: (data) => this.dataSource.data = [...this.dataSource.data, data],
           error: (err) => console.error(err)
         });
     });
@@ -48,8 +61,8 @@ export class ContractorsComponent implements OnInit {
       if (result) {
         this.contractorsService.updateContractor(result).subscribe({
           next: (data) => {
-            this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id);
-            this.contractors.push(data);
+            this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== contractor.id);
+            this.dataSource.data.push(data);
           },
           error: (err) => console.error(err)
         });
@@ -63,7 +76,7 @@ export class ContractorsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.contractorsService.deleteContractor(contractor).subscribe({
-          next: (data) => this.contractors = this.contractors.filter((r: { id: any; }) => r.id !== contractor.id),
+          next: (data) => this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== contractor.id),
           error: (err) => console.error(err)
         });
       }

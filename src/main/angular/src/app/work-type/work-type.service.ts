@@ -12,7 +12,7 @@ export class WorkTypeService {
   }
 
   getAllTypes() {
-    return this.httpClient.get(this.api + '/all');
+    return this.httpClient.get<any[]>(this.api + '/all');
   }
 
   addType(type: any) {

@@ -68,6 +68,8 @@ import {UserComponent} from './user/user.component';
 import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
 import {HomeComponent} from './home/home.component';
 import {AdminComponent} from './admin/admin.component';
+import {MatSort, MatSortHeader} from "@angular/material/sort";
+import { RelativeTimePipe } from './pipes/relative-time.pipe';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,7 @@ import {AdminComponent} from './admin/admin.component';
     ConfirmDialogComponent,
     HomeComponent,
     AdminComponent,
+    RelativeTimePipe,
   ],
   imports: [
     BrowserModule,
@@ -147,7 +150,9 @@ import {AdminComponent} from './admin/admin.component';
     MatCardHeader,
     MatCardTitle,
     // https://maskito.dev/getting-started/what-is-maskito
-    MaskitoDirective
+    MaskitoDirective,
+    MatSortHeader,
+    MatSort
   ],
   providers: [
     provideAnimationsAsync('noop'),
