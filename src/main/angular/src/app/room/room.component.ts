@@ -30,7 +30,8 @@ export class RoomComponent implements OnInit {
     public dialog: MatDialog) {
     this.filterForm = this.fb.group({
       name: [''],
-      budgetPlanned: [''],
+      minBudgetPlanned: [''],
+      maxBudgetPlanned: [''],
       createdBy: [''],
 
     })

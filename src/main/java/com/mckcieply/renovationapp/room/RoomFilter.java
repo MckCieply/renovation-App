@@ -10,11 +10,14 @@ import java.util.List;
 
 @Data
 public class RoomFilter extends BaseFilter {
-    private Long budgetPlanned;
+    private Long maxBudgetPlanned;
+    private Long minBudgetPlanned;
+    
 
     @Override
     public void applyEntitySpecificFilters(CriteriaBuilder cb, Root<?> root, List<Predicate> predicates) {
-        if (getBudgetPlanned() != null) predicates.add(cb.equal(root.get("budgetPlanned"), getBudgetPlanned()));
+        if (getMaxBudgetPlanned() != null) predicates.add(cb.lessThanOrEqualTo(root.get("budgetPlanned"), getMaxBudgetPlanned()));
+        if (getMinBudgetPlanned() != null) predicates.add(cb.greaterThanOrEqualTo(root.get("budgetPlanned"), getMinBudgetPlanned()));
     }
 
 }
