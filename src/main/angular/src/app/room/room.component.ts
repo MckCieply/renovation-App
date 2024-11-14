@@ -6,6 +6,7 @@ import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.comp
 import {BudgetService} from "../budget/budget.service";
 import { MatTableDataSource } from '@angular/material/table';
 import {MatSort} from "@angular/material/sort";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-room',
@@ -14,8 +15,9 @@ import {MatSort} from "@angular/material/sort";
 })
 export class RoomComponent implements OnInit {
   totalBudget: any;
-  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'updatedAt', 'actions'];
+  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'createdBy', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
+  filterForm: FormGroup;
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -24,7 +26,14 @@ export class RoomComponent implements OnInit {
   roomService = inject(RoomService)
   budgetService = inject(BudgetService)
 
-  constructor(public dialog: MatDialog) {
+  constructor(private fb: FormBuilder,
+    public dialog: MatDialog) {
+    this.filterForm = this.fb.group({
+      name: [''],
+      budgetPlanned: [''],
+      createdBy: [''],
+
+    })
   }
 
   ngOnInit() {
@@ -34,6 +43,11 @@ export class RoomComponent implements OnInit {
         this.dataSource.sort = this.sort;
         },
       error: (err) => console.error(err)
+
+    });
+
+    this.filterForm.valueChanges.subscribe(filters => {
+      this.loadFiltered(filters);
     });
 
 
@@ -94,6 +108,16 @@ export class RoomComponent implements OnInit {
           error: (err) => console.error(err)
         });
       }
+    });
+  }
+
+  loadFiltered(filters: any = {}) {
+    this.roomService.filterRooms(filters).subscribe({
+      next: (data) => {
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => console.error(err)
     });
   }
 

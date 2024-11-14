@@ -26,4 +26,8 @@ export class RoomService {
   updateRoom(room: any) {
     return this.httpClient.put(this.api + '/update', room);
   }
+
+  filterRooms(filter: any) {
+    return this.httpClient.get<any>(this.api + '/filter', {params: filter});
+  }
 }
