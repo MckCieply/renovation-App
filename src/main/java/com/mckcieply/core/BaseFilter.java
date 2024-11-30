@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,11 +23,18 @@ import java.util.List;
  */
 @Data
 abstract public class BaseFilter {
-    private Integer daysCreated;
-    private Integer daysUpdated;
     private String createdBy;
     private String updatedBy;
     private String name;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime fromCreatedAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime toCreatedAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime fromUpdatedAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime toUpdatedAt;
 
     /**
      * Adds common base filters (creation/update date, creator/updater, name) to the provided list of predicates.
@@ -36,25 +44,19 @@ abstract public class BaseFilter {
      * @param cb         the {@link CriteriaBuilder} instance for building predicates
      */
     protected void addBaseFilters(List<Predicate> predicates, Root<?> root, CriteriaBuilder cb) {
-        if (getDaysCreated() != null) addDatePredicate(predicates, getDaysCreated(), root.get("createdAt"), cb);
-        if (getDaysUpdated() != null) addDatePredicate(predicates, getDaysUpdated(), root.get("updatedAt"), cb);
         if (getCreatedBy() != null) addStringPredicate(predicates, getCreatedBy(), root.get("createdBy"), cb);
         if (getUpdatedBy() != null) addStringPredicate(predicates, getUpdatedBy(), root.get("updatedBy"), cb);
         if (getName() != null) addStringPredicate(predicates, getName(), root.get("name"), cb);
 
-    }
+        //Perhaps validation only on from for example
+        validateDateRange(getFromCreatedAt(), getToCreatedAt());
+        if (getFromCreatedAt() != null) predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"), getFromCreatedAt()));
+        if (getToCreatedAt() != null) predicates.add(cb.lessThanOrEqualTo(root.get("createdAt"), getToCreatedAt()));
 
-    /**
-     * Helper method to add date predicates to the list of predicates.
-     *
-     * @param predicates     the list of predicates to which the new predicate will be added
-     * @param days          the number of days to filter
-     * @param dateField     the date field to apply the predicate on
-     * @param cb            the CriteriaBuilder instance
-     */
-    protected void addDatePredicate(List<Predicate> predicates, Integer days, Path<LocalDateTime> dateField, CriteriaBuilder cb) {
-        LocalDateTime fromDate = LocalDateTime.now().minusDays(days);
-        predicates.add(cb.greaterThanOrEqualTo(dateField, fromDate));
+        validateDateRange(getFromUpdatedAt(), getToUpdatedAt());
+        if (getFromUpdatedAt() != null) predicates.add(cb.greaterThanOrEqualTo(root.get("updatedAt"), getFromUpdatedAt()));
+        if (getToUpdatedAt() != null) predicates.add(cb.lessThanOrEqualTo(root.get("updatedAt"), getToUpdatedAt()));
+
     }
 
     /**
@@ -67,6 +69,12 @@ abstract public class BaseFilter {
      */
     protected void addStringPredicate(List<Predicate> predicates, String value, Path<String> stringField, CriteriaBuilder cb) {
         predicates.add(cb.like(cb.lower(stringField), "%" + value.toLowerCase() + "%"));
+    }
+
+
+    protected void validateDateRange(LocalDateTime from, LocalDateTime to) {
+        if (from != null && to != null && from.isAfter(to))
+            throw new IllegalArgumentException("Invalid date range: from date must be before to date");
     }
 
     /**
