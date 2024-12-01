@@ -11,10 +11,17 @@
 <!--        <input>-->
 <!--      </mat-form-field>-->
 
-<!--      <mat-form-field>-->
-<!--        <mat-label>Created</mat-label>-->
-<!--        <input>-->
-<!--      </mat-form-field>-->
+      <mat-form-field>
+        <mat-label>Created From</mat-label>
+        <input matInput [matDatepicker]="pickerFromCreated" formControlName="fromCreatedAt">
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFromCreated"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFromCreated></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Created To</mat-label>
+        <input matInput formControlName="toCreatedAt">
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label>Author</mat-label>

@@ -4,7 +4,7 @@ import {RoomDialogComponent} from "./room-dialog/room-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {BudgetService} from "../budget/budget.service";
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
@@ -33,7 +33,10 @@ export class RoomComponent implements OnInit {
       minBudgetPlanned: [''],
       maxBudgetPlanned: [''],
       createdBy: [''],
-
+      fromCreatedAt: [''],
+      toCreatedAt: [''],
+      fromUpdatedAt: [''],
+      toUpdatedAt: ['']
     })
   }
 
@@ -47,8 +50,8 @@ export class RoomComponent implements OnInit {
 
     });
 
-    this.filterForm.valueChanges.subscribe(filters => {
-      this.loadFiltered(filters);
+    this.filterForm.valueChanges.subscribe(() => {
+      this.loadFiltered();
     });
 
 
@@ -112,8 +115,9 @@ export class RoomComponent implements OnInit {
     });
   }
 
-  loadFiltered(filters: any = {}) {
-    this.roomService.filterRooms(filters).subscribe({
+  loadFiltered() {
+    const processedFilters = this.prepareFilters();
+    this.roomService.filterRooms(processedFilters).subscribe({
       next: (data) => {
         this.dataSource.data = data;
         this.dataSource.sort = this.sort;
@@ -122,4 +126,24 @@ export class RoomComponent implements OnInit {
     });
   }
 
+  prepareFilters(): any {
+    const filters = {...this.filterForm.value};
+
+    // List of date fields to convert
+    const dateFields = [
+      'fromCreatedAt',
+      'toCreatedAt',
+      'fromUpdatedAt',
+      'toUpdatedAt',
+    ];
+
+    // Convert each date field to ISO 8601
+    dateFields.forEach((field) => {
+      if (filters[field]) {
+        filters[field] = new Date(filters[field]).toISOString();
+      }
+    });
+
+    return filters;
+  }
 }
