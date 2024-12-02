@@ -28,6 +28,6 @@ export class WorkService {
   }
 
   getEnumWorkStatus() {
-    return this.httpClient.get(this.api + '/getEnumWorkState');
+    return this.httpClient.get(this.api + '/get-enum-work-state');
   }
 }

@@ -28,7 +28,7 @@ public class BudgetController extends BaseController<Budget, Long> {
      *
      * @return a ResponseEntity containing the Budget and HTTP status
      */
-    @GetMapping("/get")
+    @GetMapping("/get-budget")
     private ResponseEntity<Budget> getBudget() {
         Budget budget = budgetService.getBudget();
         return new ResponseEntity<>(budget, HttpStatus.OK);

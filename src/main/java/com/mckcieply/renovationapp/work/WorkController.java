@@ -30,7 +30,7 @@ public class WorkController extends BaseController<Work, Long> {
      *
      * @return a ResponseEntity containing an array of EnumWorkState values
      */
-    @GetMapping("/getEnumWorkState")
+    @GetMapping("/get-enum-work-state")
     public ResponseEntity<EnumWorkState[]> getEnumWorkState() {
         return new ResponseEntity<>(EnumWorkState.values(), HttpStatus.OK);
     }

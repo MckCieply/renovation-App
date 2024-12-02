@@ -16,6 +16,6 @@ export class BudgetService {
   }
 
   getBudget() {
-    return this.httpClient.get(this.api + '/get');
+    return this.httpClient.get(this.api + '/get-budget');
   }
 }
