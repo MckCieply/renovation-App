@@ -11,12 +11,10 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * WorkFilter is a filter class extending {@link BaseFilter} that provides additional filtering
- * criteria specific to `Work` entities. This class enables filtering based on work state,
- * payment status, room ID, work type ID, and description.
- *
- * It overrides {@link #applyEntitySpecificFilters(CriteriaBuilder, Root, List)} to add these
- * specific filters to the base query predicates.
+ * Filter class for querying Work entities with specific criteria.
+ * <p>
+ * This class extends {@link BaseFilter} and adds filtering capabilities for work state, payment status,
+ * room ID, work type ID, and description.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -28,15 +26,11 @@ public class WorkFilter extends BaseFilter {
     private String description;
 
     /**
-     * Applies entity-specific filters to the provided list of predicates.
+     * Applies entity-specific filters to the query predicates.
      *
      * <p>This method adds filtering conditions for `state`, `paid`, `roomId`, `workTypeId`,
      * and `description` if their respective fields are not null. For string fields,
      * a case-insensitive match is used.</p>
-     *
-     * @param cb         the {@link CriteriaBuilder} instance for building predicates
-     * @param root       the root type in the query, used to access entity attributes
-     * @param predicates the list of predicates to which the new predicates will be added
      */
     @Override
     public void applyEntitySpecificFilters(CriteriaBuilder cb, Root<?> root, List<Predicate> predicates) {

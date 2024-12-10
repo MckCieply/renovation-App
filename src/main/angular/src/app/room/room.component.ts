@@ -4,8 +4,9 @@ import {RoomDialogComponent} from "./room-dialog/room-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RemoveDialogComponent} from "../dialogs/remove-dialog/remove-dialog.component";
 import {BudgetService} from "../budget/budget.service";
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from "@angular/material/sort";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-room',
@@ -14,8 +15,9 @@ import {MatSort} from "@angular/material/sort";
 })
 export class RoomComponent implements OnInit {
   totalBudget: any;
-  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'updatedAt', 'actions'];
+  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'createdBy', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
+  filterForm: FormGroup;
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -24,7 +26,18 @@ export class RoomComponent implements OnInit {
   roomService = inject(RoomService)
   budgetService = inject(BudgetService)
 
-  constructor(public dialog: MatDialog) {
+  constructor(private fb: FormBuilder,
+    public dialog: MatDialog) {
+    this.filterForm = this.fb.group({
+      name: [''],
+      minBudgetPlanned: [''],
+      maxBudgetPlanned: [''],
+      createdBy: [''],
+      fromCreatedAt: [''],
+      toCreatedAt: [''],
+      fromUpdatedAt: [''],
+      toUpdatedAt: ['']
+    })
   }
 
   ngOnInit() {
@@ -34,6 +47,11 @@ export class RoomComponent implements OnInit {
         this.dataSource.sort = this.sort;
         },
       error: (err) => console.error(err)
+
+    });
+
+    this.filterForm.valueChanges.subscribe(() => {
+      this.loadFiltered();
     });
 
 
@@ -97,4 +115,35 @@ export class RoomComponent implements OnInit {
     });
   }
 
+  loadFiltered() {
+    const processedFilters = this.prepareFilters();
+    this.roomService.filterRooms(processedFilters).subscribe({
+      next: (data) => {
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  prepareFilters(): any {
+    const filters = {...this.filterForm.value};
+
+    // List of date fields to convert
+    const dateFields = [
+      'fromCreatedAt',
+      'toCreatedAt',
+      'fromUpdatedAt',
+      'toUpdatedAt',
+    ];
+
+    // Convert each date field to ISO 8601
+    dateFields.forEach((field) => {
+      if (filters[field]) {
+        filters[field] = new Date(filters[field]).toISOString();
+      }
+    });
+
+    return filters;
+  }
 }
