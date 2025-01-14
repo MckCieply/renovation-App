@@ -15,7 +15,7 @@ import {WorkTypeService} from "../work-type/work-type.service";
   styleUrl: './work.component.scss'
 })
 export class WorkComponent implements OnInit {
-  tableColumns = ['type', 'room', 'paid','updatedAt', 'actions'];
+  tableColumns = ['type', 'room', 'paid','updatedAt','state', 'actions'];
   dataSource = new MatTableDataSource<any>;
   filterForm: FormGroup;
   rooms: any;
