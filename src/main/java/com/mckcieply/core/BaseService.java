@@ -1,11 +1,14 @@
 package com.mckcieply.core;
 
+import com.mckcieply.core.dto.BaseMinimalDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Tuple;
 import jakarta.persistence.criteria.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Abstract base service that provides common CRUD operations for any entity type.
@@ -88,6 +91,30 @@ public abstract class BaseService<T, ID> {
 
         query.where(cb.and(predicates.toArray(new Predicate[0])));
         return entityManager.createQuery(query).getResultList();
+    }
+
+    /**
+     * Retrieves minimal information about entities.
+     * The method selects only the "id" and "name" fields from the entity and maps them
+     * to a {@link BaseMinimalDto} object.
+     *
+     * @return List of minimal information about entities
+     */
+    public List<BaseMinimalDto> getMinimal(){
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Tuple> query = cb.createQuery(Tuple.class);
+        Root<T> root = query.from(getEntityClass());
+
+        query.multiselect(
+                root.get("id").alias("id"),
+                root.get("name").alias("name")
+        );
+
+        List<Tuple> results = entityManager.createQuery(query).getResultList();
+
+        return results.stream().map(tuple -> new BaseMinimalDto(
+                (Long) tuple.get("id"), (String) tuple.get("name")))
+                .collect(Collectors.toList());
     }
 
     /**

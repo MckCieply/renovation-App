@@ -26,4 +26,8 @@ export class WorkTypeService {
   updateType(type: any) {
     return this.httpClient.put(this.api + '/update', type);
   }
+
+  getMinimal(){
+    return this.httpClient.get<any[]>(this.api + '/minimal');
+  }
 }

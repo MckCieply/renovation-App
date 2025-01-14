@@ -59,12 +59,12 @@ export class WorkComponent implements OnInit {
       }
     }
 
-    this.roomService.getAllRooms().subscribe({
+    this.roomService.getMinimal().subscribe({
       next: (data) => this.rooms = data,
       error: (err) => console.error(err)
     });
 
-    this.workTypeService.getAllTypes().subscribe({
+    this.workTypeService.getMinimal().subscribe({
       next: (data) => this.workTypes = data,
       error: (err) => console.error(err)
     });
