@@ -30,4 +30,8 @@ export class RoomService {
   filterRooms(filter: any) {
     return this.httpClient.get<any>(this.api + '/filter', {params: filter});
   }
+
+  getMinimal(){
+    return this.httpClient.get<any[]>(this.api + '/minimal');
+  }
 }
