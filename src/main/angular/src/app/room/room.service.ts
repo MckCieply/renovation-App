@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {HttpParamsBuilderService} from "../shared/services/http-params-builder.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import {HttpClient} from "@angular/common/http";
 export class RoomService {
 
   private api = 'http://localhost:8080/api/rooms';
+
+  paramsBuilder = inject(HttpParamsBuilderService)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -28,7 +31,9 @@ export class RoomService {
   }
 
   filterRooms(filter: any) {
-    return this.httpClient.get<any>(this.api + '/filter', {params: filter});
+    let params = this.paramsBuilder.buildHttpParams(filter);
+
+    return this.httpClient.get<any>(this.api + '/filter', {params});
   }
 
   getMinimal(){

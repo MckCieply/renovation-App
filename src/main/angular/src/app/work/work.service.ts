@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {inject, Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpParamsBuilderService} from "../shared/services/http-params-builder.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import {HttpClient} from "@angular/common/http";
 export class WorkService {
 
   api = "http://localhost:8080/api/works";
+
+  paramsBuilder = inject(HttpParamsBuilderService)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -32,6 +35,7 @@ export class WorkService {
   }
 
   filterWork(filter: any) {
-    return this.httpClient.get<any>(this.api + '/filter', {params: filter});
+    let params = this.paramsBuilder.buildHttpParams(filter);
+    return this.httpClient.get<any>(this.api + '/filter', { params });
   }
 }
