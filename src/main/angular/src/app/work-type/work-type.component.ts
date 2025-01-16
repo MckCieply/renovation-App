@@ -5,6 +5,8 @@ import {WorkTypeService} from "./work-type.service";
 import {WorkTypeDialogComponent} from "./work-type-dialog/work-type-dialog.component";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
+import {DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS} from "../shared/config/paginator/paginator-config";
 
 @Component({
   selector: 'app-work-type',
@@ -12,11 +14,14 @@ import {MatSort} from "@angular/material/sort";
   styleUrl: './work-type.component.scss'
 })
 export class WorkTypeComponent implements OnInit {
+  protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
+  protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
+
   tableColumns = ['name','updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
 
   @ViewChild(MatSort) sort!: MatSort;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   workTypeService = inject(WorkTypeService)
 
   constructor(public dialog: MatDialog) {
@@ -30,6 +35,10 @@ export class WorkTypeComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   createForm() {
@@ -76,5 +85,4 @@ export class WorkTypeComponent implements OnInit {
       }
     });
   }
-
 }

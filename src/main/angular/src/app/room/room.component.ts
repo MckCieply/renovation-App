@@ -7,6 +7,8 @@ import {BudgetService} from "../budget/budget.service";
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {MatPaginator} from "@angular/material/paginator";
+import {DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS} from "../shared/config/paginator/paginator-config";
 
 @Component({
   selector: 'app-room',
@@ -14,12 +16,16 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrl: './room.component.scss'
 })
 export class RoomComponent implements OnInit {
+  protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
+  protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
+
   totalBudget: any;
   tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'createdBy', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
   filterForm: FormGroup;
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   protected readonly Math = Math;
 
@@ -67,6 +73,10 @@ export class RoomComponent implements OnInit {
         return item[property];
       }
     };
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   createForm() {

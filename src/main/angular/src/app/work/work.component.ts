@@ -8,6 +8,8 @@ import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {RoomService} from "../room/room.service";
 import {WorkTypeService} from "../work-type/work-type.service";
+import {DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS} from "../shared/config/paginator/paginator-config";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-work',
@@ -15,6 +17,9 @@ import {WorkTypeService} from "../work-type/work-type.service";
   styleUrl: './work.component.scss'
 })
 export class WorkComponent implements OnInit {
+  protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
+  protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
+
   tableColumns = ['type', 'room', 'paid','updatedAt','state', 'actions'];
   dataSource = new MatTableDataSource<any>;
   filterForm: FormGroup;
@@ -23,6 +28,7 @@ export class WorkComponent implements OnInit {
   status: any;
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   worksService = inject(WorkService)
   roomService = inject(RoomService)
@@ -77,6 +83,10 @@ export class WorkComponent implements OnInit {
       next: (data) => this.status = data,
       error: (err) => console.error(err)
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   createForm() {
@@ -153,5 +163,4 @@ export class WorkComponent implements OnInit {
   compareById(obj1: any, obj2: any): boolean {
     return obj1 && obj2 && obj1.id === obj2.id;
   }
-
 }

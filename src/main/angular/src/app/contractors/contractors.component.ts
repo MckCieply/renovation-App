@@ -7,6 +7,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 
 import {formatDistanceToNowStrict, parseISO} from 'date-fns';
+import {MatPaginator} from "@angular/material/paginator";
+import {DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS} from "../shared/config/paginator/paginator-config";
 
 
 @Component({
@@ -15,9 +17,8 @@ import {formatDistanceToNowStrict, parseISO} from 'date-fns';
   styleUrl: './contractors.component.scss'
 })
 export class ContractorsComponent implements OnInit {
-  protected readonly formatDistanceToNowStrict = formatDistanceToNowStrict;
-  protected readonly parseISO = parseISO;
-
+  protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
+  protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
 
   tableColumns = ['fullName', 'type', 'email', 'phone', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
@@ -25,6 +26,7 @@ export class ContractorsComponent implements OnInit {
   contractorsService = inject(ContractorsService);
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(public dialog: MatDialog) {
   }
 
@@ -36,6 +38,10 @@ export class ContractorsComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   createForm() {
@@ -82,5 +88,4 @@ export class ContractorsComponent implements OnInit {
       }
     });
   }
-
 }
