@@ -15,14 +15,24 @@
         <mat-label>Created From</mat-label>
         <input matInput [matDatepicker]="pickerFromCreatedAt" formControlName="fromCreatedAt">
         <mat-datepicker-toggle matIconSuffix [for]="pickerFromCreatedAt"></mat-datepicker-toggle>
-        <mat-datepicker #pickerFromCreatedAt></mat-datepicker>
+        <mat-datepicker #pickerFromCreatedAt>
+          <mat-datepicker-actions>
+            <button mat-button (click)="resetDate('toCreatedAt')">Reset</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Created To</mat-label>
         <input matInput [matDatepicker]="pickerToCreatedAt" formControlName="toCreatedAt">
         <mat-datepicker-toggle matIconSuffix [for]="pickerToCreatedAt"></mat-datepicker-toggle>
-        <mat-datepicker #pickerToCreatedAt></mat-datepicker>
+        <mat-datepicker #pickerToCreatedAt>
+          <mat-datepicker-actions>
+            <button mat-button (click)="resetDate('toCreatedAt')">Reset</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>

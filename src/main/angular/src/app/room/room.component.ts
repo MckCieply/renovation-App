@@ -156,4 +156,8 @@ export class RoomComponent implements OnInit {
 
     return filters;
   }
+
+  resetDate(field: string) {
+    this.filterForm.get(field)?.reset();
+  }
 }

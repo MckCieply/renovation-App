@@ -42,22 +42,24 @@
       <mat-form-field>
         <mat-label>Room</mat-label>
         <mat-select formControlName="roomId" [compareWith]="compareById">
+          <mat-option [value]=""></mat-option>
           <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Work Type</mat-label>
         <mat-select formControlName="workTypeId" [compareWith]="compareById">
+          <mat-option [value]=""></mat-option>
           <mat-option *ngFor="let workType of workTypes" [value]="workType.id">{{ workType.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Paid</mat-label>
-        <mat-select formControlName="paid" placeholder="Paid">
-          <mat-option value="">All</mat-option>
-          <mat-option value="true">True</mat-option>
-          <mat-option value="false">False</mat-option>
+        <mat-select formControlName="paid">
+          <mat-option [value]="null"></mat-option>
+          <mat-option [value]="true">True</mat-option>
+          <mat-option [value]="false">False</mat-option>
         </mat-select>
       </mat-form-field>
 
