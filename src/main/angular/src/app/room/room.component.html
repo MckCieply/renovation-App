@@ -92,4 +92,8 @@
     <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
     <tr mat-row *matRowDef="let row; columns:tableColumns;"></tr>
   </table>
+  <mat-paginator
+    [pageSize]="DEFAULT_PAGE_SIZE"
+    [pageSizeOptions]="DEFAULT_PAGE_SIZE_OPTIONS">
+  </mat-paginator>
 </div>

@@ -30,4 +30,8 @@ export class WorkService {
   getEnumWorkStatus() {
     return this.httpClient.get(this.api + '/get-enum-work-state');
   }
+
+  filterWork(filter: any) {
+    return this.httpClient.get<any>(this.api + '/filter', {params: filter});
+  }
 }

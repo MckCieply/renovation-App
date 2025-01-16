@@ -1,5 +1,6 @@
 package com.mckcieply.core;
 
+import com.mckcieply.core.dto.BaseMinimalDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,22 @@ public abstract class BaseController<T, ID> {
         if (entities.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
+
+
+    /**
+     * Retrieves all entities managed by this controller in a minimal form.
+     * A minimal form is a simplified version of the entity that contains only the ID and name.
+     *
+     * @return a {@link ResponseEntity} containing a list of all entities in a minimal form;
+     *         returns HTTP 204 (No Content) if no entities are found.
+     */
+    @GetMapping("/minimal")
+    public ResponseEntity<List<BaseMinimalDto>> getMinimal(){
+    List<BaseMinimalDto> entities = baseService.getMinimal();
+    if (entities.isEmpty())
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
     /**
