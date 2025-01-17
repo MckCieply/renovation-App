@@ -52,7 +52,7 @@ public class AppUserService {
      * @return the AppUserProfileDTO containing user information
      */
     public AppUserProfileDTO getUser(String username) {
-        return mapAppUserToAppUserProfileDTO(appUserRepository.findByUsername(username));
+        return mapAppUserToAppUserProfileDTO(appUserRepository.findByUsername(username.toLowerCase()));
     }
 
     /**

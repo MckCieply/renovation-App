@@ -64,9 +64,9 @@ public class AuthService {
      * @return an AuthResponse containing the generated JWT token.
      */
     public AuthResponse login(AppUserLoginDTO appUserLoginDTO) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUserLoginDTO.getUsername(), appUserLoginDTO.getPassword()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUserLoginDTO.getUsername().toLowerCase(), appUserLoginDTO.getPassword()));
 
-        var user = appUserRepository.findByUsername(appUserLoginDTO.getUsername());
+        var user = appUserRepository.findByUsername(appUserLoginDTO.getUsername().toLowerCase());
         var jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder()
                 .token(jwtToken)
