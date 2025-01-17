@@ -28,7 +28,7 @@ button {
 
 
 .mat-mdc-row:hover {
-  background-color: #3d3d3d;
+  background-color: var(--mat-option-hover-state-layer-color)
 }
 
 .mat-mdc-tab-body-content {

@@ -3,7 +3,7 @@
     <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar *ngIf="authService.isAuthenticated()">
+    <mat-toolbar *ngIf="authService.isAuthenticated()" color="primary">
       <app-toolbar (sidenavEmit)="sidenav.toggle()"></app-toolbar>
     </mat-toolbar>
     <router-outlet></router-outlet>

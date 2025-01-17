@@ -1,6 +1,10 @@
 <button mat-icon-button (click)="toggleSidenav()">
   <mat-icon>menu</mat-icon>
 </button>
+<button mat-icon-button (click)="toggleTheme()" [ngClass]="darkTheme ? 'light-icon' : 'dark-icon'">
+  <mat-icon>{{  iconTheme }}</mat-icon>
+</button>
+
 <div class="account">
   <button mat-button class="account-button" [matMenuTriggerFor]="accountMenu">
     <span>
