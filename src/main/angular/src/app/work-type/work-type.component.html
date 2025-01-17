@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row text-center justify-content-center">
     <h1>Work Types</h1>
-    <button mat-raised-button color="primary" class="col-3" (click)="createForm()">Add Work Type</button>
+    <button mat-raised-button color="accent" class="col-3" (click)="createForm()">Add Work Type</button>
   </div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="name">
@@ -17,11 +17,11 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions</th>
       <td mat-cell *matCellDef="let element" class="col-2">
-        <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon"
+        <button mat-mini-fab color="accent"
                 (click)="editForm(element)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon"
+        <button mat-mini-fab color="warn"
                 (click)="removeForm(element)">
           <mat-icon>delete</mat-icon>
         </button>
