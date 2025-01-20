@@ -12,8 +12,7 @@ export class BudgetComponent implements OnInit {
 
   budgetService = inject(BudgetService)
 
-  constructor() {
-  }
+  constructor() { }
 
   updateBudget(budget: any) {
     this.budgetService.updateBudget(budget).subscribe({

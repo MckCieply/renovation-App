@@ -13,8 +13,8 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   authService = inject(AuthService)
-
-  constructor(private fb: FormBuilder) {
+  fb = inject(FormBuilder)
+  constructor( ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]

@@ -23,9 +23,9 @@ export class WorkTypeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   workTypeService = inject(WorkTypeService)
+  dialog = inject(MatDialog)
 
-  constructor(public dialog: MatDialog) {
-  }
+  constructor() { }
 
   ngOnInit() {
     this.workTypeService.getAllTypes().subscribe({

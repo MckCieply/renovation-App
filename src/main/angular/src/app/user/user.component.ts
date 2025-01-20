@@ -21,9 +21,10 @@ export class UserComponent implements OnInit {
 
   authService = inject(AuthService)
   userService = inject(UserService)
+  fb = inject(FormBuilder)
+  dialog = inject(MatDialog)
 
-  constructor(private fb: FormBuilder,
-              private dialog: MatDialog) {
+  constructor() {
     this.userForm = this.fb.group({
       username: this.loggedUser.username,
       firstName: [this.loggedUser.firstName, Validators.required],

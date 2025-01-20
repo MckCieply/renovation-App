@@ -31,9 +31,10 @@ export class RoomComponent implements OnInit {
 
   roomService = inject(RoomService)
   budgetService = inject(BudgetService)
+  fb = inject(FormBuilder)
+  dialog = inject(MatDialog)
 
-  constructor(private fb: FormBuilder,
-    public dialog: MatDialog) {
+  constructor() {
     this.filterForm = this.fb.group({
       name: [''],
       minBudgetPlanned: [''],

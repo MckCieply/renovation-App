@@ -27,8 +27,8 @@ export class ContractorsComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(public dialog: MatDialog) {
-  }
+  dialog = inject(MatDialog)
+  constructor() { }
 
   ngOnInit() {
     this.contractorsService.getAllContractors().subscribe({

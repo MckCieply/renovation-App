@@ -16,10 +16,10 @@ export class ToolbarComponent implements OnInit {
 
   authService = inject(AuthService);
   themeService = inject(ThemeService)
+  dialog = inject(MatDialog)
   @Output() sidenavEmit = new EventEmitter<void>();
 
-  constructor(public dialog: MatDialog) {
-  }
+  constructor() { }
 
   ngOnInit() {
     this.loggedUser = this.authService.getUsername();

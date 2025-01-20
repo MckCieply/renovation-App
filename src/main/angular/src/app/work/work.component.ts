@@ -33,9 +33,10 @@ export class WorkComponent implements OnInit {
   worksService = inject(WorkService)
   roomService = inject(RoomService)
   workTypeService = inject(WorkTypeService)
+  fb = inject(FormBuilder)
+  dialog = inject(MatDialog)
 
-  constructor(private fb: FormBuilder,
-              public dialog: MatDialog) {
+  constructor() {
     this.filterForm = this.fb.group({
       state: [''],
       paid: [''],

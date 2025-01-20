@@ -14,8 +14,9 @@ export class RegisterComponent {
 
   matcher = new ErrorStateMatcher();
   authService = inject(AuthService)
+  fb = inject(FormBuilder)
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       firstName: ['', Validators.required],
