@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ThemeService {
 
-  hrefCore = "https://cdn.jsdelivr.net/npm/@angular/material/prebuilt-themes/"
+  hrefCore = "assets/prebuilt-themes/"
   constructor() {
   }
 
