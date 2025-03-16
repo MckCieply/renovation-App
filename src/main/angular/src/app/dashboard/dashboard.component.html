@@ -2,6 +2,12 @@
 <mat-grid-list cols="2" rowHeight="2:1">
   <mat-grid-tile>1</mat-grid-tile>
   <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
+  <mat-grid-tile>
+    <ngx-charts-pie-chart
+      [results]="budgetChartData"
+      [doughnut]="true"
+      [labels]="true">
+    ></ngx-charts-pie-chart>
+  </mat-grid-tile>
   <mat-grid-tile>4</mat-grid-tile>
 </mat-grid-list>
