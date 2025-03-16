@@ -36,6 +36,7 @@
       <mat-form-field>
         <mat-label>Status</mat-label>
         <mat-select formControlName="state">
+          <mat-option [value]=""></mat-option>
           <mat-option *ngFor="let element of status" [value]="element">{{ element }}</mat-option>
         </mat-select>
       </mat-form-field>

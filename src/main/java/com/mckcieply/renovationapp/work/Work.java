@@ -56,4 +56,12 @@ public class Work extends BaseEntity {
 
     @ManyToOne
     private WorkType workType;
+
+    public double getFinalCosts(){
+        return finalMaterialCost + finalLaborCost;
+    }
+
+    public double getEstimatedCosts(){
+        return estMaterialCost + estLaborCost;
+    }
 }
