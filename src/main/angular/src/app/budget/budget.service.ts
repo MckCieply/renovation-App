@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Budget} from "../shared/models/budget.model";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class BudgetService {
     return this.httpClient.put(this.api + '/update', budget)
   }
 
-  getBudget() {
-    return this.httpClient.get(this.api + '/get-budget');
+  getBudget(): Observable<Budget> {
+    return this.httpClient.get<Budget>(this.api + '/budget');
   }
 }

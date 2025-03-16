@@ -9,6 +9,7 @@ import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS} from "../shared/config/paginator/paginator-config";
+import {Budget} from "../shared/models/budget.model";
 
 @Component({
   selector: 'app-room',
@@ -63,13 +64,13 @@ export class RoomComponent implements OnInit {
 
 
     this.budgetService.getBudget().subscribe({
-      next: (data) => this.totalBudget = data,
+      next: (data: Budget) => this.totalBudget = data.budgetLimit,
       error: (err) => console.error(err)
     });
 
     this.dataSource.sortingDataAccessor = (item, property) => {
       if (property === 'budgetShare') {
-        return (Math.round(item.budgetPlanned / this.totalBudget.value * 100) || 0);
+        return (Math.round(item.budgetPlanned / this.totalBudget * 100) || 0);
       } else {
         return item[property];
       }
