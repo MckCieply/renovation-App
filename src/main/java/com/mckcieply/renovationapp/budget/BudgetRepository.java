@@ -1,6 +1,7 @@
 package com.mckcieply.renovationapp.budget;
 
 import com.mckcieply.core.BaseRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * Extends BaseRepository to inherit common CRUD operations.
  */
 @Repository
-public interface BudgetRepository extends BaseRepository<Budget, Long> {
+public interface BudgetRepository extends JpaRepository<Budget, Long> {
 }
