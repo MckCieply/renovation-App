@@ -49,14 +49,7 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.roomService.getAllRooms().subscribe({
-      next: (data) => {
-        this.dataSource.data = data
-        this.dataSource.sort = this.sort;
-        },
-      error: (err) => console.error(err)
-
-    });
+    this.fetchData();
 
     this.filterForm.valueChanges.subscribe(() => {
       this.loadFiltered();
@@ -89,8 +82,7 @@ export class RoomComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.roomService.addRoom(result).subscribe({
-          // Table wouldn't refresh on push
-          next: (data) => this.dataSource.data = [...this.dataSource.data, data],
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
     });
@@ -104,10 +96,7 @@ export class RoomComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.roomService.updateRoom(result).subscribe({
-          next: (data) => {
-            this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== room.id);
-            this.dataSource.data.push(data);
-          },
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
@@ -120,10 +109,20 @@ export class RoomComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.roomService.deleteRoom(room).subscribe({
-          next: (data) => this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== room.id),
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
+    });
+  }
+
+  fetchData(){
+    this.roomService.getAllRooms().subscribe({
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => console.error(err)
     });
   }
 

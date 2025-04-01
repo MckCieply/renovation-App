@@ -31,13 +31,7 @@ export class ContractorsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.contractorsService.getAllContractors().subscribe({
-      next: (data) => {
-        this.dataSource.data = data
-        this.dataSource.sort = this.sort;
-      },
-      error: (err) => console.error(err)
-    });
+    this.fetchData();
   }
 
   ngAfterViewInit() {
@@ -52,7 +46,7 @@ export class ContractorsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.contractorsService.addContractor(result).subscribe({
-          next: (data) => this.dataSource.data = [...this.dataSource.data, data],
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
     });
@@ -66,10 +60,7 @@ export class ContractorsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.contractorsService.updateContractor(result).subscribe({
-          next: (data) => {
-            this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== contractor.id);
-            this.dataSource.data.push(data);
-          },
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
@@ -82,10 +73,20 @@ export class ContractorsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.contractorsService.deleteContractor(contractor).subscribe({
-          next: (data) => this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== contractor.id),
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
+    });
+  }
+
+  fetchData(){
+    this.contractorsService.getAllContractors().subscribe({
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => console.error(err)
     });
   }
 }

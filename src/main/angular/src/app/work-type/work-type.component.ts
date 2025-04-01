@@ -28,13 +28,7 @@ export class WorkTypeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.workTypeService.getAllTypes().subscribe({
-      next: (data) => {
-        this.dataSource.data = data
-        this.dataSource.sort = this.sort;
-      },
-      error: (err) => console.error(err)
-    });
+    this.fetchData();
   }
 
   ngAfterViewInit() {
@@ -49,7 +43,7 @@ export class WorkTypeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.workTypeService.addType(result).subscribe({
-          next: (data) => this.dataSource.data = [...this.dataSource.data, data],
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
     });
@@ -63,10 +57,7 @@ export class WorkTypeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.workTypeService.updateType(result).subscribe({
-          next: (data) => {
-            this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== type.id);
-            this.dataSource.data.push(data);
-          },
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
@@ -79,10 +70,20 @@ export class WorkTypeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.workTypeService.deleteType(type).subscribe({
-          next: (data) => this.dataSource.data = this.dataSource.data.filter((r: { id: any; }) => r.id !== type.id),
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
+    });
+  }
+
+  fetchData(){
+    this.workTypeService.getAllTypes().subscribe({
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => console.error(err)
     });
   }
 }

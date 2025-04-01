@@ -47,13 +47,7 @@ export class WorkComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.worksService.getAllWorks().subscribe({
-      next: (data) => {
-        this.dataSource.data = data
-        this.dataSource.sort = this.sort;
-      },
-      error: (err) => console.error(err)
-    });
+    this.fetchData();
 
     this.dataSource.sortingDataAccessor = (item, property) => {
       switch (property) {
@@ -98,7 +92,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.worksService.addWork(result).subscribe({
-          next: (data) => this.dataSource.data= [...this.dataSource.data, data],
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
     });
@@ -112,10 +106,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.worksService.updateWork(result).subscribe({
-          next: (data) => {
-            this.dataSource.data= this.dataSource.data.filter((r: { id: any; }) => r.id !== work.id);
-            this.dataSource.data.push(data);
-          },
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
@@ -128,10 +119,20 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.worksService.deleteWork(work).subscribe({
-          next: (data) => this.dataSource.data= this.dataSource.data.filter((w: { id: any; }) => w.id !== work.id),
+          next: () => this.fetchData(),
           error: (err) => console.error(err)
         });
       }
+    });
+  }
+
+  fetchData(){
+    this.worksService.getAllWorks().subscribe({
+      next: (data) => {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => console.error(err)
     });
   }
 
