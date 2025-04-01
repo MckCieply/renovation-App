@@ -21,8 +21,8 @@ export class DashboardComponent implements OnInit {
       this.totalBudget = data;
       this.budgetChartData = [
         {
-          name: 'Budget Limit',
-          value: this.totalBudget.budgetLimit
+          name: 'Remaining',
+          value: this.totalBudget.budgetLimit - this.totalBudget.budgetSpent - this.totalBudget.budgetAllocated
         },
         {
           name: 'Spent',
