@@ -1,0 +1,21 @@
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0);
+  transition: background ease-in 0.3s;
+  z-index: 9999;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.spinner-overlay.visible {
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: all;
+  visibility: visible;
+}

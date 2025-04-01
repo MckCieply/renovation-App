@@ -8,9 +8,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {RoomComponent} from './room/room.component';
 import {WorkTypeComponent} from './work-type/work-type.component';
 import {ContractorsComponent} from './contractors/contractors.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
 import {RoomDialogComponent} from './room/room-dialog/room-dialog.component';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInput} from "@angular/material/input";
@@ -63,7 +62,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MaskitoDirective} from "@maskito/angular";
 import {RegisterComponent} from './auth/register/register.component';
-import {InterceptorService} from "./auth/interceptor.service";
+import {authInterceptor} from "./shared/interceptors/auth.interceptor";
 import {UserComponent} from './user/user.component';
 import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
 import {HomeComponent} from './home/home.component';
@@ -74,6 +73,9 @@ import {MatPaginator} from "@angular/material/paginator";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
 
 @NgModule({
   declarations: [
@@ -98,6 +100,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     HomeComponent,
     AdminComponent,
     RelativeTimePipe,
+    LoadingSpinnerComponent,
   ],
     imports: [
         BrowserModule,
@@ -163,12 +166,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         MatDatepickerApply,
       BrowserAnimationsModule, // Required for animations in ngx-charts
       NgxChartsModule,
+      MatProgressSpinnerModule
     ],
   providers: [
-    provideAnimationsAsync('noop'),
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     provideNativeDateAdapter(),
-    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
+    provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor])),
   ],
   bootstrap: [AppComponent]
 })
