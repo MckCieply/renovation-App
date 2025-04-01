@@ -76,6 +76,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
+import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
     AdminComponent,
     RelativeTimePipe,
     LoadingSpinnerComponent,
+    CurrencyMaskPipe,
   ],
     imports: [
         BrowserModule,
