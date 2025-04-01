@@ -23,6 +23,7 @@ export class WorkDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder) {
     this.workForm = this.fb.group({
+      id: [data.id],
       description: [data.description],
       estMaterialCost: [data.estMaterialCost],
       estLaborCost: [data.estLaborCost],
