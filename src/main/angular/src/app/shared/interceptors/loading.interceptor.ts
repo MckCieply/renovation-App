@@ -5,7 +5,6 @@ import {delay, finalize, timeout} from "rxjs";
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
-  console.log("Starting loading")
   loadingService.show();
 
 
@@ -13,7 +12,6 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   //todo: remove delay on prod
 
   return next(req).pipe(delay(500), finalize(() => {
-    console.log("Ending loading")
     loadingService.hide()
   }));
 };
