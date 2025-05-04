@@ -77,6 +77,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
 import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
+import {MatTooltip} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -166,9 +167,10 @@ import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
         MatDatepickerActions,
         MatDatepickerCancel,
         MatDatepickerApply,
-      BrowserAnimationsModule, // Required for animations in ngx-charts
-      NgxChartsModule,
-      MatProgressSpinnerModule
+        BrowserAnimationsModule, // Required for animations in ngx-charts
+        NgxChartsModule,
+        MatProgressSpinnerModule,
+        MatTooltip
     ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
