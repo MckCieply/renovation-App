@@ -3,6 +3,7 @@ import {AuthService} from "../auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
 import {ThemeService} from "../shared/services/theme.service";
+import {SidebarService} from "../shared/services/sidebar.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -15,7 +16,8 @@ export class ToolbarComponent implements OnInit {
   loggedUser: any = '';
 
   authService = inject(AuthService);
-  themeService = inject(ThemeService)
+  themeService = inject(ThemeService);
+  sidebarService = inject(SidebarService);
   dialog = inject(MatDialog)
   @Output() sidenavEmit = new EventEmitter<void>();
 
@@ -23,10 +25,6 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.loggedUser = this.authService.getUsername();
-  }
-
-  toggleSidenav() {
-    this.sidenavEmit.emit()
   }
 
   logout() {
