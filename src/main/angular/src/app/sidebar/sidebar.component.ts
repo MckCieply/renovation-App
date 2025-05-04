@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {SidebarService} from "../shared/services/sidebar.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +7,8 @@ import {Component} from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+
+  sidebarService = inject(SidebarService)
 
   constructor() {
   }

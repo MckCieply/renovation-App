@@ -1,5 +1,5 @@
 <div class="logoHolder">
-  <span class="logoName">Budget&shy;Holder</span>
+  <span *ngIf="sidebarService.isExpanded$ | async" class="logoName">BudgetHolder</span>
 </div>
 <mat-nav-list>
   <mat-list-item routerLink="/Dashboard">
