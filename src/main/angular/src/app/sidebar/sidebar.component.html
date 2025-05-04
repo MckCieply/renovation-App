@@ -1,5 +1,13 @@
 <div class="logoHolder">
-  <span *ngIf="sidebarService.isExpanded$ | async" class="logoName">BudgetHolder</span>
+  <span *ngIf="(sidebarService.isExpanded$ | async) && !(sidebarService.isSmallScreen$ | async)"
+        class="logoName">
+    BudgetHolder
+  </span>
+<button mat-icon-button
+        *ngIf="(sidebarService.isSmallScreen$ | async)"
+        (click)="sidebarService.toggleSidenav()">
+  <mat-icon>menu</mat-icon>
+</button>
 </div>
 <mat-nav-list>
   <mat-list-item routerLink="/Dashboard">

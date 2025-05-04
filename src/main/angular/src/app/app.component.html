@@ -1,13 +1,22 @@
 <mat-sidenav-container>
   <mat-sidenav
-    mode="side"
-    [opened]="authService.isAuthenticated()"
-    [ngClass]="(sidebarService.isExpanded$ | async) ? 'expanded' : 'collapsed'"
+    *ngIf="authService.isAuthenticated()"
+  [opened]="(sidebarService.isSmallScreen$ | async) ? (sidebarService.isExpanded$ | async) : true"
+  [mode]="(sidebarService.isSmallScreen$ | async) ? 'over' : 'side'"
+  [ngClass]="{
+    'expanded': (sidebarService.isExpanded$ | async),
+    'collapsed': !(sidebarService.isExpanded$ | async),
+    'small-screen': (sidebarService.isSmallScreen$ | async)
+  }"
   >
     <app-sidebar></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content
-    [ngClass]="(sidebarService.isExpanded$ | async) ? 'expanded' : 'collapsed'"
+    [ngClass]="{
+    'expanded': (sidebarService.isExpanded$ | async),
+    'collapsed': !(sidebarService.isExpanded$ | async),
+    'small-screen': (sidebarService.isSmallScreen$ | async)
+  }"
 >
     <mat-toolbar *ngIf="authService.isAuthenticated()" color="primary">
       <app-toolbar (sidenavEmit)="sidebarService.toggleSidenav()"></app-toolbar>

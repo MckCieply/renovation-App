@@ -9,6 +9,10 @@ mat-sidenav {
   &.collapsed {
     width: var(--app-sidebar-width-collapsed) !important;
   }
+
+  &.small-screen {
+    width: 100% !important;
+  }
 }
 
 mat-toolbar {
@@ -29,5 +33,9 @@ mat-sidenav-content {
 
   &.collapsed {
     margin-left: var(--app-sidebar-width-collapsed) !important;
+  }
+
+  &.small-screen {
+    margin-left: 0 !important;
   }
 }
