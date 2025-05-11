@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
      * @return an ExceptionMessage containing error details
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionMessage handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         String errorType = null;
         String rootCauseMessage = ex.getRootCause() != null ? ex.getRootCause().getMessage() : ex.getMessage();
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
         }
 
         return new ExceptionMessage(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.CONFLICT.value(),
                 new Date(),
                 "Unable to process the request due to database constraints.",
                 rootCauseMessage,
