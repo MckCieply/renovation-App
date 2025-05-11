@@ -24,8 +24,17 @@ public class ExceptionMessage {
     private Date timestamp;
 
     /**
-     * List of error messages or details.
+     * A user-friendly error message.
+     */
+    private String userMessage;
+
+    /**
+     * A developer-friendly error message or details.
+     */
+    private String developerMessage;
+
+    /**
+     * List of additional error details (optional).
      */
     private List<String> errors;
-
 }

@@ -1,13 +1,14 @@
 package com.mckcieply.renovationapp.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Global exception handler for managing application-wide exceptions.
@@ -19,16 +20,19 @@ public class GlobalExceptionHandler {
     /**
      * Handles ConstraintViolationException.
      *
-     * @param ex the exception thrown when validation constraints are violated
      * @return an ExceptionMessage containing error details
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage constraintViolationException(ConstraintViolationException ex) {
+    public ExceptionMessage handleConstraintViolationException(ConstraintViolationException ex) {
         return new ExceptionMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
-                ex.getConstraintViolations().stream().map(error -> error.getMessage()).toList()
+                "Validation failed for the provided input.",
+                "Constraint violations occurred: " + ex.getMessage(),
+                ex.getConstraintViolations().stream()
+                        .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
+                        .toList()
         );
     }
 
@@ -40,11 +44,58 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionMessage illegalArgumentException(IllegalArgumentException ex) {
+    public ExceptionMessage handleIllegalArgumentException(IllegalArgumentException ex) {
         return new ExceptionMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
-                Arrays.asList(ex.getMessage())
+                "Invalid argument provided.",
+                ex.getMessage(),
+                null
+        );
+    }
+
+    /**
+     * Handles DataIntegrityViolationException.
+     *
+     * @param ex the exception thrown when a database constraint is violated
+     * @return an ExceptionMessage containing error details
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ExceptionMessage handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String errorType = null;
+        String rootCauseMessage = ex.getRootCause() != null ? ex.getRootCause().getMessage() : ex.getMessage();
+
+        if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException hibEx) {
+            if ("23503".equals(hibEx.getSQLState())) {      // PostgreSQL error code 23503 indicates foreign key violation
+                errorType = "FOREIGN_KEY_VIOLATION";
+            }
+        }
+
+        return new ExceptionMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                "Unable to process the request due to database constraints.",
+                rootCauseMessage,
+                errorType != null ? List.of(errorType) : null
+        );
+    }
+
+    /**
+     * Handles generic Exception.
+     *
+     * @param ex the exception thrown for unexpected errors
+     * @return an ExceptionMessage containing error details
+     */
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ExceptionMessage handleGenericException(Exception ex) {
+        return new ExceptionMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                "An unexpected error occurred.",
+                ex.getMessage(),
+                null
         );
     }
 }
