@@ -10,6 +10,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS} from "../shared/config/paginator/paginator-config";
 import {Budget} from "../shared/models/budget.model";
+import {NotificationService} from "../shared/services/notification.service";
 
 @Component({
   selector: 'app-room',
@@ -32,6 +33,7 @@ export class RoomComponent implements OnInit {
 
   roomService = inject(RoomService)
   budgetService = inject(BudgetService)
+  notificationService = inject(NotificationService)
   fb = inject(FormBuilder)
   dialog = inject(MatDialog)
 
@@ -110,7 +112,12 @@ export class RoomComponent implements OnInit {
       if (result) {
         this.roomService.deleteRoom(room).subscribe({
           next: () => this.fetchData(),
-          error: (err) => console.error(err)
+          error: (err) => {
+            // if err.error.errors contains "FOREIGN_KEY_VIOLATION"
+            if(err.error.errors.includes("FOREIGN_KEY_VIOLATION")) {
+              this.notificationService.showError("Cannot delete room, there is work assigned to it")
+            }
+          }
         });
       }
     });

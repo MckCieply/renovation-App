@@ -35,3 +35,14 @@ button {
 .mat-mdc-tab-body-content {
   overflow-y: hidden !important;
 }
+
+
+//Snackbar styling
+
+.error-snackbar .mdc-snackbar__surface{
+    background: var(--bs-danger) !important;
+}
+
+.success-snackbar .mdc-snackbar__surface{
+    background: var(--bs-success) !important;
+}

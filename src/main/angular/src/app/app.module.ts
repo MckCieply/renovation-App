@@ -71,13 +71,13 @@ import {MatSort, MatSortHeader} from "@angular/material/sort";
 import { RelativeTimePipe } from './shared/pipes/relative-time.pipe';
 import {MatPaginator} from "@angular/material/paginator";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
 import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
 import {MatTooltip} from "@angular/material/tooltip";
+import { MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -170,7 +170,8 @@ import {MatTooltip} from "@angular/material/tooltip";
         BrowserAnimationsModule, // Required for animations in ngx-charts
         NgxChartsModule,
         MatProgressSpinnerModule,
-        MatTooltip
+        MatTooltip,
+      MatSnackBarModule
     ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
