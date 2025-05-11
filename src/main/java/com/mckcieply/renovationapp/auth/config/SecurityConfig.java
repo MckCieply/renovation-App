@@ -1,5 +1,6 @@
 package com.mckcieply.renovationapp.auth.config;
 
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())                                        // disable Cross Site Request Forgery protection
                 .authorizeHttpRequests(authz ->
                         authz
+                                .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll() // permit all requests to error dispatcher type - solves issue with 403 when throws error
                                 .requestMatchers("/api/auth/**").permitAll()            // permit all requests to /api/auth/**
                                 .requestMatchers("/api/user/get-all").hasRole("ADMIN") // require ADMIN role for get-all requests
                                 .requestMatchers("/api/user/update-roles").hasRole("ADMIN") // require ADMIN role for update-roles requests
