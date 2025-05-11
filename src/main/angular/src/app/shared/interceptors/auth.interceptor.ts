@@ -1,11 +1,16 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
+import {inject} from '@angular/core';
+import {HttpInterceptorFn} from "@angular/common/http";
+import {catchError, throwError} from "rxjs";
 import {AuthService} from "../../auth/auth.service";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const userToken = authService.getToken();
+
+  // Skip adding the token for login and register requests
+  if (req.url.includes('/login') || req.url.includes('/register')) {
+    return next(req);
+  }
 
   const modifiedReq = userToken
     ? req.clone({ headers: req.headers.set('Authorization', `Bearer ${userToken}`) })
