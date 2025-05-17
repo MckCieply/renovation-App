@@ -39,19 +39,19 @@ export class AuthService {
 
   setToken(token: string) {
     this.jwtToken = token;
-    localStorage.setItem('jwtToken', token);
+    localStorage.setItem('renovationApp.token', token);
   }
 
   getToken(): string | null {
     if (!this.jwtToken) {
-      this.jwtToken = localStorage.getItem('jwtToken');
+      this.jwtToken = localStorage.getItem('renovationApp.token');
     }
     return this.jwtToken;
   }
 
   clearToken() {
     this.jwtToken = null;
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('renovationApp.token');
   }
 
   isAuthenticated(): boolean {
