@@ -12,6 +12,8 @@ export class LoginComponent {
   serverError = false;
   loginForm: FormGroup;
 
+  passwordType = 'password';
+
   authService = inject(AuthService)
   fb = inject(FormBuilder)
   constructor( ) {
@@ -42,5 +44,9 @@ export class LoginComponent {
     }
   }
 
+  togglePasswordVisibility(e: MouseEvent) {
+    e.preventDefault();
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+  }
 
 }

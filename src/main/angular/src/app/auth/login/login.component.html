@@ -16,7 +16,10 @@
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Password" type="password" formControlName="password">
+          <input matInput placeholder="Password" [type]="passwordType" formControlName="password">
+          <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event)">
+            <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
           <mat-error>This field is <strong>required</strong></mat-error>
         </mat-form-field>
       </p>

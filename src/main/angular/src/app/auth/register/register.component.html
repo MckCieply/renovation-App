@@ -37,7 +37,10 @@
       <p>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+          <input matInput [type]="passwordType" formControlName="password" [errorStateMatcher]="matcher">
+          <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event, 'password')">
+            <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
           <mat-error>
             <p *ngIf="registerForm.get('password')?.hasError('required')">This field is <strong>required</strong></p>
           </mat-error>
@@ -81,7 +84,10 @@
       <p>
         <mat-form-field>
           <mat-label>Confirm Password</mat-label>
-          <input matInput type="password" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+          <input matInput [type]="passwordConfirmType" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+          <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event, 'passwordConfirm')">
+            <mat-icon>{{ passwordConfirmType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
           <mat-error *ngIf="registerForm.get('passwordConfirm')?.hasError('required')">This field is
             <strong>required</strong></mat-error>
           <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</mat-error>

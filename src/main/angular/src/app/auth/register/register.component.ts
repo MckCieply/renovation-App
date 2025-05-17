@@ -16,6 +16,9 @@ export class RegisterComponent {
   authService = inject(AuthService)
   fb = inject(FormBuilder)
 
+  passwordType = 'password';
+  passwordConfirmType = 'password';
+
   constructor() {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -37,6 +40,15 @@ export class RegisterComponent {
       error: error => console.error(error)
     });
     if (this.registerForm.valid) {
+    }
+  }
+
+  togglePasswordVisibility(e: MouseEvent, field: 'password' | 'passwordConfirm') {
+    e.preventDefault();
+    if (field === 'password') {
+      this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    } else {
+      this.passwordConfirmType = this.passwordConfirmType === 'password' ? 'text' : 'password';
     }
   }
 }
