@@ -3,6 +3,7 @@ package com.mckcieply.renovationapp.exceptions;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -78,6 +79,18 @@ public class GlobalExceptionHandler {
                 "Unable to process the request due to database constraints.",
                 rootCauseMessage,
                 errorType != null ? List.of(errorType) : null
+        );
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ExceptionMessage handleAuthenticationException(AuthenticationException ex) {
+        return new ExceptionMessage(
+                HttpStatus.UNAUTHORIZED.value(),
+                new Date(),
+                "Authentication error.",
+                ex.getMessage(),
+                List.of("AUTHENTICATION_ERROR")
         );
     }
 
