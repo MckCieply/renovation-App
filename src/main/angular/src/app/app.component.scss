@@ -42,4 +42,9 @@ mat-sidenav-content {
   &.small-screen {
     margin-left: 0 !important;
   }
+
+  &.auth-page {
+    padding-top: 0 !important;
+    margin-left: 0 !important;
+  }
 }

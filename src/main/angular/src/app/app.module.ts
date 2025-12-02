@@ -78,6 +78,7 @@ import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
 import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
 import {MatTooltip} from "@angular/material/tooltip";
 import { MatSnackBarModule} from "@angular/material/snack-bar";
+import {WelcomeBannerComponent} from "./auth/welcome-banner/welcome-banner.component";
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { MatSnackBarModule} from "@angular/material/snack-bar";
     RelativeTimePipe,
     LoadingSpinnerComponent,
     CurrencyMaskPipe,
+    WelcomeBannerComponent,
   ],
     imports: [
         BrowserModule,
