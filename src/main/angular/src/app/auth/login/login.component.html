@@ -1,32 +1,47 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <mat-card class="loginForm">
-    <mat-card-header>
-      <h1>Login</h1>
-    </mat-card-header>
-    <div id="errors">
-      <p id="invalidCredentials" *ngIf="invalidCredentials">Invalid username or password.</p>
-      <p id="serverError" *ngIf="serverError">Server error. Please try again later.</p>
-    </div>
-    <mat-card-content>
-      <p>
-        <mat-form-field>
-          <input matInput placeholder="Username" formControlName="username">
-          <mat-error>This field is <strong>required</strong></mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <input matInput placeholder="Password" [type]="passwordType" formControlName="password">
-          <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event)">
-            <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
-          </button>
-          <mat-error>This field is <strong>required</strong></mat-error>
-        </mat-form-field>
-      </p>
-      <p class="small">Forgot password? <a href="">You have a problem</a></p>
+<div class="auth-container">
+  <div class="welcome-section">
+    <app-welcome-banner></app-welcome-banner>
+  </div>
+  <div class="form-section">
+    <div class="form-wrapper">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-card class="loginForm">
+          <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+          </mat-card-header>
 
-      <p class="small">Dont have account? <a href="/Register">Register</a></p>
-      <button mat-raised-button color="primary">Login</button>
-    </mat-card-content>
-  </mat-card>
-</form>
+          <mat-card-content>
+            <div id="errors">
+              <mat-error id="invalidCredentials" *ngIf="invalidCredentials">Invalid username or password</mat-error>
+              <mat-error id="serverError" *ngIf="serverError">Server error. Please try again later</mat-error>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput placeholder="Username" formControlName="username">
+              <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                Username is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password" [type]="passwordType" formControlName="password">
+              <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event)" type="button" tabindex="-1">
+                <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+            <p style="text-align: center; margin-top: 16px;">
+              Don't have an account? <a href="/Register">Register</a>
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+  </div>
+</div>

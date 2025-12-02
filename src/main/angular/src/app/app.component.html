@@ -13,9 +13,10 @@
   </mat-sidenav>
   <mat-sidenav-content
     [ngClass]="{
-    'expanded': (sidebarService.isExpanded$ | async),
-    'collapsed': !(sidebarService.isExpanded$ | async),
-    'small-screen': (sidebarService.isSmallScreen$ | async)
+    'expanded': (sidebarService.isExpanded$ | async) && authService.isAuthenticated(),
+    'collapsed': !(sidebarService.isExpanded$ | async) && authService.isAuthenticated(),
+    'small-screen': (sidebarService.isSmallScreen$ | async) && authService.isAuthenticated(),
+    'auth-page': !authService.isAuthenticated()
   }"
 >
     <mat-toolbar *ngIf="authService.isAuthenticated()" color="primary">

@@ -1,0 +1,378 @@
+.welcome-banner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  // Background image - now visible
+  background-image: url('/assets/welcome-screen.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  // Color overlay over image - reduced opacity to show image
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  // Animated gradient orbs
+  &::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    top: -200px;
+    right: -200px;
+    animation: float 20s ease-in-out infinite;
+    z-index: 2;
+  }
+}
+
+.brand-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 4rem;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 3;
+}
+
+.welcome-content {
+  max-width: 560px;
+  color: white;
+  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .eyebrow {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    opacity: 0.95;
+    font-weight: 400;
+    margin: 0 0 2rem 0;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  max-width: 560px; /* Limits the container width */
+
+  // --- THE FEATURE BUTTON ---
+  .feature-item {
+    position: relative; // Anchor for the popover
+    display: inline-flex; /* Changed from flex to inline-flex for better wrapping */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem; /* Slightly more padding for touch targets */
+
+    /* FLEX LOGIC UPDATE: */
+    /* Grow to fill space, shrink if needed, auto basis */
+    flex: 1 1 auto;
+    /* But don't get smaller than the text needs */
+    min-width: max-content;
+
+    // Glassmorphism Base Style
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+
+    // Typography
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+    cursor: help;
+    white-space: nowrap; // Keep button text on one line
+
+    // Animation
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    mat-icon {
+      font-size: 1.2rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    // --- HOVER STATE ---
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+      z-index: 20; /* Ensure hovered item is above others */
+
+      .popover-card {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    .popover-card {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+
+      width: 260px; /* Explicit width to prevent squeezing */
+      padding: 1rem;
+
+      white-space: normal;
+      text-align: left; /* Ensure text reads naturally */
+
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 100;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 0.98) transparent transparent transparent;
+      }
+
+      strong {
+        display: block;
+        color: #d97706;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+        text-shadow: none;
+      }
+
+      p {
+        color: #374151;
+        font-size: 0.85rem;
+        line-height: 1.5; /* Better readability */
+        margin: 0;
+        font-weight: 400;
+        text-shadow: none;
+      }
+    }
+  }
+}
+
+.app-logo {
+  position: absolute;
+  top: 3rem;   // Matches the padding of .brand-overlay
+  left: 3rem;  // Matches the padding of .brand-overlay
+  z-index: 10; // Sits above the overlay
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+
+    mat-icon {
+      color: #fbbf24; // Amber-400 (Construction accent)
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+}
+
+// --- NEW ANIMATION ---
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- MOBILE ADJUSTMENTS ---
+@media (max-width: 600px) {
+  .features .feature-item {
+    /* On mobile, force 2 items per row */
+    flex: 0 0 calc(50% - 0.5rem);
+    justify-content: center;
+    min-width: 0; /* Allow shrinking if text is huge */
+
+    /* Hide popovers on mobile (UX best practice) */
+    .popover-card {
+      display: none;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-30px, 30px) scale(1.1);
+  }
+}
+
+// Responsive
+@media (max-width: 960px) {
+
+  .app-logo {
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content; // Ensures it centers correctly
+  }
+
+  .brand-overlay {
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .welcome-content {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .features {
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-overlay {
+    padding: 1.5rem;
+  }
+
+  .welcome-content {
+    .eyebrow {
+      font-size: 0.7rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .features {
+      gap: 0.5rem;
+      margin-top: 1rem;
+
+      .feature-item {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
+        flex: 0 0 calc(50% - 0.25rem); // 2 per row on mobile
+
+        mat-icon {
+          font-size: 0.95rem;
+          width: 0.95rem;
+          height: 0.95rem;
+        }
+      }
+    }
+  }
+
+  .welcome-banner::after {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+
