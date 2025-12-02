@@ -1,101 +1,111 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <mat-card>
-    <mat-card-header>
-      <h1>Register</h1>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        <mat-form-field>
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username">
-          <mat-error>This field is <strong>required</strong></mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName">
-          <mat-error>This field is <strong>required</strong></mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastName">
-          <mat-error>This field is <strong>required</strong></mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email">
-          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">This field is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput [type]="passwordType" formControlName="password" [errorStateMatcher]="matcher">
-          <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event, 'password')">
-            <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
-          </button>
-          <mat-error>
-            <p *ngIf="registerForm.get('password')?.hasError('required')">This field is <strong>required</strong></p>
-          </mat-error>
-        </mat-form-field>
-        <span class="small passwordStrength">
-            <mat-icon
-              *ngIf="registerForm.get('password')?.hasError('passwordTooShort') || !registerForm.get('password')?.value"
-              class="passwordCancel">close</mat-icon>
-            <mat-icon
-              *ngIf="!registerForm.get('password')?.hasError('passwordTooShort') && registerForm.get('password')?.value"
-              class="passwordCheck">check</mat-icon>
-            Password is at least 8 characters long
-        </span>
-        <span class="small passwordStrength">
-          <mat-icon
-            *ngIf="registerForm.get('password')?.hasError('passwordNoLowercase') || !registerForm.get('password')?.value"
-            class="passwordCancel">close</mat-icon>
-          <mat-icon
-            *ngIf="!registerForm.get('password')?.hasError('passwordNoLowercase') && registerForm.get('password')?.value"
-            class="passwordCheck">check</mat-icon>
-          Password contains at least one lowercase letter
-        </span>
-        <span class="small passwordStrength">
-          <mat-icon
-            *ngIf="registerForm.get('password')?.hasError('passwordNoUppercase') || !registerForm.get('password')?.value"
-            class="passwordCancel">close</mat-icon>
-          <mat-icon
-            *ngIf="!registerForm.get('password')?.hasError('passwordNoUppercase') && registerForm.get('password')?.value"
-            class="passwordCheck">check</mat-icon>
-          Password contains at least one capital letter
-        </span>
-        <span class="small passwordStrength">
-          <mat-icon
-            *ngIf="registerForm.get('password')?.hasError('passwordNoNumber') || !registerForm.get('password')?.value"
-            class="passwordCancel">close</mat-icon>
-          <mat-icon
-            *ngIf="!registerForm.get('password')?.hasError('passwordNoNumber') && registerForm.get('password')?.value"
-            class="passwordCheck">check</mat-icon>
-          Password contains at least one number
-        </span>
-      <p>
-        <mat-form-field>
-          <mat-label>Confirm Password</mat-label>
-          <input matInput [type]="passwordConfirmType" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
-          <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event, 'passwordConfirm')">
-            <mat-icon>{{ passwordConfirmType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
-          </button>
-          <mat-error *ngIf="registerForm.get('passwordConfirm')?.hasError('required')">This field is
-            <strong>required</strong></mat-error>
-          <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</mat-error>
-        </mat-form-field>
-      </p>
-      <p class="small">Have account? <a href="/Login">Login</a></p>
-      <button mat-raised-button color="primary" [disabled]="registerForm.invalid">Login</button>
-    </mat-card-content>
-  </mat-card>
-</form>
+<div class="auth-container">
+  <div class="welcome-section">
+    <app-welcome-banner></app-welcome-banner>
+  </div>
+  <div class="form-section">
+    <div class="form-wrapper">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-card class="registerForm">
+          <mat-card-header>
+            <mat-card-title>Register</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username">
+              <mat-error>This field is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName">
+              <mat-error>This field is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName">
+              <mat-error>This field is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email">
+              <mat-error *ngIf="registerForm.get('email')?.hasError('required')">This field is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput [type]="passwordType" formControlName="password" [errorStateMatcher]="matcher">
+              <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event, 'password')" type="button" tabindex="-1">
+                <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+              <mat-error>
+                <p *ngIf="registerForm.get('password')?.hasError('required')">This field is <strong>required</strong></p>
+              </mat-error>
+            </mat-form-field>
+
+            <div class="password-requirements">
+              <span class="passwordStrength">
+                <mat-icon
+                  *ngIf="registerForm.get('password')?.hasError('passwordTooShort') || !registerForm.get('password')?.value"
+                  class="passwordCancel">close</mat-icon>
+                <mat-icon
+                  *ngIf="!registerForm.get('password')?.hasError('passwordTooShort') && registerForm.get('password')?.value"
+                  class="passwordCheck">check</mat-icon>
+                <span class="password-text">Password is at least 8 characters long</span>
+              </span>
+              <span class="passwordStrength">
+                <mat-icon
+                  *ngIf="registerForm.get('password')?.hasError('passwordNoLowercase') || !registerForm.get('password')?.value"
+                  class="passwordCancel">close</mat-icon>
+                <mat-icon
+                  *ngIf="!registerForm.get('password')?.hasError('passwordNoLowercase') && registerForm.get('password')?.value"
+                  class="passwordCheck">check</mat-icon>
+                <span class="password-text">Password contains at least one lowercase letter</span>
+              </span>
+              <span class="passwordStrength">
+                <mat-icon
+                  *ngIf="registerForm.get('password')?.hasError('passwordNoUppercase') || !registerForm.get('password')?.value"
+                  class="passwordCancel">close</mat-icon>
+                <mat-icon
+                  *ngIf="!registerForm.get('password')?.hasError('passwordNoUppercase') && registerForm.get('password')?.value"
+                  class="passwordCheck">check</mat-icon>
+                <span class="password-text">Password contains at least one capital letter</span>
+              </span>
+              <span class="passwordStrength">
+                <mat-icon
+                  *ngIf="registerForm.get('password')?.hasError('passwordNoNumber') || !registerForm.get('password')?.value"
+                  class="passwordCancel">close</mat-icon>
+                <mat-icon
+                  *ngIf="!registerForm.get('password')?.hasError('passwordNoNumber') && registerForm.get('password')?.value"
+                  class="passwordCheck">check</mat-icon>
+                <span class="password-text">Password contains at least one number</span>
+              </span>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Confirm Password</mat-label>
+              <input matInput [type]="passwordConfirmType" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+              <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event, 'passwordConfirm')" type="button" tabindex="-1">
+                <mat-icon>{{ passwordConfirmType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="registerForm.get('passwordConfirm')?.hasError('required')">This field is
+                <strong>required</strong></mat-error>
+              <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+
+            <p style="text-align: center; margin-top: 16px;">
+              Have an account? <a href="/Login">Login</a>
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+  </div>
+</div>
 

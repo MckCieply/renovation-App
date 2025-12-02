@@ -1,40 +1,41 @@
-mat-card {
-  width: 400px;
-  margin: auto auto 0;
-  padding: 20px;
-  text-align: center;
-}
+@import "../auth-common.scss";
 
-mat-card-header {
-  padding-bottom: 20px;
-}
-
-h1 {
-  width: 100%;
-  text-align: center;
-  margin: 0;
-}
-
-mat-form-field {
-  width: 100%;
-}
-
-.small {
-  font-size: 0.8em;
-  color: #a5a5a5;
+// Register-specific styles
+.password-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
 }
 
 .passwordStrength {
   display: flex;
-  align-items: center;
+  align-items: start;
+  gap: 0.5rem;
+  color: rgba(0, 0, 0, 0.6);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .password-text {
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    flex: 1;
+  }
 }
 
 .passwordCancel {
-  color: #ff8383;
+  color: #f44336;
 }
 
 .passwordCheck {
-  color: #83ff83;
+  color: #4caf50;
 }
 
 
