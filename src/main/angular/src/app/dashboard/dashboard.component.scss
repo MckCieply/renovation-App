@@ -34,6 +34,7 @@ mat-grid-list {
     color: #6b7280;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-align: center;
   }
 }
 
@@ -71,19 +72,3 @@ mat-grid-list {
   white-space: nowrap;
 }
 
-/* --- Dark Mode Overrides --- */
-:host-context(.dark-mode) {
-  .header { color: #e0e0e0; }
-
-  .chart-tile {
-    background: #424242;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .chart-container h3 { color: #b0b0b0; }
-
-  /* Update chart text for dark backgrounds */
-  ::ng-deep ngx-charts-chart text {
-    fill: #ccc !important;
-  }
-}
