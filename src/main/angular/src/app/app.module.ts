@@ -79,6 +79,7 @@ import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
 import {MatTooltip} from "@angular/material/tooltip";
 import { MatSnackBarModule} from "@angular/material/snack-bar";
 import {WelcomeBannerComponent} from "./auth/welcome-banner/welcome-banner.component";
+import { CustomLegendComponent } from './dashboard/components/custom-legend/custom-legend.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import {WelcomeBannerComponent} from "./auth/welcome-banner/welcome-banner.compo
     LoadingSpinnerComponent,
     CurrencyMaskPipe,
     WelcomeBannerComponent,
+    CustomLegendComponent,
   ],
     imports: [
         BrowserModule,
