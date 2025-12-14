@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {BudgetService} from "../budget/budget.service";
 import {Budget} from "../shared/models/budget.model";
+import {DashboardService} from "./dashboard.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,12 @@ export class DashboardComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C']
   }
 
+  totalCost: number = 0;
+  breakdownCost: any[] = [];
+
+
   budgetService = inject(BudgetService)
+  dashboardService = inject(DashboardService)
 
   ngOnInit(): void {
     this.budgetService.getBudget().subscribe(data => {
@@ -34,5 +40,22 @@ export class DashboardComponent implements OnInit {
         }
       ];
     });
+
+    this.loadCostData();
+  }
+
+  loadCostData() {
+    this.dashboardService.getCostBreakdown().subscribe({
+      next: (data: any) => {
+        this.breakdownCost = [
+          { name: 'Labor', value: data.laborTotal },
+          { name: 'Materials', value: data.materialTotal }
+        ];
+        // Calculate total for the center label
+        this.totalCost = data.laborTotal + data.materialTotal;
+      },
+      error: (err) => console.error('Failed', err)
+    });
   }
 }
+

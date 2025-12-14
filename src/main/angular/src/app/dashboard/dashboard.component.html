@@ -1,6 +1,23 @@
 <h1 class="header">Dashboard</h1>
 <mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>1</mat-grid-tile>
+  <mat-grid-tile class="chart-tile">
+    <div class="chart-container">
+      <h3>Cost Composition</h3>
+      <ngx-charts-pie-chart
+        *ngIf="breakdownCost.length > 0"
+        [results]="breakdownCost"
+        [labels]="true"
+        [gradient]="false">
+
+        <ng-template #tooltipTemplate let-model="model">
+          <div class="chart-tooltip">
+            {{ model.name }}: {{ model.value | currencyMask }}
+          </div>
+        </ng-template>
+
+      </ngx-charts-pie-chart>
+    </div>
+  </mat-grid-tile>
   <mat-grid-tile>2</mat-grid-tile>
   <mat-grid-tile>
     <ngx-charts-pie-chart
