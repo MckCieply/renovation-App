@@ -1,31 +1,57 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {RoomComponent} from "./room/room.component";
-import {WorkComponent} from "./work/work.component";
-import {ContractorsComponent} from "./contractors/contractors.component";
-import {WorkTypeComponent} from "./work-type/work-type.component";
-import {BudgetComponent} from "./budget/budget.component";
-import {LoginComponent} from "./auth/login/login.component";
-import {RegisterComponent} from "./auth/register/register.component";
 import {authGuard} from "./auth/guards/auth.guard";
-import {UserComponent} from "./user/user.component";
-import {HomeComponent} from "./home/home.component";
-import {AdminComponent} from "./admin/admin.component";
 import {adminGuard} from "./auth/guards/admin.guard";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'Login', component: LoginComponent},
-  {path: 'Register', component: RegisterComponent},
-  {path: 'Dashboard', component: DashboardComponent, canActivate: [authGuard]},
-  {path: 'Work', component: WorkComponent, canActivate: [authGuard]},
-  {path: 'Contractors', component: ContractorsComponent, canActivate: [authGuard]},
-  {path: 'WorkType', component: WorkTypeComponent, canActivate: [authGuard]},
-  {path: 'Room', component: RoomComponent, canActivate: [authGuard]},
-  {path: 'Budget', component: BudgetComponent, canActivate: [authGuard]},
-  {path: 'User', component: UserComponent, canActivate: [authGuard]},
-  {path: 'Admin', component: AdminComponent, canActivate: [adminGuard]}
+  {
+    path: '',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'Auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'Dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'Work',
+    loadChildren: () => import('./work/work.module').then(m => m.WorkModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'Contractors',
+    loadChildren: () => import('./contractors/contractors.module').then(m => m.ContractorsModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'WorkType',
+    loadChildren: () => import('./work-type/work-type.module').then(m => m.WorkTypeModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'Room',
+    loadChildren: () => import('./room/room.module').then(m => m.RoomModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'Budget',
+    loadChildren: () => import('./budget/budget.module').then(m => m.BudgetModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'User',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'Admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [adminGuard]
+  }
 ];
 
 @NgModule({

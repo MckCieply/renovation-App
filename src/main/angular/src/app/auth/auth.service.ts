@@ -29,7 +29,7 @@ export class AuthService {
 
   logout() {
     this.clearToken();
-    this.router.navigate(['/Login']);
+    this.router.navigate(['Auth/Login']);
   }
 
   authSuccess(username: string) {
