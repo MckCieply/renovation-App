@@ -1,185 +1,32 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
+import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {RoomComponent} from './room/room.component';
-import {WorkTypeComponent} from './work-type/work-type.component';
-import {ContractorsComponent} from './contractors/contractors.component';
-import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
-import {RoomDialogComponent} from './room/room-dialog/room-dialog.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatInput} from "@angular/material/input";
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatFooterRow,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef,
-  MatTable
-} from "@angular/material/table";
-import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from "@angular/material/button";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {
-  ErrorStateMatcher,
-  MatOption,
-  provideNativeDateAdapter,
-  ShowOnDirtyErrorStateMatcher
-} from "@angular/material/core";
-import {MatIcon} from "@angular/material/icon";
-import {RemoveDialogComponent} from './dialogs/remove-dialog/remove-dialog.component';
-import {BudgetComponent} from './budget/budget.component';
-import {WorkTypeDialogComponent} from './work-type/work-type-dialog/work-type-dialog.component';
-import {ContractorDialogComponent} from './contractors/contractor-dialog/contractor-dialog.component';
-import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
-import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {WorkComponent} from './work/work.component';
-import {WorkDialogComponent} from './work/work-dialog/work-dialog.component';
-import {MatCheckbox} from "@angular/material/checkbox";
-import {MatSelect} from "@angular/material/select";
-import {
-  MatDatepicker, MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel,
-  MatDatepickerInput,
-  MatDatepickerToggle,
-  MatDateRangeInput,
-  MatDateRangePicker
-} from "@angular/material/datepicker";
-import {MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule} from "@angular/material/sidenav";
-import {MatListItem, MatListItemIcon, MatNavList} from "@angular/material/list";
 import {ToolbarComponent} from './toolbar/toolbar.component';
-import {MatToolbar} from "@angular/material/toolbar";
-import {MatGridList, MatGridTile} from "@angular/material/grid-list";
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {LoginComponent} from './auth/login/login.component';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
-import {MaskitoDirective} from "@maskito/angular";
-import {RegisterComponent} from './auth/register/register.component';
+import {SharedModule} from './shared/shared.module';
 import {authInterceptor} from "./shared/interceptors/auth.interceptor";
-import {UserComponent} from './user/user.component';
-import {ConfirmDialogComponent} from './dialogs/confirm-dialog/confirm-dialog.component';
-import {HomeComponent} from './home/home.component';
-import {AdminComponent} from './admin/admin.component';
-import {MatSort, MatSortHeader} from "@angular/material/sort";
-import { RelativeTimePipe } from './shared/pipes/relative-time.pipe';
-import {MatPaginator} from "@angular/material/paginator";
-import {NgxChartsModule} from "@swimlane/ngx-charts";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import {loadingInterceptor} from "./shared/interceptors/loading.interceptor";
-import { CurrencyMaskPipe } from './shared/pipes/currency-mask.pipe';
-import {MatTooltip} from "@angular/material/tooltip";
-import { MatSnackBarModule} from "@angular/material/snack-bar";
-import {WelcomeBannerComponent} from "./auth/welcome-banner/welcome-banner.component";
-import { CustomLegendComponent } from './dashboard/components/custom-legend/custom-legend.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    DashboardComponent,
-    RoomComponent,
-    WorkTypeComponent,
-    ContractorsComponent,
-    RoomDialogComponent,
-    RemoveDialogComponent,
-    BudgetComponent,
-    WorkTypeDialogComponent,
-    ContractorDialogComponent,
-    WorkComponent,
-    WorkDialogComponent,
-    ToolbarComponent,
-    LoginComponent,
-    RegisterComponent,
-    UserComponent,
-    ConfirmDialogComponent,
-    HomeComponent,
-    AdminComponent,
-    RelativeTimePipe,
-    LoadingSpinnerComponent,
-    CurrencyMaskPipe,
-    WelcomeBannerComponent,
-    CustomLegendComponent,
+    ToolbarComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        MatFormFieldModule,
-        MatDialogModule,
-        MatInput,
-        MatFooterRow,
-        MatButton,
-        FormsModule,
-        ReactiveFormsModule,
-        MatIcon,
-        MatFabButton,
-        MatMiniFabButton,
-        MatRadioButton,
-        MatRadioGroup,
-        MatTabGroup,
-        MatTab,
-        MatCheckbox,
-        MatSelect,
-        MatOption,
-        MatDatepickerInput,
-        MatDatepickerToggle,
-        MatDateRangeInput,
-        MatDateRangePicker,
-        MatDatepicker,
-        MatSidenavContent,
-        MatSidenav,
-        MatSidenavContainer,
-        MatSidenavModule,
-        MatNavList,
-        MatListItem,
-        MatToolbar,
-        MatIconButton,
-        MatListItemIcon,
-        MatGridList,
-        MatGridTile,
-        MatTable,
-        MatHeaderCellDef,
-        MatHeaderCell,
-        MatColumnDef,
-        MatCell,
-        MatCellDef,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatRowDef,
-        MatRow,
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatCardTitle,
-        // https://maskito.dev/getting-started/what-is-maskito
-        MaskitoDirective,
-        MatSortHeader,
-        MatSort,
-        MatPaginator,
-        MatDatepickerActions,
-        MatDatepickerCancel,
-        MatDatepickerApply,
-        BrowserAnimationsModule, // Required for animations in ngx-charts
-        NgxChartsModule,
-        MatProgressSpinnerModule,
-        MatTooltip,
-      MatSnackBarModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    SharedModule
+  ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-    provideNativeDateAdapter(),
     provideHttpClient(withInterceptors([authInterceptor, loadingInterceptor])),
   ],
   bootstrap: [AppComponent]
