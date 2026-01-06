@@ -1,6 +1,13 @@
 import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
+import {FormsModule} from '@angular/forms';
+
+// Material imports
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+
 import {BudgetComponent} from './budget.component';
 
 const routes: Routes = [
@@ -12,8 +19,13 @@ const routes: Routes = [
     BudgetComponent
   ],
   imports: [
-    SharedModule,
-    RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(routes),
+    // Material
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class BudgetModule {

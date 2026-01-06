@@ -1,7 +1,14 @@
 import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+
+// Material imports
+import {MatGridListModule} from '@angular/material/grid-list';
+
+// Shared
+import {SharedModule} from '../shared/shared.module';
+
 import {DashboardComponent} from './dashboard.component';
 import {CustomLegendComponent} from './components/custom-legend/custom-legend.component';
 
@@ -15,9 +22,12 @@ const routes: Routes = [
     CustomLegendComponent
   ],
   imports: [
-    SharedModule,
+    CommonModule,
+    RouterModule.forChild(routes),
     NgxChartsModule,
-    RouterModule.forChild(routes)
+    SharedModule, // for CurrencyMaskPipe
+    // Material
+    MatGridListModule
   ]
 })
 export class DashboardModule {

@@ -1,6 +1,10 @@
 import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
+
+// Material imports
+import {MatButtonModule} from '@angular/material/button';
+
 import {HomeComponent} from './home.component';
 
 const routes: Routes = [
@@ -12,8 +16,10 @@ const routes: Routes = [
     HomeComponent
   ],
   imports: [
-    SharedModule,
-    RouterModule.forChild(routes)
+    CommonModule,
+    RouterModule.forChild(routes),
+    // Material
+    MatButtonModule
   ]
 })
 export class HomeModule {
