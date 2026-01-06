@@ -70,6 +70,15 @@
           <input matInput placeholder="REGON" formControlName="regon" name="regon">
         </mat-form-field>
       </mat-tab>
+
+      <mat-tab label="Work Types" [disabled]="contractorForm.get('type')?.value == null">
+        <mat-form-field style="width: 100%">
+          <mat-label>Work Types</mat-label>
+          <mat-select formControlName="workTypes" multiple [compareWith]="compareById">
+            <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-tab>
     </mat-tab-group>
   </mat-dialog-content>
 
