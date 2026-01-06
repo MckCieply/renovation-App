@@ -1,0 +1,28 @@
+.legend-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 10px;
+  width: 100%;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.legend-color {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+/* Dark Mode Handling within the component */
+:host-context(.dark-mode) .legend-item {
+  color: #ccc;
+}

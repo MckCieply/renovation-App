@@ -1,15 +1,103 @@
 <h1 class="header">Dashboard</h1>
-<mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>
-    <ngx-charts-pie-chart
-      [results]="budgetChartData"
-      [doughnut]="true"
-      [labels]="true"
-    ><ng-template #tooltipTemplate let-model="model">
-      <div>{{ model.name }}: {{ model.value | currencyMask }}</div>
-    </ng-template></ngx-charts-pie-chart>
+
+<mat-grid-list [cols]="cols" [rowHeight]="rowHeight" gutterSize="16px">
+
+  <mat-grid-tile class="chart-tile">
+    <div class="chart-container">
+      <h3>Cost Composition</h3>
+
+      <div class="chart-wrapper">
+        <ngx-charts-pie-chart
+          *ngIf="breakdownCost.length > 0"
+          [results]="breakdownCost"
+          [scheme]="costColorScheme"
+          [doughnut]="true"
+          [gradient]="false"
+          [labels]="false"
+          [legend]="false"> <ng-template #tooltipTemplate let-model="model">
+          <div class="chart-tooltip">
+            {{ model.name }}: {{ model.value | currencyMask }}
+          </div>
+        </ng-template>
+        </ngx-charts-pie-chart>
+      </div>
+
+      <app-custom-legend
+        [data]="breakdownCost"
+        [colors]="costColorScheme">
+      </app-custom-legend>
+
+    </div>
   </mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
+
+  <mat-grid-tile class="chart-tile">
+    <div class="chart-container">
+      <h3>Room Budget Health</h3>
+
+      <div class="chart-wrapper">
+        <ngx-charts-bar-horizontal-2d
+          *ngIf="roomHealth.length > 0"
+          [results]="roomHealth"
+          [scheme]="roomColorScheme"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="false"
+          [showXAxisLabel]="false"
+          [showYAxisLabel]="false"
+          [barPadding]="2"
+          [groupPadding]="12">
+
+          <ng-template #tooltipTemplate let-model="model">
+            <div class="chart-tooltip">
+              {{ model.name }}: {{ model.value | currencyMask }}
+            </div>
+          </ng-template>
+        </ngx-charts-bar-horizontal-2d>
+      </div>
+
+      <app-custom-legend
+        [data]="roomLegendData"
+        [colors]="roomColorScheme">
+      </app-custom-legend>
+
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile class="chart-tile">
+    <div class="chart-container">
+      <h3>Total Budget</h3>
+
+      <div class="chart-wrapper">
+        <ngx-charts-pie-chart
+          *ngIf="budgetChartData.length > 0"
+          [results]="budgetChartData"
+          [scheme]="budgetColorScheme"
+          [gradient]="false"
+          [labels]="false"
+          [legend]="false">
+
+          <ng-template #tooltipTemplate let-model="model">
+            <div class="chart-tooltip">
+              {{ model.name }}: {{ model.value | currencyMask }}
+            </div>
+          </ng-template>
+        </ngx-charts-pie-chart>
+      </div>
+
+      <app-custom-legend
+        [data]="budgetChartData"
+        [colors]="budgetColorScheme">
+      </app-custom-legend>
+
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile class="chart-tile">
+    <div class="chart-container">
+      <h3>Summary</h3>
+      <div class="chart-wrapper">
+      </div>
+    </div>
+  </mat-grid-tile>
+
 </mat-grid-list>
