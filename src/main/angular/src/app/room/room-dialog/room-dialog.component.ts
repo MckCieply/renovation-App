@@ -17,6 +17,7 @@ export class RoomDialogComponent {
               private fb: FormBuilder) {
     //{name: string, budgetPlanned: number, action: string}
     this.roomForm = this.fb.group({
+      id: [data.id],
       name: [data.name, Validators.required],
       budgetPlanned: [data.budgetPlanned, Validators.required]
     });

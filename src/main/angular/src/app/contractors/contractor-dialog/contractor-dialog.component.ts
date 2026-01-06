@@ -46,6 +46,7 @@ export class ContractorDialogComponent {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder) {
     this.contractorForm = this.fb.group({
+      id: [data.id],
       firstName: [data.firstName],
       lastName: [data.lastName],
       email: [data.email, Validators.email],
