@@ -20,7 +20,7 @@ export class WorkComponent implements OnInit {
   protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
   protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
 
-  tableColumns = ['type', 'room', 'paid','updatedAt','state', 'actions'];
+  tableColumns = ['type', 'room', 'contractor', 'paid','updatedAt','state', 'actions'];
   dataSource = new MatTableDataSource<any>;
   filterForm: FormGroup;
   rooms: any;
@@ -55,6 +55,8 @@ export class WorkComponent implements OnInit {
           return item.room?.name || ''; // Fallback to empty string if `name` is null or undefined
         case 'type':
           return item.workType?.name || ''; // Fallback to empty string if `name` is null or undefined
+        case 'contractor':
+          return item.contractor?.fullName || ''; // Fallback to empty string if `fullName` is null or undefined
         default:
           return item[property];
       }

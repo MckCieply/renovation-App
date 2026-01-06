@@ -23,6 +23,14 @@
         </mat-form-field>
 
         <mat-form-field>
+          <mat-label>Contractor</mat-label>
+          <mat-select formControlName="contractor" [compareWith]="compareById">
+            <mat-option [value]="null"></mat-option>
+            <mat-option *ngFor="let contractor of contractors" [value]="contractor">{{ contractor.fullName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
           <mat-label>Status</mat-label>
           <mat-select formControlName="state">
             <mat-option *ngFor="let element of status" [value]="element">{{ element }}</mat-option>

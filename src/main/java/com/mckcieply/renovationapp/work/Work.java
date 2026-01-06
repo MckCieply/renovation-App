@@ -1,6 +1,7 @@
 package com.mckcieply.renovationapp.work;
 
 import com.mckcieply.core.BaseEntity;
+import com.mckcieply.renovationapp.contractor.Contractor;
 import com.mckcieply.renovationapp.enumerable.EnumWorkState;
 import com.mckcieply.renovationapp.room.Room;
 import com.mckcieply.renovationapp.workType.WorkType;
@@ -56,6 +57,9 @@ public class Work extends BaseEntity {
 
     @ManyToOne
     private WorkType workType;
+
+    @ManyToOne
+    private Contractor contractor;
 
     public double getFinalCosts(){
         return finalMaterialCost + finalLaborCost;

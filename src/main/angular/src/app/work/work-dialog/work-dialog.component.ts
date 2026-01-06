@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {RoomService} from "../../room/room.service";
 import {WorkService} from "../work.service";
 import {WorkTypeService} from "../../work-type/work-type.service";
+import {ContractorsService} from "../../contractors/contractors.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -15,9 +16,11 @@ export class WorkDialogComponent implements OnInit {
   rooms: any;
   status: any;
   workTypes: any;
+  contractors: any;
   roomService = inject(RoomService);
   workService = inject(WorkService);
   workTypeService = inject(WorkTypeService);
+  contractorsService = inject(ContractorsService);
 
   constructor(public dialogRef: MatDialogRef<WorkDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -34,7 +37,8 @@ export class WorkDialogComponent implements OnInit {
       startDate: [data.startDate],
       endDate: [data.endDate],
       room: [data.room, Validators.required],
-      workType: [data.workType, Validators.required]
+      workType: [data.workType, Validators.required],
+      contractor: [data.contractor]
     });
 
   }
@@ -58,6 +62,11 @@ export class WorkDialogComponent implements OnInit {
 
     this.workTypeService.getAllTypes().subscribe({
       next: (data) => this.workTypes = data,
+      error: (err) => console.error(err)
+    });
+
+    this.contractorsService.getAllContractors().subscribe({
+      next: (data) => this.contractors = data,
       error: (err) => console.error(err)
     });
   }
