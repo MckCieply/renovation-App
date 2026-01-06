@@ -16,6 +16,7 @@ export class WorkTypeDialogComponent {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder) {
     this.workTypeForm = this.fb.group({
+      id: [data.id],
       name: [data.name, Validators.required],
     });
   }

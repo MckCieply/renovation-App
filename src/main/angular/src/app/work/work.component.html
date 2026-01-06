@@ -81,6 +81,11 @@
       <td mat-cell *matCellDef="let element">{{ element.room?.name }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="contractor">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Contractor</th>
+      <td mat-cell *matCellDef="let element">{{ element.contractor?.fullName }}</td>
+    </ng-container>
+
     <ng-container matColumnDef="paid">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Paid</th>
       <td mat-cell *matCellDef="let element">

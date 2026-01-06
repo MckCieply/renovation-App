@@ -20,7 +20,7 @@ export class ContractorsComponent implements OnInit {
   protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
   protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
 
-  tableColumns = ['fullName', 'type', 'email', 'phone', 'updatedAt', 'actions'];
+  tableColumns = ['fullName', 'type', 'workTypes', 'email', 'phone', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
 
   contractorsService = inject(ContractorsService);
@@ -88,5 +88,9 @@ export class ContractorsComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+  }
+
+  getWorkTypesNames(workTypes: any[]): string {
+    return workTypes?.map(wt => wt.name).join(', ') || '';
   }
 }

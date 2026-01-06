@@ -2,6 +2,7 @@ package com.mckcieply.renovationapp.contractor;
 
 import com.mckcieply.core.BaseEntity;
 import com.mckcieply.renovationapp.enumerable.EnumContractorType;
+import com.mckcieply.renovationapp.workType.WorkType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +11,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a contractor entity with details for private individuals or companies.
@@ -63,5 +67,13 @@ public class Contractor extends BaseEntity {
     private String bankAccount;
 
     private String description;
+
+    @ManyToMany
+    @JoinTable(
+            name = "contractor_work_types",
+            joinColumns = @JoinColumn(name = "contractor_id"),
+            inverseJoinColumns = @JoinColumn(name = "work_type_id")
+    )
+    private Set<WorkType> workTypes = new HashSet<>();
 
 }
