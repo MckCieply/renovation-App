@@ -1,70 +1,81 @@
-<div class="container-fluid">
-  <div class="row text-center justify-content-center">
-    <h1>Contractors</h1>
-    <button mat-raised-button color="accent" class="col-3" (click)="createForm()">Add Contractor</button>
+<div class="page-container mat-app-background">
+
+  <header class="page-header">
+    <div class="title-group">
+      <h1>Contractors</h1>
+      <p class="page-subtitle">Directory & Management</p>
+    </div>
+
+    <button mat-raised-button class="btn-large-accent" (click)="createForm()">
+      <mat-icon>add</mat-icon>
+      <span>Add Contractor</span>
+    </button>
+  </header>
+
+  <div class="content-surface mat-elevation-z2">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let element" class="bold-cell"> {{ element.fullName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Type</th>
+        <td mat-cell *matCellDef="let element"> {{ element.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="workTypes">
+        <th mat-header-cell *matHeaderCellDef> Work Types</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getWorkTypesNames(element.workTypes) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Email</th>
+        <td mat-cell *matCellDef="let element"> {{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Phone</th>
+        <td mat-cell *matCellDef="let element"> {{ element.phone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Update </th>
+        <td mat-cell
+            *matCellDef="let element"
+            [matTooltip]="(element.updatedAt | date: 'dd.MM.yyyy h:mm a') ?? ''"
+            matTooltipPosition='left'
+            matTooltipShowDelay="500">
+          {{ element.updatedAt | relativeTime }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="table-actions">
+            <button mat-icon-button color="accent" (click)="editForm(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="removeForm(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSize]="DEFAULT_PAGE_SIZE"
+      [pageSizeOptions]="DEFAULT_PAGE_SIZE_OPTIONS"
+      showFirstLastButtons>
+    </mat-paginator>
   </div>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-    <!-- TODO: Set either companyName or fullName based on contractorType -->
-    <!-- TODO: Fix name concat on create -->
-    <ng-container matColumnDef="fullName">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Name</th>
-      <td mat-cell *matCellDef="let element"> {{ element.fullName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Type</th>
-      <td mat-cell *matCellDef="let element"> {{ element.type }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="workTypes">
-      <th mat-header-cell *matHeaderCellDef> Work Types</th>
-      <td mat-cell *matCellDef="let element">
-        {{ getWorkTypesNames(element.workTypes) }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Email</th>
-      <td mat-cell *matCellDef="let element"> {{ element.email }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> Phone</th>
-      <td mat-cell *matCellDef="let element"> {{ element.phone }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="updatedAt">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Update </th>
-      <td mat-cell
-          *matCellDef="let element"
-          [matTooltip]="(element.updatedAt | date: 'dd.MM.yyyy h:mm a') ?? ''"
-          matTooltipPosition='left'
-          matTooltipShowDelay="500">
-        {{ element.updatedAt | relativeTime }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-mini-fab color="accent"
-                (click)="editForm(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-mini-fab color="warn"
-                (click)="removeForm(element)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
-  </table>
-  <mat-paginator
-    [pageSize] = "DEFAULT_PAGE_SIZE"
-    [pageSizeOptions]="DEFAULT_PAGE_SIZE_OPTIONS">
-  </mat-paginator>
 </div>
-

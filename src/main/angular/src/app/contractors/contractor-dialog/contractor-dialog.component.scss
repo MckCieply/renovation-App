@@ -1,0 +1,46 @@
+.contractor-dialog {
+  min-width: 650px;
+
+  .no-padding {
+    padding: 0 !important;
+  }
+
+  .tab-grid,
+  .tab-vertical-body {
+    padding: 24px !important;
+  }
+
+  .tab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+
+  .tab-vertical-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .span-2,
+  .full-width {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  .radio-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 4px;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    opacity: 0.6;
+    margin-bottom: -4px;
+  }
+}

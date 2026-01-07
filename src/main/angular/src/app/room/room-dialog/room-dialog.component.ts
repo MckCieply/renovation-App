@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-room-dialog',
   templateUrl: './room-dialog.component.html',
-  styles: ``
+  styleUrl: `./room-dialog.component.scss`
 })
 export class RoomDialogComponent {
   matcher = new ErrorStateMatcher();

@@ -1,0 +1,14 @@
+.work-type-wrapper {
+  min-width: 400px;
+
+  .vertical-content {
+    display: flex;
+    flex-direction: column;
+    padding: 24px !important;
+    overflow: hidden;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+}
