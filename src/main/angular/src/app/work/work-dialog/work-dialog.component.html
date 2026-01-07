@@ -1,84 +1,124 @@
-<form [formGroup]="workForm" (ngSubmit)="onSubmit()">
-  <h2 mat-dialog-title>{{ data.action }}</h2>
-  <mat-dialog-content class="mat-typography">
-    <mat-tab-group>
+<form [formGroup]="workForm" (ngSubmit)="onSubmit()" class="work-dialog">
+  <div class="dialog-header-base">
+    <h2 mat-dialog-title>{{ data.action }} Work</h2>
+    <mat-icon color="primary">construction</mat-icon>
+  </div>
+
+  <mat-dialog-content class="no-padding">
+    <mat-tab-group dynamicHeight>
 
       <mat-tab label="General">
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <input matInput formControlName="description">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Room</mat-label>
-          <mat-select formControlName="room" [compareWith]="compareById">
-            <mat-option *ngFor="let room of rooms" [value]="room">{{ room.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <mat-label>Work Type</mat-label>
-          <mat-select formControlName="workType" [compareWith]="compareById">
-            <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-grid">
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Description</mat-label>
+              <mat-icon matPrefix color="primary">description</mat-icon>
+              <input matInput formControlName="description">
+            </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Contractor</mat-label>
-          <mat-select formControlName="contractor" [compareWith]="compareById">
-            <mat-option [value]="null"></mat-option>
-            <mat-option *ngFor="let contractor of contractors" [value]="contractor">{{ contractor.fullName }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Room</mat-label>
+              <mat-icon matPrefix color="primary">meeting_room</mat-icon>
+              <mat-select formControlName="room" [compareWith]="compareById">
+                <mat-option *ngFor="let room of rooms" [value]="room">{{ room.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Status</mat-label>
-          <mat-select formControlName="state">
-            <mat-option *ngFor="let element of status" [value]="element">{{ element }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-checkbox formControlName="paid">Paid</mat-checkbox>
+            <mat-form-field appearance="outline">
+              <mat-label>Work Type</mat-label>
+              <mat-icon matPrefix color="primary">build</mat-icon>
+              <mat-select formControlName="workType" [compareWith]="compareById">
+                <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Contractor</mat-label>
+              <mat-icon matPrefix color="primary">person</mat-icon>
+              <mat-select formControlName="contractor" [compareWith]="compareById">
+                <mat-option [value]="null">-- None --</mat-option>
+                <mat-option *ngFor="let c of contractors" [value]="c">{{ c.fullName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-icon matPrefix color="primary">info</mat-icon>
+              <mat-select formControlName="state">
+                <mat-option *ngFor="let s of status" [value]="s">{{ s }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-checkbox formControlName="paid" color="primary" class="span-2">Paid</mat-checkbox>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Dates">
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerStart" placeholder="Start date" formControlName="startDate">
-          <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
-          <mat-datepicker #pickerStart></mat-datepicker>
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput [matDatepicker]="pickerEnd" placeholder="End date" formControlName="endDate">
-          <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnd></mat-datepicker>
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Start Date</mat-label>
+              <mat-icon matPrefix color="primary">today</mat-icon>
+              <input matInput [matDatepicker]="pStart" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="pStart"></mat-datepicker-toggle>
+              <mat-datepicker #pStart></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>End Date</mat-label>
+              <mat-icon matPrefix color="primary">event_available</mat-icon>
+              <input matInput [matDatepicker]="pEnd" formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="pEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pEnd></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Costs">
-        <mat-form-field>
-          <mat-label>Est. Labor cost</mat-label>
-          <input matInput formControlName="estLaborCost">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Est. Material cost</mat-label>
-          <input matInput formControlName="estMaterialCost">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <mat-label>Final Labor cost</mat-label>
-          <input matInput formControlName="finalLaborCost">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Final Material cost</mat-label>
-          <input matInput formControlName="finalMaterialCost">
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-grid">
+            <h4 class="span-2 section-label">Estimated</h4>
+            <mat-form-field appearance="outline">
+              <mat-label>Labor</mat-label>
+              <mat-icon matPrefix color="primary">engineering</mat-icon>
+              <input matInput formControlName="estLaborCost" type="number">
+              <span matSuffix class="currency-suffix">PLN</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Material</mat-label>
+              <mat-icon matPrefix color="primary">inventory_2</mat-icon>
+              <input matInput formControlName="estMaterialCost" type="number">
+              <span matSuffix class="currency-suffix">PLN</span>
+            </mat-form-field>
+
+            <h4 class="span-2 section-label">Final</h4>
+            <mat-form-field appearance="outline">
+              <mat-label>Labor</mat-label>
+              <mat-icon matPrefix color="accent">payments</mat-icon>
+              <input matInput formControlName="finalLaborCost" type="number">
+              <span matSuffix class="currency-suffix">PLN</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Material</mat-label>
+              <mat-icon matPrefix color="accent">shopping_cart</mat-icon>
+              <input matInput formControlName="finalMaterialCost" type="number">
+              <span matSuffix class="currency-suffix">PLN</span>
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
 
     </mat-tab-group>
   </mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
-  </mat-dialog-actions>
+  <div class="dialog-footer-base">
+    <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!workForm.valid">
+      {{ data.action }}
+    </button>
+  </div>
 </form>

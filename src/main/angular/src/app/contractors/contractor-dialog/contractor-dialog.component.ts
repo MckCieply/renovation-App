@@ -7,7 +7,7 @@ import {WorkTypeService} from "../../work-type/work-type.service";
 @Component({
   selector: 'app-contractor-dialog',
   templateUrl: './contractor-dialog.component.html',
-  styles: ``
+  styleUrl: `./contractor-dialog.component.scss`
 })
 export class ContractorDialogComponent implements OnInit {
   contractorForm: FormGroup;

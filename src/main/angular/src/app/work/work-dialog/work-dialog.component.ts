@@ -9,7 +9,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-work-dialog',
   templateUrl: './work-dialog.component.html',
-  styles: ``
+  styleUrl: `./work-dialog.component.scss`
 })
 export class WorkDialogComponent implements OnInit {
   workForm: FormGroup;

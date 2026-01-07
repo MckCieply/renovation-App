@@ -1,0 +1,12 @@
+.room-dialog {
+  min-width: 400px;
+  .vertical-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 24px !important;
+    gap: 8px;
+  }
+  mat-form-field {
+    width: 100%;
+  }
+}

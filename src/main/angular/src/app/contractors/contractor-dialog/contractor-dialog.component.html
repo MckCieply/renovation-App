@@ -1,90 +1,142 @@
-<form [formGroup]="contractorForm" (ngSubmit)="onSubmit()">
-  <h2 mat-dialog-title>{{ data.action }}</h2>
-  <mat-dialog-content class="mat-typography">
-    <mat-tab-group>
+<form [formGroup]="contractorForm" (ngSubmit)="onSubmit()" class="contractor-dialog">
+  <div class="dialog-header-base">
+    <h2 mat-dialog-title>{{ data.action }} Contractor</h2>
+    <mat-icon color="primary" class="header-icon">contact_page</mat-icon>
+  </div>
+
+  <mat-dialog-content class="no-padding">
+    <mat-tab-group dynamicHeight>
+
       <mat-tab label="Type">
-        <mat-radio-group formControlName="type" required>
-          <mat-label>Contractor Type</mat-label>
-          <br>
-          <mat-radio-button [value]="'PRIVATE'">Private</mat-radio-button>
-          <br>
-          <mat-radio-button [value]="'COMPANY'">Company</mat-radio-button>
-        </mat-radio-group>
+        <ng-template matTabContent>
+          <div class="tab-vertical-body">
+            <label class="section-label">Select Contractor Type</label>
+            <mat-radio-group formControlName="type" required class="radio-stack">
+              <mat-radio-button value="PRIVATE" color="primary">Private Person</mat-radio-button>
+              <mat-radio-button value="COMPANY" color="primary">Registered Company</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Contact" [disabled]="contractorForm.get('type')?.value == null">
-        <mat-form-field>
-          <input matInput placeholder="First Name" formControlName="firstName" name="firstName">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Last Name" formControlName="lastName" name="lastName">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Email" formControlName="email" name="email">
-          <mat-error>It isn't an <strong>email</strong>.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput [maskito]="phoneMask" placeholder="Phone" formControlName="phone" name="phone">
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <mat-icon matPrefix color="primary">person</mat-icon>
+              <input matInput formControlName="firstName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <mat-icon matPrefix color="primary">badge</mat-icon>
+              <input matInput formControlName="lastName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <mat-icon matPrefix color="primary">alternate_email</mat-icon>
+              <input matInput formControlName="email">
+              <mat-error>Invalid email format</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Phone</mat-label>
+              <mat-icon matPrefix color="primary">phone</mat-icon>
+              <input matInput [maskito]="phoneMask" formControlName="phone">
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Address" [disabled]="contractorForm.get('type')?.value == null">
-        <mat-label>Address Information</mat-label>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Address" formControlName="address" name="address">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="City" formControlName="city" name="city">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput [maskito]="postalMask" placeholder="Postal Code" formControlName="postalCode"
-                 name="postalCode">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Country" formControlName="country" name="country">
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-grid">
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Street Address</mat-label>
+              <mat-icon matPrefix color="primary">home</mat-icon>
+              <input matInput formControlName="address">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <mat-icon matPrefix color="primary">location_city</mat-icon>
+              <input matInput formControlName="city">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Postal Code</mat-label>
+              <mat-icon matPrefix color="primary">mail_outline</mat-icon>
+              <input matInput [maskito]="postalMask" formControlName="postalCode">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Country</mat-label>
+              <mat-icon matPrefix color="primary">public</mat-icon>
+              <input matInput formControlName="country">
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Banking" [disabled]="contractorForm.get('type')?.value == null">
-        <mat-form-field style="width: 100%">
-          <input matInput [maskito]="bankingMask" placeholder="Bank Account" formControlName="bankAccount"
-                 name="bankName">
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-vertical-body">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Bank Account Number</mat-label>
+              <mat-icon matPrefix color="primary">account_balance</mat-icon>
+              <input matInput [maskito]="bankingMask" formControlName="bankAccount">
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Company" [disabled]="contractorForm.get('type')?.value != 'COMPANY'">
-        <mat-label>Company Information</mat-label>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="Company Name" formControlName="companyName" name="companyName">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput placeholder="NIP" formControlName="nip" name="nip">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="REGON" formControlName="regon" name="regon">
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-grid">
+            <mat-form-field appearance="outline" class="span-2">
+              <mat-label>Legal Company Name</mat-label>
+              <mat-icon matPrefix color="primary">business</mat-icon>
+              <input matInput formControlName="companyName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>NIP</mat-label>
+              <mat-icon matPrefix color="primary">domain_verification</mat-icon>
+              <input matInput formControlName="nip">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>REGON</mat-label>
+              <mat-icon matPrefix color="primary">app_registration</mat-icon>
+              <input matInput formControlName="regon">
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
 
       <mat-tab label="Work Types" [disabled]="contractorForm.get('type')?.value == null">
-        <mat-form-field style="width: 100%">
-          <mat-label>Work Types</mat-label>
-          <mat-select formControlName="workTypes" multiple [compareWith]="compareById">
-            <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <ng-template matTabContent>
+          <div class="tab-vertical-body">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Assigned Work Types</mat-label>
+              <mat-icon matPrefix color="primary">handyman</mat-icon>
+              <mat-select formControlName="workTypes" multiple [compareWith]="compareById">
+                <mat-option *ngFor="let type of workTypes" [value]="type">{{ type.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </ng-template>
       </mat-tab>
+
     </mat-tab-group>
   </mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
-  </mat-dialog-actions>
+  <div class="dialog-footer-base">
+    <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!contractorForm.valid">
+      {{ data.action }}
+    </button>
+  </div>
 </form>
-

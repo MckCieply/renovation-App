@@ -1,27 +1,28 @@
-<form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
-  <h2 mat-dialog-title>{{ data.action }}</h2>
-  <mat-dialog-content class="mat-typography">
+<form [formGroup]="roomForm" (ngSubmit)="onSubmit()" class="room-dialog">
+  <div class="dialog-header-base">
+    <h2 mat-dialog-title>{{ data.action }} Room</h2>
+    <mat-icon color="primary">meeting_room</mat-icon>
+  </div>
 
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" [errorStateMatcher]="matcher">
-      <mat-error>Name is <strong>required</strong></mat-error>
+  <mat-dialog-content class="vertical-layout">
+    <mat-form-field appearance="outline">
+      <mat-label>Room Name</mat-label>
+      <mat-icon matPrefix color="primary">label</mat-icon>
+      <input matInput formControlName="name" placeholder="e.g. Bathroom">
     </mat-form-field>
-    <br>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Planned Budget</mat-label>
-      <input matInput formControlName="budgetPlanned" type="number" class="example-right-align" placeholder="0"
-             [errorStateMatcher]="matcher">
-      <span matTextSuffix> PLN</span>
-      <mat-error>Planned Budget is <strong>required</strong></mat-error>
+      <mat-icon matPrefix color="primary">payments</mat-icon>
+      <input matInput formControlName="budgetPlanned" type="number">
+      <span matSuffix class="currency-suffix">PLN</span>
     </mat-form-field>
-    <br>
-
   </mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
-  </mat-dialog-actions>
+  <div class="dialog-footer-base">
+    <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!roomForm.valid">
+      {{ data.action }}
+    </button>
+  </div>
 </form>

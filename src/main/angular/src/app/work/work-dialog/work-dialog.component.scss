@@ -1,0 +1,27 @@
+.work-dialog {
+  min-width: 600px;
+
+  .no-padding {
+    padding: 0 !important;
+  }
+
+  .tab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    padding: 24px !important;
+  }
+
+  .span-2 {
+    grid-column: span 2;
+  }
+
+  .section-label {
+    margin: 12px 0 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+}

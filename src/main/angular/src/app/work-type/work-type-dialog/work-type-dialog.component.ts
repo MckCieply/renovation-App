@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-work-type-dialog',
   templateUrl: './work-type-dialog.component.html',
-  styles: ``
+  styleUrl: `./work-type-dialog.component.scss`
 })
 export class WorkTypeDialogComponent {
   matcher = new ErrorStateMatcher();

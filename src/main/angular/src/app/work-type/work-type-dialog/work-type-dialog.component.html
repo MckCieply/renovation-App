@@ -1,19 +1,22 @@
-<form [formGroup]="workTypeForm" (ngSubmit)="onSubmit()">
-  <h2 mat-dialog-title>{{ data.action }} </h2>
-  <mat-dialog-content class="mat-typography">
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" [errorStateMatcher]="matcher">
+<form [formGroup]="workTypeForm" (ngSubmit)="onSubmit()" class="work-type-wrapper">
+  <div class="dialog-header-base">
+    <h2 mat-dialog-title>{{ data.action }} Work Type</h2>
+    <mat-icon color="primary" class="header-icon">build</mat-icon>
+  </div>
+
+  <mat-dialog-content class="vertical-content">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Work Type Name</mat-label>
+      <mat-icon matPrefix color="primary">category</mat-icon>
+      <input matInput formControlName="name" placeholder="e.g. Plumbing" [errorStateMatcher]="matcher">
       <mat-error>Name is <strong>required</strong></mat-error>
     </mat-form-field>
-    <br>
-
   </mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" type="submit">{{ data.action }}</button>
-  </mat-dialog-actions>
+  <div class="dialog-footer-base">
+    <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!workTypeForm.valid">
+      {{ data.action }}
+    </button>
+  </div>
 </form>
-
-
