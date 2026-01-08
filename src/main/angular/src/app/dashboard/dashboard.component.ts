@@ -25,6 +25,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   breakdownCost: any[] = [];
   roomHealth: any[] = [];
   budgetChartData: any[] = [];
+  budgetUtilizationData: any[] = [];
+  budgetUtilizationPercent: number = 0;
+  isBudgetOverallocated: boolean = false;
+  gaugeMax: number = 100; // Dynamic max for gauge chart
+  gaugeBigSegments: number = 4; // Dynamic segments to keep 25% spacing
 
   // Only used for the "Total" center label in donut chart (optional logic)
   totalCost: number = 0;
@@ -50,11 +55,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   // 3. Total Budget (Donut)
+  // [Available (Green), Work in Progress (Amber), Paid Work (Blue)]
   budgetColorScheme: Color = {
     name: 'budgetScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#10b981', '#ef4444', '#f59e0b'] // Green (Remaining), Red (Spent), Amber (Allocated)
+    domain: ['#10b981', '#f59e0b', '#3b82f6'] // Green (Available), Amber (In Progress), Blue (Paid)
+  };
+
+  // 4. Budget Utilization (Gauge-like Donut)
+  budgetUtilizationColorScheme: Color = {
+    name: 'utilizationScheme',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#10b981', '#e5e7eb'] // Green (Used), Gray (Free) - will change dynamically
   };
 
   // --- Static Legend Data ---
@@ -63,6 +77,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { name: 'Planned' },
     { name: 'Spent' }
   ];
+
+  // Gauge value formatting function
+  gaugeValueFormatting = (value: number) => `${value.toFixed(0)}%`;
 
   ngOnInit(): void {
     this.setupResponsiveLayout();
@@ -119,26 +136,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
         error: (err) => console.error('Room Health error', err)
       });
 
-    // 3. Total Budget
-    this.budgetService.getBudget()
+    // 3. Total Budget - Use budget validation for calculated totals
+    this.budgetService.validateBudget()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
           this.totalBudget = data;
           this.budgetChartData = [
             {
-              name: 'Remaining',
-              value: this.totalBudget.budgetLimit - this.totalBudget.budgetSpent - this.totalBudget.budgetAllocated
+              name: 'Available',
+              value: Math.max(0, data.availableBudget)
             },
             {
-              name: 'Spent',
-              value: this.totalBudget.budgetSpent
+              name: 'Work in Progress',
+              value: data.totalEstimatedCosts
             },
             {
-              name: 'Allocated',
-              value: this.totalBudget.budgetAllocated
+              name: 'Paid Work',
+              value: data.totalPaidCosts
             }
           ];
+
+          // 4. Budget Utilization Chart - shows allocated/spent vs free
+          this.isBudgetOverallocated = data.overallocated;
+          this.budgetUtilizationPercent = data.budgetLimit > 0
+            ? (data.totalRoomBudgets / data.budgetLimit) * 100
+            : 0;
+
+          // Dynamic gauge max - rounds up to nearest 50% above actual value, minimum 100%
+          this.gaugeMax = Math.max(100, Math.ceil(this.budgetUtilizationPercent / 50) * 50);
+          // Keep 25% spacing: segments = max / 25
+          this.gaugeBigSegments = this.gaugeMax / 25;
+
+          // Update color scheme based on overallocation
+          this.budgetUtilizationColorScheme = {
+            ...this.budgetUtilizationColorScheme,
+            domain: data.overallocated
+              ? ['#ef4444', '#e5e7eb']  // Red for overallocated
+              : ['#10b981', '#e5e7eb']  // Green for healthy
+          };
+
+          if (data.overallocated) {
+            // Over 100% - show full allocation with excess
+            this.budgetUtilizationData = [
+              { name: 'Allocated', value: data.totalRoomBudgets }
+            ];
+          } else {
+            // Under or at 100% - show used vs free
+            this.budgetUtilizationData = [
+              { name: 'Allocated', value: data.totalRoomBudgets },
+              { name: 'Free', value: Math.max(0, data.availableBudget) }
+            ];
+          }
         },
         error: (err) => console.error('Budget error', err)
       });

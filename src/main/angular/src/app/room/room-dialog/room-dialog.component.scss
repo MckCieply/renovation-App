@@ -9,4 +9,36 @@
   mat-form-field {
     width: 100%;
   }
+
+  .budget-warning {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    color: #856404;
+    margin-top: 0.5rem;
+
+    mat-icon {
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 0.9rem;
+    }
+  }
+
+  .budget-info {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    text-align: center;
+
+    small {
+      color: #6c757d;
+    }
+  }
 }

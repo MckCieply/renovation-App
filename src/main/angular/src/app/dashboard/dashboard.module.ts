@@ -5,6 +5,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 // Material imports
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
 
 // Shared
 import {SharedModule} from '../shared/shared.module';
@@ -27,7 +28,8 @@ const routes: Routes = [
     NgxChartsModule,
     SharedModule, // for CurrencyMaskPipe
     // Material
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
   ]
 })
 export class DashboardModule {

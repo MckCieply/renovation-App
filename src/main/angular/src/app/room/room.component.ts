@@ -106,19 +106,33 @@ export class RoomComponent implements OnInit {
   }
 
   removeForm(room: any) {
-    const dialogRef = this.dialog.open(RemoveDialogComponent)
+    // First check if room can be deleted
+    this.roomService.canDeleteRoom(room.id).subscribe({
+      next: (response) => {
+        if (!response.canDelete) {
+          // Show error toast if room cannot be deleted
+          this.notificationService.showError(response.message);
+          return;
+        }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.roomService.deleteRoom(room).subscribe({
-          next: () => this.fetchData(),
-          error: (err) => {
-            // if err.error.errors contains "FOREIGN_KEY_VIOLATION"
-            if(err.error.errors.includes("FOREIGN_KEY_VIOLATION")) {
-              this.notificationService.showError("Cannot delete room, there is work assigned to it")
-            }
+        // If room can be deleted, show confirmation dialog
+        const dialogRef = this.dialog.open(RemoveDialogComponent)
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.roomService.deleteRoom(room).subscribe({
+              next: () => this.fetchData(),
+              error: (err) => {
+                console.error('Delete error:', err);
+                this.notificationService.showError("Failed to delete room");
+              }
+            });
           }
         });
+      },
+      error: (err) => {
+        console.error('Validation error:', err);
+        this.notificationService.showError("Failed to validate room deletion");
       }
     });
   }

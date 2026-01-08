@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 /**
- * Represents a budget entry with a unique identifier and a monetary value.
+ * Represents a global budget with total limit.
+ * Room allocations and work costs are calculated dynamically.
  */
 @Data
 @Entity
@@ -16,6 +17,4 @@ public class Budget {
     private Long id;
 
     private double budgetLimit;
-    private double budgetSpent;
-    private double budgetAllocated;
 }

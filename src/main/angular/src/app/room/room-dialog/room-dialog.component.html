@@ -17,6 +17,15 @@
       <input matInput formControlName="budgetPlanned" type="number">
       <span matSuffix class="currency-suffix">PLN</span>
     </mat-form-field>
+
+    <div *ngIf="budgetWarning" class="budget-warning">
+      <mat-icon color="warn">warning</mat-icon>
+      <span>{{ budgetWarning }}</span>
+    </div>
+
+    <div class="budget-info">
+      <small>Available budget: {{ availableBudget | number:'1.2-2' }} PLN</small>
+    </div>
   </mat-dialog-content>
 
   <div class="dialog-footer-base">

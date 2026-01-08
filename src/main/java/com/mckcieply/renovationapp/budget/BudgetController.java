@@ -1,13 +1,9 @@
 package com.mckcieply.renovationapp.budget;
 
-import com.mckcieply.core.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller for managing budget-related operations.
@@ -31,6 +27,30 @@ public class BudgetController {
     private ResponseEntity<Budget> getBudget() {
         Budget budget = budgetService.getBudget();
         return new ResponseEntity<>(budget, HttpStatus.OK);
+    }
+
+    /**
+     * Validates the current budget allocation including room budgets.
+     * Returns warnings if room budgets exceed available budget.
+     *
+     * @return a ResponseEntity containing BudgetValidationDto with validation results
+     */
+    @GetMapping("/validate")
+    public ResponseEntity<BudgetValidationDto> validateBudget() {
+        BudgetValidationDto validation = budgetService.validateBudget();
+        return new ResponseEntity<>(validation, HttpStatus.OK);
+    }
+
+    /**
+     * Updates the budget limit and returns validation results.
+     *
+     * @param budget the Budget object containing the new budgetLimit
+     * @return a ResponseEntity containing BudgetValidationDto with validation results
+     */
+    @PutMapping("/update")
+    public ResponseEntity<BudgetValidationDto> updateBudget(@RequestBody Budget budget) {
+        BudgetValidationDto validation = budgetService.updateBudgetLimit(budget.getBudgetLimit());
+        return new ResponseEntity<>(validation, HttpStatus.OK);
     }
 
 }
