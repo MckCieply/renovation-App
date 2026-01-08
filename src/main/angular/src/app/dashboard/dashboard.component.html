@@ -94,8 +94,37 @@
 
   <mat-grid-tile class="chart-tile">
     <div class="chart-container">
-      <h3>Summary</h3>
-      <div class="chart-wrapper">
+      <h3>Budget Utilization</h3>
+      <div class="chart-wrapper utilization-chart">
+        <ngx-charts-gauge
+          *ngIf="budgetUtilizationPercent !== null"
+          [results]="[{ name: 'Budget Used', value: budgetUtilizationPercent }]"
+          [scheme]="budgetUtilizationColorScheme"
+          [min]="0"
+          [max]="gaugeMax"
+          [angleSpan]="240"
+          [startAngle]="-120"
+          [showAxis]="true"
+          [bigSegments]="gaugeBigSegments"
+          [smallSegments]="5"
+          [legend]="false"
+          [valueFormatting]="gaugeValueFormatting">
+        </ngx-charts-gauge>
+
+        <!-- Warning Overlay -->
+        <div class="utilization-status" *ngIf="isBudgetOverallocated">
+          <mat-icon class="warning-icon">warning</mat-icon>
+          <span class="warning-text">OVER BUDGET</span>
+        </div>
+      </div>
+
+      <div class="utilization-legend">
+        <span class="legend-item" [class.warning]="isBudgetOverallocated">
+          {{ budgetUtilizationPercent | number:'1.0-0' }}% Allocated
+        </span>
+        <span class="legend-item free" *ngIf="!isBudgetOverallocated">
+          {{ 100 - budgetUtilizationPercent | number:'1.0-0' }}% Free
+        </span>
       </div>
     </div>
   </mat-grid-tile>

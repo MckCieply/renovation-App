@@ -25,6 +25,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   breakdownCost: any[] = [];
   roomHealth: any[] = [];
   budgetChartData: any[] = [];
+  budgetUtilizationData: any[] = [];
+  budgetUtilizationPercent: number = 0;
+  isBudgetOverallocated: boolean = false;
+  gaugeMax: number = 100; // Dynamic max for gauge chart
+  gaugeBigSegments: number = 4; // Dynamic segments to keep 25% spacing
 
   // Only used for the "Total" center label in donut chart (optional logic)
   totalCost: number = 0;
@@ -58,12 +63,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     domain: ['#10b981', '#f59e0b', '#3b82f6'] // Green (Available), Amber (In Progress), Blue (Paid)
   };
 
+  // 4. Budget Utilization (Gauge-like Donut)
+  budgetUtilizationColorScheme: Color = {
+    name: 'utilizationScheme',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#10b981', '#e5e7eb'] // Green (Used), Gray (Free) - will change dynamically
+  };
+
   // --- Static Legend Data ---
   // Since the bar chart series names are static ("Planned", "Spent"), we define them manually for the legend.
   roomLegendData = [
     { name: 'Planned' },
     { name: 'Spent' }
   ];
+
+  // Gauge value formatting function
+  gaugeValueFormatting = (value: number) => `${value.toFixed(0)}%`;
 
   ngOnInit(): void {
     this.setupResponsiveLayout();
@@ -140,6 +156,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
               value: data.totalPaidCosts
             }
           ];
+
+          // 4. Budget Utilization Chart - shows allocated/spent vs free
+          this.isBudgetOverallocated = data.overallocated;
+          this.budgetUtilizationPercent = data.budgetLimit > 0
+            ? (data.totalRoomBudgets / data.budgetLimit) * 100
+            : 0;
+
+          // Dynamic gauge max - rounds up to nearest 50% above actual value, minimum 100%
+          this.gaugeMax = Math.max(100, Math.ceil(this.budgetUtilizationPercent / 50) * 50);
+          // Keep 25% spacing: segments = max / 25
+          this.gaugeBigSegments = this.gaugeMax / 25;
+
+          // Update color scheme based on overallocation
+          this.budgetUtilizationColorScheme = {
+            ...this.budgetUtilizationColorScheme,
+            domain: data.overallocated
+              ? ['#ef4444', '#e5e7eb']  // Red for overallocated
+              : ['#10b981', '#e5e7eb']  // Green for healthy
+          };
+
+          if (data.overallocated) {
+            // Over 100% - show full allocation with excess
+            this.budgetUtilizationData = [
+              { name: 'Allocated', value: data.totalRoomBudgets }
+            ];
+          } else {
+            // Under or at 100% - show used vs free
+            this.budgetUtilizationData = [
+              { name: 'Allocated', value: data.totalRoomBudgets },
+              { name: 'Free', value: Math.max(0, data.availableBudget) }
+            ];
+          }
         },
         error: (err) => console.error('Budget error', err)
       });
