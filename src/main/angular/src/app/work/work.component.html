@@ -70,7 +70,7 @@
 
       <ng-container matColumnDef="contractor">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Contractor</th>
-        <td mat-cell *matCellDef="let element">{{ element.contractor?.fullName }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.contractor?.firstName + ' ' + element.contractor?.lastName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="paid">
