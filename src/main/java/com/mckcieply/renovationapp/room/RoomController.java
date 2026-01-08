@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for managing rooms in the renovation application.
@@ -40,4 +41,45 @@ public class RoomController extends BaseController<Room, Long> {
         return new ResponseEntity<>(filteredRooms, HttpStatus.OK);
     }
 
+    /**
+     * Checks if a room can be deleted (has no associated work items).
+     *
+     * @param id the ID of the room to check
+     * @return ResponseEntity with validation result
+     */
+    @GetMapping("/{id}/can-delete")
+    public ResponseEntity<Map<String, Object>> canDeleteRoom(@PathVariable Long id) {
+        boolean canDelete = roomService.canDeleteRoom(id);
+        String message = canDelete ? null : "Cannot delete room - it has associated work items";
+
+        return ResponseEntity.ok(Map.of(
+            "canDelete", canDelete,
+            "message", message != null ? message : ""
+        ));
+    }
+
+    /**
+     * Gets detailed budget breakdown for all rooms.
+     *
+     * @return ResponseEntity with list of room budget details
+     */
+    @GetMapping("/budget-details")
+    public ResponseEntity<List<RoomBudgetDetailDto>> getRoomBudgetDetails() {
+        List<RoomBudgetDetailDto> details = roomService.getRoomBudgetDetails();
+        return ResponseEntity.ok(details);
+    }
+
+    /**
+     * Overrides delete to include validation.
+     */
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            roomService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

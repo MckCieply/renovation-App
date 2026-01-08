@@ -50,11 +50,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   // 3. Total Budget (Donut)
+  // [Available (Green), Work in Progress (Amber), Paid Work (Blue)]
   budgetColorScheme: Color = {
     name: 'budgetScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#10b981', '#ef4444', '#f59e0b'] // Green (Remaining), Red (Spent), Amber (Allocated)
+    domain: ['#10b981', '#f59e0b', '#3b82f6'] // Green (Available), Amber (In Progress), Blue (Paid)
   };
 
   // --- Static Legend Data ---
@@ -119,24 +120,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
         error: (err) => console.error('Room Health error', err)
       });
 
-    // 3. Total Budget
-    this.budgetService.getBudget()
+    // 3. Total Budget - Use budget validation for calculated totals
+    this.budgetService.validateBudget()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
           this.totalBudget = data;
           this.budgetChartData = [
             {
-              name: 'Remaining',
-              value: this.totalBudget.budgetLimit - this.totalBudget.budgetSpent - this.totalBudget.budgetAllocated
+              name: 'Available',
+              value: Math.max(0, data.availableBudget)
             },
             {
-              name: 'Spent',
-              value: this.totalBudget.budgetSpent
+              name: 'Work in Progress',
+              value: data.totalEstimatedCosts
             },
             {
-              name: 'Allocated',
-              value: this.totalBudget.budgetAllocated
+              name: 'Paid Work',
+              value: data.totalPaidCosts
             }
           ];
         },

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface WorkRepository extends BaseRepository<Work, Long> {
 
     @Query("SELECT new com.mckcieply.renovationapp.analytics.dto.CostAnalyticsDto(" +
-            "SUM(w.finalLaborCost), " +
-            "SUM(w.finalMaterialCost)) " +
+            "CAST(SUM(CASE WHEN w.paid = true THEN COALESCE(w.finalLaborCost, 0) ELSE COALESCE(w.estLaborCost, 0) END) AS double), " +
+            "CAST(SUM(CASE WHEN w.paid = true THEN COALESCE(w.finalMaterialCost, 0) ELSE COALESCE(w.estMaterialCost, 0) END) AS double)) " +
            "FROM Work w")
     CostAnalyticsDto getCostAnalytics();
 }

@@ -7,6 +7,8 @@ import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import {BudgetComponent} from './budget.component';
 
@@ -25,7 +27,9 @@ const routes: Routes = [
     // Material
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBarModule
   ]
 })
 export class BudgetModule {

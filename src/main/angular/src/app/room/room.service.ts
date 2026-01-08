@@ -39,4 +39,8 @@ export class RoomService {
   getMinimal(){
     return this.httpClient.get<any[]>(this.api + '/minimal');
   }
+
+  canDeleteRoom(roomId: number) {
+    return this.httpClient.get<{canDelete: boolean, message: string}>(this.api + '/' + roomId + '/can-delete');
+  }
 }

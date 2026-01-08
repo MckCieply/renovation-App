@@ -1,13 +1,113 @@
-<div class="container-fluid">
-  <div class="row text-center justify-content-center">
-    <h1>Budget</h1>
-    <mat-form-field>
-      <mat-label>Budget</mat-label>
-      <input matInput [(ngModel)]="budget.budgetLimit">
-    </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary" class="col-3" (click)="updateBudget(budget)">Update</button>
-  </div>
+<div class="page-container mat-app-background">
+
+  <header class="page-header">
+    <div class="title-group">
+      <h1>Budget</h1>
+      <p class="page-subtitle">Global Project Budget</p>
+    </div>
+  </header>
+
+  <!-- Budget Configuration Section -->
+  <section class="content-surface padding-24 mat-elevation-z1">
+    <h2 class="section-title">Budget Configuration</h2>
+
+    <div class="budget-input-row">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Total Budget Limit</mat-label>
+        <mat-icon matPrefix color="primary">account_balance</mat-icon>
+        <input matInput type="number" [(ngModel)]="budget.budgetLimit" min="0" step="100">
+        <span matSuffix class="currency-suffix">PLN</span>
+      </mat-form-field>
+
+      <button mat-raised-button class="btn-large-accent"
+              (click)="updateBudget(budget)"
+              [disabled]="!budget.budgetLimit || budget.budgetLimit < 0">
+        <mat-icon>save</mat-icon>
+        <span>Update Budget</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Warning Section -->
+  <section class="content-surface padding-24 mat-elevation-z1" *ngIf="validation?.overallocated">
+    <div class="budget-warning-section">
+      <mat-icon color="warn">warning_amber</mat-icon>
+      <div class="warning-content">
+        <h3>Budget Overallocation Warning</h3>
+        <p>{{ validation.warningMessage }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Budget Statistics Section -->
+  <section class="content-surface padding-24 mat-elevation-z2" *ngIf="validation">
+    <h2 class="section-title">Budget Overview</h2>
+
+    <div class="budget-stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">
+          <mat-icon color="primary">account_balance_wallet</mat-icon>
+          <span>Budget Limit</span>
+        </div>
+        <div class="stat-value">{{ validation.budgetLimit | number:'1.2-2' }} <span class="currency">PLN</span></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">
+          <mat-icon color="accent">build</mat-icon>
+          <span>Work in Progress</span>
+        </div>
+        <div class="stat-value">{{ validation.totalEstimatedCosts | number:'1.2-2' }} <span class="currency">PLN</span></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">
+          <mat-icon color="primary">payment</mat-icon>
+          <span>Paid Work</span>
+        </div>
+        <div class="stat-value">{{ validation.totalPaidCosts | number:'1.2-2' }} <span class="currency">PLN</span></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">
+          <mat-icon [color]="validation.overallocated ? 'warn' : 'primary'">meeting_room</mat-icon>
+          <span>Total Room Budgets</span>
+        </div>
+        <div class="stat-value" [class.warning-value]="validation.overallocated">
+          {{ validation.totalRoomBudgets | number:'1.2-2' }} <span class="currency">PLN</span>
+        </div>
+      </div>
+
+      <div class="stat-card available">
+        <div class="stat-label">
+          <mat-icon [color]="validation.availableBudget >= 0 ? 'primary' : 'warn'">monetization_on</mat-icon>
+          <span>Available for New Rooms</span>
+        </div>
+        <div class="stat-value"
+             [class.positive]="validation.availableBudget >= 0"
+             [class.negative]="validation.availableBudget < 0">
+          {{ validation.availableBudget | number:'1.2-2' }} <span class="currency">PLN</span>
+        </div>
+      </div>
+
+      <div class="stat-card utilization">
+        <div class="stat-label">
+          <mat-icon color="primary">pie_chart</mat-icon>
+          <span>Budget Utilization</span>
+        </div>
+        <div class="progress-container">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="(validation.totalRoomBudgets / validation.budgetLimit) * 100"
+            [color]="getProgressBarColor()">
+          </mat-progress-bar>
+          <span class="progress-label">
+            {{ (validation.totalRoomBudgets / validation.budgetLimit * 100) | number:'1.1-1' }}% allocated to rooms
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </div>
 
