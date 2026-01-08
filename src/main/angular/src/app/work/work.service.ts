@@ -1,6 +1,8 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {HttpParamsBuilderService} from "../shared/services/http-params-builder.service";
+import {tap} from "rxjs";
+import {NotificationService} from "../shared/services/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class WorkService {
   api = "http://localhost:8080/api/works";
 
   paramsBuilder = inject(HttpParamsBuilderService)
+  notificationService = inject(NotificationService)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -19,15 +22,21 @@ export class WorkService {
   }
 
   addWork(work: any) {
-    return this.httpClient.post(this.api + '/add', work);
+    return this.httpClient.post(this.api + '/add', work).pipe(
+      tap(() => this.notificationService.showSuccess('Praca została dodana pomyślnie!'))
+    );
   }
 
   deleteWork(work: any) {
-    return this.httpClient.delete(this.api + '/delete/' + work.id);
+    return this.httpClient.delete(this.api + '/delete/' + work.id).pipe(
+      tap(() => this.notificationService.showSuccess('Praca została usunięta pomyślnie!'))
+    );
   }
 
   updateWork(work: any) {
-    return this.httpClient.put(this.api + '/update', work);
+    return this.httpClient.put(this.api + '/update', work).pipe(
+      tap(() => this.notificationService.showSuccess('Praca została zaktualizowana pomyślnie!'))
+    );
   }
 
   getEnumWorkStatus() {

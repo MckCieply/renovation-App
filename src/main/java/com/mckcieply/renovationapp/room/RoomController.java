@@ -73,7 +73,7 @@ public class RoomController extends BaseController<Room, Long> {
      * Overrides delete to include validation.
      */
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         try {
             roomService.delete(id);

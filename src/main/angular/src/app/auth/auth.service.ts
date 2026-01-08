@@ -1,7 +1,9 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Router} from "@angular/router";
+import {tap} from "rxjs";
+import {NotificationService} from "../shared/services/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ export class AuthService {
 
   private api = 'http://localhost:8080/api/auth';
   private jwtToken: string | null = null;
+
+  notificationService = inject(NotificationService)
 
   constructor(private http: HttpClient,
               private router: Router) {
@@ -20,7 +24,9 @@ export class AuthService {
   }
 
   register(credentials: Object): Observable<any> {
-    return this.http.post<any>(this.api + '/register', credentials);
+    return this.http.post<any>(this.api + '/register', credentials).pipe(
+      tap(() => this.notificationService.showSuccess('Konto zostało utworzone pomyślnie!'))
+    );
   }
 
   roles(): Observable<any> {

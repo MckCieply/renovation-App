@@ -1,6 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpParamsBuilderService} from "../shared/services/http-params-builder.service";
+import {tap} from "rxjs";
+import {NotificationService} from "../shared/services/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class RoomService {
   private api = 'http://localhost:8080/api/rooms';
 
   paramsBuilder = inject(HttpParamsBuilderService)
+  notificationService = inject(NotificationService)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -19,15 +22,21 @@ export class RoomService {
   }
 
   addRoom(room: any) {
-    return this.httpClient.post(this.api + '/add', room);
+    return this.httpClient.post(this.api + '/add', room).pipe(
+      tap(() => this.notificationService.showSuccess('Pokój został dodany pomyślnie!'))
+    );
   }
 
   deleteRoom(room: any) {
-    return this.httpClient.delete(this.api + '/delete/' + room.id);
+    return this.httpClient.delete(this.api + '/delete/' + room.id).pipe(
+      tap(() => this.notificationService.showSuccess('Pokój został usunięty pomyślnie!'))
+    );
   }
 
   updateRoom(room: any) {
-    return this.httpClient.put(this.api + '/update', room);
+    return this.httpClient.put(this.api + '/update', room).pipe(
+      tap(() => this.notificationService.showSuccess('Pokój został zaktualizowany pomyślnie!'))
+    );
   }
 
   filterRooms(filter: any) {

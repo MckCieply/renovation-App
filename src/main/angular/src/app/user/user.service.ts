@@ -1,5 +1,7 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {tap} from "rxjs";
+import {NotificationService} from "../shared/services/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,8 @@ import {HttpClient} from "@angular/common/http";
 export class UserService {
 
   private api = 'http://localhost:8080/api/user';
+
+  notificationService = inject(NotificationService)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -16,11 +20,15 @@ export class UserService {
   }
 
   updateUser(user: any) {
-    return this.httpClient.put(this.api + '/update', user);
+    return this.httpClient.put(this.api + '/update', user).pipe(
+      tap(() => this.notificationService.showSuccess('Profil użytkownika został zaktualizowany pomyślnie!'))
+    );
   }
 
   changePassword(user: any) {
-    return this.httpClient.put(this.api + '/change-password', user);
+    return this.httpClient.put(this.api + '/change-password', user).pipe(
+      tap(() => this.notificationService.showSuccess('Hasło zostało zmienione pomyślnie!'))
+    );
   }
 
   // update password that logs off the user with dialog info
