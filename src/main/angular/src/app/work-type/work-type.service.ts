@@ -1,5 +1,7 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {tap} from "rxjs";
+import {NotificationService} from "../shared/services/notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,8 @@ import {HttpClient} from "@angular/common/http";
 export class WorkTypeService {
 
   private api = 'http://localhost:8080/api/work-types';
+
+  notificationService = inject(NotificationService)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -16,15 +20,21 @@ export class WorkTypeService {
   }
 
   addType(type: any) {
-    return this.httpClient.post(this.api + '/add', type);
+    return this.httpClient.post(this.api + '/add', type).pipe(
+      tap(() => this.notificationService.showSuccess('Typ pracy został dodany pomyślnie!'))
+    );
   }
 
   deleteType(type: any) {
-    return this.httpClient.delete(this.api + '/delete/' + type.id);
+    return this.httpClient.delete(this.api + '/delete/' + type.id).pipe(
+      tap(() => this.notificationService.showSuccess('Typ pracy został usunięty pomyślnie!'))
+    );
   }
 
   updateType(type: any) {
-    return this.httpClient.put(this.api + '/update', type);
+    return this.httpClient.put(this.api + '/update', type).pipe(
+      tap(() => this.notificationService.showSuccess('Typ pracy został zaktualizowany pomyślnie!'))
+    );
   }
 
   getMinimal(){
