@@ -23,19 +23,19 @@ export class RoomService {
 
   addRoom(room: any) {
     return this.httpClient.post(this.api + '/add', room).pipe(
-      tap(() => this.notificationService.showSuccess('Pokój został dodany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Room added successfully!'))
     );
   }
 
   deleteRoom(room: any) {
     return this.httpClient.delete(this.api + '/delete/' + room.id).pipe(
-      tap(() => this.notificationService.showSuccess('Pokój został usunięty pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Room deleted successfully!'))
     );
   }
 
   updateRoom(room: any) {
     return this.httpClient.put(this.api + '/update', room).pipe(
-      tap(() => this.notificationService.showSuccess('Pokój został zaktualizowany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Room updated successfully!'))
     );
   }
 

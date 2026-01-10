@@ -23,19 +23,19 @@ export class WorkService {
 
   addWork(work: any) {
     return this.httpClient.post(this.api + '/add', work).pipe(
-      tap(() => this.notificationService.showSuccess('Praca została dodana pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Work added successfully!'))
     );
   }
 
   deleteWork(work: any) {
     return this.httpClient.delete(this.api + '/delete/' + work.id).pipe(
-      tap(() => this.notificationService.showSuccess('Praca została usunięta pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Work deleted successfully!'))
     );
   }
 
   updateWork(work: any) {
     return this.httpClient.put(this.api + '/update', work).pipe(
-      tap(() => this.notificationService.showSuccess('Praca została zaktualizowana pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Work updated successfully!'))
     );
   }
 

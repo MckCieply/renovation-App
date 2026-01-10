@@ -21,13 +21,13 @@ export class UserService {
 
   updateUser(user: any) {
     return this.httpClient.put(this.api + '/update', user).pipe(
-      tap(() => this.notificationService.showSuccess('Profil użytkownika został zaktualizowany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('User profile updated successfully!'))
     );
   }
 
   changePassword(user: any) {
     return this.httpClient.put(this.api + '/change-password', user).pipe(
-      tap(() => this.notificationService.showSuccess('Hasło zostało zmienione pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Password changed successfully!'))
     );
   }
 

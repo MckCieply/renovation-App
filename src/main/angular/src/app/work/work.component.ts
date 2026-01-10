@@ -20,7 +20,7 @@ export class WorkComponent implements OnInit {
   protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
   protected readonly DEFAULT_PAGE_SIZE_OPTIONS = DEFAULT_PAGE_SIZE_OPTIONS;
 
-  tableColumns = ['type', 'room', 'contractor', 'paid','updatedAt','state', 'actions'];
+  tableColumns = ['type', 'room', 'contractor', 'paid','state', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
   filterForm: FormGroup;
   rooms: any;

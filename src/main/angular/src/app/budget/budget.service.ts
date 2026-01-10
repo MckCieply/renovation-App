@@ -20,7 +20,7 @@ export class BudgetService {
 
   updateBudget(budget: any): Observable<BudgetValidation> {
     return this.httpClient.put<BudgetValidation>(this.api + '/update', budget).pipe(
-      tap(() => this.notificationService.showSuccess('Budżet został zaktualizowany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Budget updated successfully!'))
     );
   }
 

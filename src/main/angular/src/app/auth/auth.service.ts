@@ -25,7 +25,7 @@ export class AuthService {
 
   register(credentials: Object): Observable<any> {
     return this.http.post<any>(this.api + '/register', credentials).pipe(
-      tap(() => this.notificationService.showSuccess('Konto zostało utworzone pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Account created successfully!'))
     );
   }
 

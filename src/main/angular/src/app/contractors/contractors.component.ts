@@ -93,4 +93,8 @@ export class ContractorsComponent implements OnInit {
   getWorkTypesNames(workTypes: any[]): string {
     return workTypes?.map(wt => wt.name).join(', ') || '';
   }
+
+  getDisplayName(contractor: any): string {
+    return contractor.type === 'COMPANY' ? contractor.companyName : contractor.fullName;
+  }
 }

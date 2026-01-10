@@ -21,19 +21,19 @@ export class WorkTypeService {
 
   addType(type: any) {
     return this.httpClient.post(this.api + '/add', type).pipe(
-      tap(() => this.notificationService.showSuccess('Typ pracy został dodany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Work type added successfully!'))
     );
   }
 
   deleteType(type: any) {
     return this.httpClient.delete(this.api + '/delete/' + type.id).pipe(
-      tap(() => this.notificationService.showSuccess('Typ pracy został usunięty pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Work type deleted successfully!'))
     );
   }
 
   updateType(type: any) {
     return this.httpClient.put(this.api + '/update', type).pipe(
-      tap(() => this.notificationService.showSuccess('Typ pracy został zaktualizowany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Work type updated successfully!'))
     );
   }
 

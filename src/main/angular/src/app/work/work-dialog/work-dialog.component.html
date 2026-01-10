@@ -37,7 +37,7 @@
               <mat-icon matPrefix color="primary">person</mat-icon>
               <mat-select formControlName="contractor" [compareWith]="compareById">
                 <mat-option [value]="null">-- None --</mat-option>
-                <mat-option *ngFor="let c of contractors" [value]="c">{{ c.fullName }}</mat-option>
+                <mat-option *ngFor="let c of contractors" [value]="c">{{ c.type === 'COMPANY' ? c.companyName : c.fullName }}</mat-option>
               </mat-select>
             </mat-form-field>
 

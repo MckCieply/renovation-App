@@ -21,19 +21,19 @@ export class ContractorsService {
 
   addContractor(contractor: any) {
     return this.httpClient.post(this.api + '/add', contractor).pipe(
-      tap(() => this.notificationService.showSuccess('Wykonawca został dodany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Contractor added successfully!'))
     );
   }
 
   deleteContractor(contractor: any) {
     return this.httpClient.delete(this.api + '/delete/' + contractor.id).pipe(
-      tap(() => this.notificationService.showSuccess('Wykonawca został usunięty pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Contractor deleted successfully!'))
     );
   }
 
   updateContractor(contractor: any) {
     return this.httpClient.put(this.api + '/update', contractor).pipe(
-      tap(() => this.notificationService.showSuccess('Wykonawca został zaktualizowany pomyślnie!'))
+      tap(() => this.notificationService.showSuccess('Contractor updated successfully!'))
     );
   }
 }
