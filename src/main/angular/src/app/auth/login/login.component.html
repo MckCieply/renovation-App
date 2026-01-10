@@ -16,16 +16,18 @@
               <mat-error id="serverError" *ngIf="serverError">Server error. Please try again later</mat-error>
             </div>
 
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Username</mat-label>
+              <mat-icon matPrefix color="primary">person</mat-icon>
               <input matInput placeholder="Username" formControlName="username">
               <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
                 Username is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
+              <mat-icon matPrefix color="primary">lock</mat-icon>
               <input matInput placeholder="Password" [type]="passwordType" formControlName="password">
               <button matSuffix mat-icon-button (click)="togglePasswordVisibility($event)" type="button" tabindex="-1">
                 <mat-icon>{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
