@@ -4,11 +4,14 @@ import com.mckcieply.core.BaseController;
 import com.mckcieply.renovationapp.contractor.Contractor;
 import com.mckcieply.renovationapp.contractor.ContractorController;
 import com.mckcieply.renovationapp.contractor.ContractorService;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ContractorControllerTests extends BaseControllerTests<Contractor, ContractorService>{
 
@@ -60,4 +63,12 @@ public class ContractorControllerTests extends BaseControllerTests<Contractor, C
                 .phone("123456789")
                 .build();
     }
+
+    @Test
+    public void testInheritanceFromBaseController() {
+        // Assert
+        assertInstanceOf(BaseController.class, controller);
+        assertEquals("com.mckcieply.core.BaseController", controller.getClass().getSuperclass().getName());
+    }
+
 }

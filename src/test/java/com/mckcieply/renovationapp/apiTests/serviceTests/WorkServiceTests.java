@@ -7,6 +7,7 @@ import com.mckcieply.renovationapp.work.Work;
 import com.mckcieply.renovationapp.work.WorkRepository;
 import com.mckcieply.renovationapp.work.WorkService;
 import com.mckcieply.renovationapp.workType.WorkType;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,8 +28,8 @@ public class WorkServiceTests extends BaseServiceTests<Work, WorkRepository>{
     private WorkService service;
 
     Room room = mock(Room.class);
-    WorkType workType = mock(WorkType .class);
-    
+    WorkType workType = mock(WorkType.class);
+
     @Override
     protected WorkRepository repository() {
         return repository;
@@ -79,7 +80,6 @@ public class WorkServiceTests extends BaseServiceTests<Work, WorkRepository>{
                 .paid(false)
                 .build());
         return entities;
-
     }
 
     @Override
@@ -127,5 +127,54 @@ public class WorkServiceTests extends BaseServiceTests<Work, WorkRepository>{
         assertEquals("Work with id " + work.getId() + " does not exist", exception.getMessage());
         verify(repository(), times(1)).findById(work.getId());
         verify(repository(), never()).save(any());
+    }
+
+    @Test
+    public void testUpdate_NullId() {
+        // Arrange
+        Work work = Work.builder()
+                .id(null)
+                .room(room)
+                .workType(workType)
+                .description("Test work")
+                .build();
+
+        when(repository().findById(null)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> service().update(work));
+        verify(repository(), never()).save(any());
+    }
+
+    @Test
+    public void testUpdateWithExistingWork() {
+        // Arrange
+        Work existingWork = createDummyEntity();
+        Work updatedWork = Work.builder()
+                .id(1L)
+                .room(room)
+                .workType(workType)
+                .description("Updated description")
+                .estMaterialCost(1500)
+                .estLaborCost(600)
+                .finalMaterialCost(1400)
+                .finalLaborCost(550)
+                .state(EnumWorkState.FINISHED)
+                .paid(true)
+                .build();
+
+        when(repository().findById(1L)).thenReturn(Optional.of(existingWork));
+        when(repository().save(updatedWork)).thenReturn(updatedWork);
+
+        // Act
+        Work result = service().update(updatedWork);
+
+        // Assert
+        assertEquals(updatedWork, result);
+        assertEquals("Updated description", result.getDescription());
+        assertEquals(EnumWorkState.FINISHED, result.getState());
+        assertTrue(result.isPaid());
+        verify(repository(), times(1)).findById(1L);
+        verify(repository(), times(1)).save(updatedWork);
     }
 }
