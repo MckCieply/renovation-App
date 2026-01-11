@@ -22,7 +22,7 @@ export class RoomComponent implements OnInit {
   protected readonly DEFAULT_PAGE_SIZE = DEFAULT_PAGE_SIZE;
 
   totalBudget: any;
-  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'createdBy', 'updatedAt', 'actions'];
+  tableColumns = ['name', 'budgetPlanned', 'budgetShare', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<any>;
   filterForm: FormGroup;
 
