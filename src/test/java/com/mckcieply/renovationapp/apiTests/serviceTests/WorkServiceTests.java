@@ -7,13 +7,16 @@ import com.mckcieply.renovationapp.work.Work;
 import com.mckcieply.renovationapp.work.WorkRepository;
 import com.mckcieply.renovationapp.work.WorkService;
 import com.mckcieply.renovationapp.workType.WorkType;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class WorkServiceTests extends BaseServiceTests<Work, WorkRepository>{
     
@@ -93,5 +96,36 @@ public class WorkServiceTests extends BaseServiceTests<Work, WorkRepository>{
                 .state(EnumWorkState.IN_PROGRESS)
                 .paid(false)
                 .build();
+    }
+
+    @Test
+    @Override
+    public void testUpdate() {
+        // Arrange
+        Work updatedWork = createDummyEntity();
+        when(repository().findById(updatedWork.getId())).thenReturn(Optional.of(updatedWork));
+        when(repository().save(any())).thenReturn(updatedWork);
+
+        // Act
+        Work result = service().update(updatedWork);
+
+        // Assert
+        assertEquals(updatedWork, result);
+        verify(repository(), times(1)).findById(updatedWork.getId());
+        verify(repository(), times(1)).save(updatedWork);
+    }
+
+    @Test
+    public void testUpdate_WorkNotFound() {
+        // Arrange
+        Work work = createDummyEntity();
+        when(repository().findById(work.getId())).thenReturn(Optional.empty());
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+            () -> service().update(work));
+        assertEquals("Work with id " + work.getId() + " does not exist", exception.getMessage());
+        verify(repository(), times(1)).findById(work.getId());
+        verify(repository(), never()).save(any());
     }
 }

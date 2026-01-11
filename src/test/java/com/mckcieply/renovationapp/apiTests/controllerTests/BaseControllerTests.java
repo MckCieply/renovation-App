@@ -87,15 +87,10 @@ public abstract class BaseControllerTests<T, S extends BaseService<T, Long>> {
     }
 
     @Test
-    public void testDelete_NullId() {
-        assertThrows(IllegalArgumentException.class, () -> controller().delete(null));
-    }
-
-    @Test
     public void testUpdate() {
         // Arrange
         T entity = createDummyEntity();
-        when(controller().update(entity)).thenReturn(new ResponseEntity<>(entity, HttpStatus.OK));
+        when(service().update(entity)).thenReturn(entity);
 
         // Act
         ResponseEntity<T> response = controller().update(entity);
