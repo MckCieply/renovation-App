@@ -1,7 +1,7 @@
 package com.mckcieply.renovationapp.auth.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mckcieply.renovationapp.auth.user.role.Role;
+import com.mckcieply.renovationapp.auth.user.role.RoleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class AppUserProfileDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private List<Role> roles;
+    private List<RoleDTO> roles;
 }

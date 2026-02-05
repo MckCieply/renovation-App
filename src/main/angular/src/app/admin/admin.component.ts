@@ -27,6 +27,18 @@ export class AdminComponent implements OnInit {
     return role.charAt(0).toUpperCase() + role.toLowerCase().slice(1);
   }
 
+  hasAdminRole(user: any): boolean {
+    return user.roles?.some((role: any) => role.name === 'ADMIN') ?? false;
+  }
+
+  toggleAdminRole(user: any) {
+    const isAdmin = !this.hasAdminRole(user);
+    this.adminService.isAdmin(user, isAdmin).subscribe({
+      next: () => this.getAllUsers(),
+      error: error => console.error(error)
+    });
+  }
+
   addAdminPrivileges(user: any) {
     this.adminService.isAdmin(user, true).subscribe({
       next: () => this.getAllUsers(),

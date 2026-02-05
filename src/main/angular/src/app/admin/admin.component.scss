@@ -1,0 +1,19 @@
+.mat-column-actions {
+  width: 180px;
+  flex: 0 0 180px !important;
+  text-align: right !important;
+  padding-right: 24px !important;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+

@@ -3,11 +3,14 @@ package com.mckcieply.renovationapp.auth.user;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserChangePasswordDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserProfileDTO;
 import com.mckcieply.renovationapp.auth.user.role.Role;
+import com.mckcieply.renovationapp.auth.user.role.RoleDTO;
+import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing application user operations.
@@ -17,6 +20,7 @@ import java.util.List;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
 
     /**
@@ -35,14 +39,24 @@ public class AppUserService {
      * @param admin true to add ADMIN role, false to remove it
      */
     public void updateRoles(AppUserProfileDTO user, Boolean admin) {
-        if (admin)
-            // append ADMIN role to user roles
-            user.getRoles().add(Role.builder().name("ADMIN").build());
-        else
-            // remove ADMIN role from user roles
-            user.getRoles().removeIf(role -> role.getName().equals("ADMIN"));
+        // Fetch existing user from database
+        AppUser existingUser = appUserRepository.findByUsername(user.getUsername());
+        if (existingUser == null) {
+            throw new IllegalArgumentException("User not found: " + user.getUsername());
+        }
 
-        appUserRepository.save(mapAppUserProfileDTOToAppUser(user));
+        if (admin) {
+            // Fetch ADMIN role from database and add it
+            Role adminRole = roleRepository.findByName("ADMIN");
+            if (adminRole != null && !existingUser.getRoles().contains(adminRole)) {
+                existingUser.getRoles().add(adminRole);
+            }
+        } else {
+            // Remove ADMIN role from user roles
+            existingUser.getRoles().removeIf(role -> role.getName().equals("ADMIN"));
+        }
+
+        appUserRepository.save(existingUser);
     }
 
     /**
@@ -103,12 +117,18 @@ public class AppUserService {
      * @return the corresponding AppUserProfileDTO
      */
     private AppUserProfileDTO mapAppUserToAppUserProfileDTO(AppUser appUser) {
+        List<RoleDTO> roleDTOs = appUser.getRoles() != null
+                ? appUser.getRoles().stream()
+                    .map(RoleDTO::fromRole)
+                    .collect(Collectors.toList())
+                : null;
+
         return AppUserProfileDTO.builder()
                 .username(appUser.getUsername())
                 .firstName(appUser.getFirstName())
                 .lastName(appUser.getLastName())
                 .email(appUser.getEmail())
-                .roles(appUser.getRoles())
+                .roles(roleDTOs)
                 .build();
     }
 
@@ -119,12 +139,18 @@ public class AppUserService {
      * @return the corresponding AppUser
      */
     private AppUser mapAppUserProfileDTOToAppUser(AppUserProfileDTO profileDTO) {
+        List<Role> roles = profileDTO.getRoles() != null
+                ? profileDTO.getRoles().stream()
+                    .map(RoleDTO::toRole)
+                    .collect(Collectors.toList())
+                : null;
+
         return AppUser.builder()
                 .username(profileDTO.getUsername())
                 .firstName(profileDTO.getFirstName())
                 .lastName(profileDTO.getLastName())
                 .email(profileDTO.getEmail())
-                .roles(profileDTO.getRoles())
+                .roles(roles)
                 .build();
     }
 
