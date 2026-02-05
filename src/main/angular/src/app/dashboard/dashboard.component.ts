@@ -46,12 +46,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   // 2. Room Health (Grouped Bar)
-  // [Planned (Purple), Spent (Blue)]
+  // [Planned (Purple), Estimated (Amber), Paid (Blue)]
   roomColorScheme: Color = {
     name: 'roomScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#a8385d', '#7aa3e5']
+    domain: ['#a8385d', '#f59e0b', '#7aa3e5']
   };
 
   // 3. Total Budget (Donut)
@@ -72,10 +72,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   // --- Static Legend Data ---
-  // Since the bar chart series names are static ("Planned", "Spent"), we define them manually for the legend.
+  // Since the bar chart series names are static ("Planned", "Estimated", "Paid"), we define them manually for the legend.
   roomLegendData = [
     { name: 'Planned' },
-    { name: 'Spent' }
+    { name: 'Estimated' },
+    { name: 'Paid' }
   ];
 
   // Gauge value formatting function
@@ -128,8 +129,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.roomHealth = data.map(item => ({
             name: item.roomName,
             series: [
-              { name: 'Planned', value: item.budgetPlanned },
-              { name: 'Spent', value: item.actualSpent }
+              { name: 'Planned', value: item.budgetPlanned ?? 0 },
+              { name: 'Estimated', value: item.estimatedCost ?? 0 },
+              { name: 'Paid', value: item.paidCost ?? 0 }
             ]
           }));
         },

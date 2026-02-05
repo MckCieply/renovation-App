@@ -84,7 +84,7 @@ export class RoomComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.roomService.addRoom(result).subscribe({
-          next: () => this.fetchData(),
+          next: () => this.refreshData(),
           error: (err) => console.error(err)
         });
     });
@@ -98,7 +98,7 @@ export class RoomComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.roomService.updateRoom(result).subscribe({
-          next: () => this.fetchData(),
+          next: () => this.refreshData(),
           error: (err) => console.error(err)
         });
       }
@@ -121,7 +121,7 @@ export class RoomComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.roomService.deleteRoom(room).subscribe({
-              next: () => this.fetchData(),
+              next: () => this.refreshData(),
               error: (err) => {
                 console.error('Delete error:', err);
                 this.notificationService.showError("Failed to delete room");
@@ -145,6 +145,26 @@ export class RoomComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+  }
+
+  /**
+   * Refreshes data respecting current filter state.
+   * If any filters are applied, uses loadFiltered(), otherwise uses fetchData().
+   */
+  refreshData() {
+    if (this.hasActiveFilters()) {
+      this.loadFiltered();
+    } else {
+      this.fetchData();
+    }
+  }
+
+  /**
+   * Checks if any filter fields have values
+   */
+  private hasActiveFilters(): boolean {
+    const filters = this.filterForm.value;
+    return Object.values(filters).some(value => value !== '' && value !== null && value !== undefined);
   }
 
   loadFiltered() {

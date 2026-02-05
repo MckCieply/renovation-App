@@ -18,7 +18,8 @@ public interface RoomRepository extends BaseRepository<Room, Long> {
     @Query("SELECT new com.mckcieply.renovationapp.analytics.dto.RoomHealthDto(" +
             "r.name, " +
             "r.budgetPlanned, " +
-            "SUM(COALESCE(w.finalLaborCost, 0) + COALESCE(w.finalMaterialCost, 0))) " +
+            "SUM(COALESCE(w.estLaborCost, 0) + COALESCE(w.estMaterialCost, 0)), " +
+            "SUM(CASE WHEN w.paid = true THEN COALESCE(w.finalLaborCost, 0) + COALESCE(w.finalMaterialCost, 0) ELSE 0 END)) " +
             "FROM Room r " +
             "LEFT JOIN Work w ON w.room = r " +
             "GROUP BY r.id, r.name, r.budgetPlanned")

@@ -94,7 +94,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.worksService.addWork(result).subscribe({
-          next: () => this.fetchData(),
+          next: () => this.refreshData(),
           error: (err) => console.error(err)
         });
     });
@@ -108,7 +108,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.worksService.updateWork(result).subscribe({
-          next: () => this.fetchData(),
+          next: () => this.refreshData(),
           error: (err) => console.error(err)
         });
       }
@@ -121,7 +121,7 @@ export class WorkComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.worksService.deleteWork(work).subscribe({
-          next: () => this.fetchData(),
+          next: () => this.refreshData(),
           error: (err) => console.error(err)
         });
       }
@@ -136,6 +136,26 @@ export class WorkComponent implements OnInit {
       },
       error: (err) => console.error(err)
     });
+  }
+
+  /**
+   * Refreshes data respecting current filter state.
+   * If any filters are applied, uses loadFiltered(), otherwise uses fetchData().
+   */
+  refreshData() {
+    if (this.hasActiveFilters()) {
+      this.loadFiltered();
+    } else {
+      this.fetchData();
+    }
+  }
+
+  /**
+   * Checks if any filter fields have values
+   */
+  private hasActiveFilters(): boolean {
+    const filters = this.filterForm.value;
+    return Object.values(filters).some(value => value !== '' && value !== null && value !== undefined);
   }
 
 

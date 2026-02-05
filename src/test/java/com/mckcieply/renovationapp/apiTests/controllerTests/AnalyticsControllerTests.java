@@ -102,9 +102,9 @@ public class AnalyticsControllerTests {
     public void testGetRoomHealth() {
         // Arrange
         List<RoomHealthDto> expectedList = Arrays.asList(
-            new RoomHealthDto("Living Room", 15000.0, 12000.0),
-            new RoomHealthDto("Kitchen", 20000.0, 18000.0),
-            new RoomHealthDto("Bathroom", 8000.0, 7500.0)
+            new RoomHealthDto("Living Room", 15000.0, 12000.0, 10000.0),
+            new RoomHealthDto("Kitchen", 20000.0, 18000.0, 15000.0),
+            new RoomHealthDto("Bathroom", 8000.0, 7500.0, 6000.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
@@ -120,7 +120,8 @@ public class AnalyticsControllerTests {
         RoomHealthDto firstRoom = response.getBody().get(0);
         assertEquals("Living Room", firstRoom.getRoomName());
         assertEquals(15000.0, firstRoom.getBudgetPlanned());
-        assertEquals(12000.0, firstRoom.getActualSpent());
+        assertEquals(12000.0, firstRoom.getEstimatedCost());
+        assertEquals(10000.0, firstRoom.getPaidCost());
 
         verify(analyticsService, times(1)).getRoomHealth();
     }
@@ -144,7 +145,7 @@ public class AnalyticsControllerTests {
     public void testGetRoomHealthWithSingleRoom() {
         // Arrange
         List<RoomHealthDto> expectedList = List.of(
-            new RoomHealthDto("Master Bedroom", 25000.0, 23000.0)
+            new RoomHealthDto("Master Bedroom", 25000.0, 23000.0, 20000.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
@@ -157,7 +158,8 @@ public class AnalyticsControllerTests {
         assertEquals(1, response.getBody().size());
         assertEquals("Master Bedroom", response.getBody().get(0).getRoomName());
         assertEquals(25000.0, response.getBody().get(0).getBudgetPlanned());
-        assertEquals(23000.0, response.getBody().get(0).getActualSpent());
+        assertEquals(23000.0, response.getBody().get(0).getEstimatedCost());
+        assertEquals(20000.0, response.getBody().get(0).getPaidCost());
         verify(analyticsService, times(1)).getRoomHealth();
     }
 
@@ -165,8 +167,8 @@ public class AnalyticsControllerTests {
     public void testGetRoomHealthWithOverBudgetRooms() {
         // Arrange
         List<RoomHealthDto> expectedList = Arrays.asList(
-            new RoomHealthDto("Over Budget Room", 5000.0, 6000.0),
-            new RoomHealthDto("Another Over Budget", 3000.0, 4500.0)
+            new RoomHealthDto("Over Budget Room", 5000.0, 6000.0, 5500.0),
+            new RoomHealthDto("Another Over Budget", 3000.0, 4500.0, 4000.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
@@ -180,12 +182,12 @@ public class AnalyticsControllerTests {
 
         // Check first over-budget room
         RoomHealthDto firstRoom = response.getBody().get(0);
-        assertTrue(firstRoom.getActualSpent() > firstRoom.getBudgetPlanned());
+        assertTrue(firstRoom.getEstimatedCost() > firstRoom.getBudgetPlanned());
         assertEquals("Over Budget Room", firstRoom.getRoomName());
 
         // Check second over-budget room
         RoomHealthDto secondRoom = response.getBody().get(1);
-        assertTrue(secondRoom.getActualSpent() > secondRoom.getBudgetPlanned());
+        assertTrue(secondRoom.getEstimatedCost() > secondRoom.getBudgetPlanned());
         assertEquals("Another Over Budget", secondRoom.getRoomName());
 
         verify(analyticsService, times(1)).getRoomHealth();
@@ -195,9 +197,9 @@ public class AnalyticsControllerTests {
     public void testGetRoomHealthWithMixedBudgetScenarios() {
         // Arrange
         List<RoomHealthDto> expectedList = Arrays.asList(
-            new RoomHealthDto("Under Budget", 10000.0, 8000.0),
-            new RoomHealthDto("Over Budget", 5000.0, 6000.0),
-            new RoomHealthDto("Exactly On Budget", 7000.0, 7000.0)
+            new RoomHealthDto("Under Budget", 10000.0, 8000.0, 7000.0),
+            new RoomHealthDto("Over Budget", 5000.0, 6000.0, 5500.0),
+            new RoomHealthDto("Exactly On Budget", 7000.0, 7000.0, 6500.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
@@ -210,15 +212,15 @@ public class AnalyticsControllerTests {
         assertEquals(3, response.getBody().size());
 
         RoomHealthDto underBudget = response.getBody().get(0);
-        assertTrue(underBudget.getActualSpent() < underBudget.getBudgetPlanned());
+        assertTrue(underBudget.getEstimatedCost() < underBudget.getBudgetPlanned());
         assertEquals("Under Budget", underBudget.getRoomName());
 
         RoomHealthDto overBudget = response.getBody().get(1);
-        assertTrue(overBudget.getActualSpent() > overBudget.getBudgetPlanned());
+        assertTrue(overBudget.getEstimatedCost() > overBudget.getBudgetPlanned());
         assertEquals("Over Budget", overBudget.getRoomName());
 
         RoomHealthDto exactBudget = response.getBody().get(2);
-        assertEquals(exactBudget.getActualSpent(), exactBudget.getBudgetPlanned());
+        assertEquals(exactBudget.getEstimatedCost(), exactBudget.getBudgetPlanned());
         assertEquals("Exactly On Budget", exactBudget.getRoomName());
 
         verify(analyticsService, times(1)).getRoomHealth();
@@ -228,8 +230,8 @@ public class AnalyticsControllerTests {
     public void testGetRoomHealthWithSpecialCharacters() {
         // Arrange
         List<RoomHealthDto> expectedList = Arrays.asList(
-            new RoomHealthDto("Pokój #1 - Łazienka", 8000.0, 7500.0),
-            new RoomHealthDto("Salon & Jadalnia", 15000.0, 14000.0)
+            new RoomHealthDto("Pokój #1 - Łazienka", 8000.0, 7500.0, 6000.0),
+            new RoomHealthDto("Salon & Jadalnia", 15000.0, 14000.0, 12000.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
@@ -267,7 +269,7 @@ public class AnalyticsControllerTests {
     public void testMultipleCallsToGetRoomHealth() {
         // Arrange
         List<RoomHealthDto> expectedList = List.of(
-            new RoomHealthDto("Test Room", 1000.0, 800.0)
+            new RoomHealthDto("Test Room", 1000.0, 800.0, 600.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
@@ -304,8 +306,8 @@ public class AnalyticsControllerTests {
     public void testRoomHealthResponseStructure() {
         // Arrange
         List<RoomHealthDto> expectedList = Arrays.asList(
-            new RoomHealthDto("Room 1", 1000.0, 900.0),
-            new RoomHealthDto("Room 2", 2000.0, 1800.0)
+            new RoomHealthDto("Room 1", 1000.0, 900.0, 700.0),
+            new RoomHealthDto("Room 2", 2000.0, 1800.0, 1500.0)
         );
         when(analyticsService.getRoomHealth()).thenReturn(expectedList);
 
