@@ -53,7 +53,7 @@ describe('WorkService', () => {
       expect(works).toEqual(mockWorks);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/works/all');
+    const req = httpMock.expectOne('/api/works/all');
     expect(req.request.method).toBe('GET');
     req.flush(mockWorks);
   });
@@ -61,7 +61,7 @@ describe('WorkService', () => {
   it('should add work and show success notification', () => {
     service.addWork(mockWork).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/works/add');
+    const req = httpMock.expectOne('/api/works/add');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockWork);
     req.flush({});
@@ -72,7 +72,7 @@ describe('WorkService', () => {
   it('should delete work and show success notification', () => {
     service.deleteWork(mockWork).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/works/delete/1');
+    const req = httpMock.expectOne('/api/works/delete/1');
     expect(req.request.method).toBe('DELETE');
     req.flush({});
 
@@ -82,7 +82,7 @@ describe('WorkService', () => {
   it('should update work and show success notification', () => {
     service.updateWork(mockWork).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/works/update');
+    const req = httpMock.expectOne('/api/works/update');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockWork);
     req.flush({});
@@ -95,7 +95,7 @@ describe('WorkService', () => {
       expect(statuses).toEqual(mockWorkStatuses);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/works/get-enum-work-state');
+    const req = httpMock.expectOne('/api/works/get-enum-work-state');
     expect(req.request.method).toBe('GET');
     req.flush(mockWorkStatuses);
   });
@@ -110,7 +110,7 @@ describe('WorkService', () => {
     expect(paramsBuilder.buildHttpParams).toHaveBeenCalledWith(filter);
 
     const req = httpMock.expectOne(request =>
-      request.url === 'http://localhost:8080/api/works/filter' &&
+      request.url === '/api/works/filter' &&
       request.params.get('status') === 'PLANNED' &&
       request.params.get('roomId') === '1'
     );

@@ -49,7 +49,7 @@ describe('ContractorsService', () => {
       expect(contractors).toEqual(mockContractors);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/contractors/all');
+    const req = httpMock.expectOne('/api/contractors/all');
     expect(req.request.method).toBe('GET');
     req.flush(mockContractors);
   });
@@ -57,7 +57,7 @@ describe('ContractorsService', () => {
   it('should add contractor and show success notification', () => {
     service.addContractor(mockContractor).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/contractors/add');
+    const req = httpMock.expectOne('/api/contractors/add');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockContractor);
     req.flush({});
@@ -68,7 +68,7 @@ describe('ContractorsService', () => {
   it('should delete contractor and show success notification', () => {
     service.deleteContractor(mockContractor).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/contractors/delete/1');
+    const req = httpMock.expectOne('/api/contractors/delete/1');
     expect(req.request.method).toBe('DELETE');
     req.flush({});
 
@@ -78,7 +78,7 @@ describe('ContractorsService', () => {
   it('should update contractor and show success notification', () => {
     service.updateContractor(mockContractor).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/contractors/update');
+    const req = httpMock.expectOne('/api/contractors/update');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockContractor);
     req.flush({});

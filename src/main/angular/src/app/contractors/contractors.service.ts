@@ -13,7 +13,7 @@ export class ContractorsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  private api = 'http://localhost:8080/api/contractors';
+  private api = '/api/contractors';
 
   getAllContractors() {
     return this.httpClient.get<any[]>(this.api + '/all');

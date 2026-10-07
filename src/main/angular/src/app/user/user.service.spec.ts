@@ -42,7 +42,7 @@ describe('UserService', () => {
       expect(user).toEqual(mockUser);
     });
 
-    const req = httpMock.expectOne(`http://localhost:8080/api/user/get?username=${username}`);
+    const req = httpMock.expectOne(`/api/user/get?username=${username}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockUser);
   });
@@ -50,7 +50,7 @@ describe('UserService', () => {
   it('should update user and show success notification', () => {
     service.updateUser(mockUser).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/user/update');
+    const req = httpMock.expectOne('/api/user/update');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockUser);
     req.flush({});
@@ -61,7 +61,7 @@ describe('UserService', () => {
   it('should change password and show success notification', () => {
     service.changePassword(mockPasswordChange).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/user/change-password');
+    const req = httpMock.expectOne('/api/user/change-password');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockPasswordChange);
     req.flush({});

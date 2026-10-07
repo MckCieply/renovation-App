@@ -10,7 +10,7 @@ import {NotificationService} from "../shared/services/notification.service";
 })
 export class AuthService {
 
-  private api = 'http://localhost:8080/api/auth';
+  private api = '/api/auth';
   private jwtToken: string | null = null;
 
   notificationService = inject(NotificationService)

@@ -9,7 +9,7 @@ import {NotificationService} from "../shared/services/notification.service";
 })
 export class RoomService {
 
-  private api = 'http://localhost:8080/api/rooms';
+  private api = '/api/rooms';
 
   paramsBuilder = inject(HttpParamsBuilderService)
   notificationService = inject(NotificationService)

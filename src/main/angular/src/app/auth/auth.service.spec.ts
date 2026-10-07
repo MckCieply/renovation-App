@@ -48,7 +48,7 @@ describe('AuthService', () => {
   it('should send login request', () => {
     service.login(mockCredentials).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/auth/login');
+    const req = httpMock.expectOne('/api/auth/login');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockCredentials);
     req.flush({});
@@ -57,7 +57,7 @@ describe('AuthService', () => {
   it('should send register request and show success notification', () => {
     service.register(mockRegisterData).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/auth/register');
+    const req = httpMock.expectOne('/api/auth/register');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockRegisterData);
     req.flush({});
@@ -70,7 +70,7 @@ describe('AuthService', () => {
       expect(roles).toEqual(mockRoles);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/auth/roles');
+    const req = httpMock.expectOne('/api/auth/roles');
     expect(req.request.method).toBe('GET');
     req.flush(mockRoles);
   });

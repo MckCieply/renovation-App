@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AdminService {
 
-  private api = 'http://localhost:8080/api/user';
+  private api = '/api/user';
 
   constructor(private httpClient: HttpClient) {
   }

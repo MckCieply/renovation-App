@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
@@ -141,7 +142,8 @@ public class AuthServiceTests {
         when(appUserRepository.findByUsername("admin")).thenReturn(null);
         when(roleRepository.findByName("ADMIN")).thenReturn(adminRole);
         when(roleRepository.findByName("USER")).thenReturn(userRole);
-        when(passwordEncoder.encode("zaq1@WSX")).thenReturn("encodedPassword");
+        ReflectionTestUtils.setField(authService, "adminPassword", "admin-test-password");
+        when(passwordEncoder.encode("admin-test-password")).thenReturn("encodedPassword");
         when(appUserRepository.save(any(AppUser.class))).thenReturn(any(AppUser.class));
 
         // Act
@@ -151,7 +153,7 @@ public class AuthServiceTests {
         verify(appUserRepository, times(1)).findByUsername("admin");
         verify(roleRepository, times(1)).findByName("ADMIN");
         verify(roleRepository, times(1)).findByName("USER");
-        verify(passwordEncoder, times(1)).encode("zaq1@WSX");
+        verify(passwordEncoder, times(1)).encode("admin-test-password");
         verify(appUserRepository, times(1)).save(any(AppUser.class));
     }
 

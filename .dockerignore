@@ -1,0 +1,9 @@
+.git
+.idea
+.vscode
+.env
+target
+**/node_modules
+**/dist
+**/.angular
+local.properties

@@ -53,7 +53,7 @@ describe('BudgetService', () => {
       expect(budget).toEqual(mockBudget);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/budget/budget');
+    const req = httpMock.expectOne('/api/budget/budget');
     expect(req.request.method).toBe('GET');
     req.flush(mockBudget);
   });
@@ -65,7 +65,7 @@ describe('BudgetService', () => {
       expect(result).toEqual(mockBudgetValidation);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/budget/update');
+    const req = httpMock.expectOne('/api/budget/update');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(updatedBudget);
     req.flush(mockBudgetValidation);
@@ -78,7 +78,7 @@ describe('BudgetService', () => {
       expect(validation).toEqual(mockBudgetValidation);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/budget/validate');
+    const req = httpMock.expectOne('/api/budget/validate');
     expect(req.request.method).toBe('GET');
     req.flush(mockBudgetValidation);
   });

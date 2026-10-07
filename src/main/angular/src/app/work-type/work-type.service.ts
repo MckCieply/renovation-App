@@ -8,7 +8,7 @@ import {NotificationService} from "../shared/services/notification.service";
 })
 export class WorkTypeService {
 
-  private api = 'http://localhost:8080/api/work-types';
+  private api = '/api/work-types';
 
   notificationService = inject(NotificationService)
 

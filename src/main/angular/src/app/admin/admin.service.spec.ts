@@ -34,7 +34,7 @@ describe('AdminService', () => {
       expect(users).toEqual(mockUsers);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/user/get-all');
+    const req = httpMock.expectOne('/api/user/get-all');
     expect(req.request.method).toBe('GET');
     req.flush(mockUsers);
   });
@@ -46,7 +46,7 @@ describe('AdminService', () => {
 
     service.isAdmin(user, isAdmin).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/user/update-roles');
+    const req = httpMock.expectOne('/api/user/update-roles');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(expectedBody);
     req.flush({});
@@ -59,7 +59,7 @@ describe('AdminService', () => {
 
     service.isAdmin(user, isAdmin).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/user/update-roles');
+    const req = httpMock.expectOne('/api/user/update-roles');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(expectedBody);
     req.flush({});

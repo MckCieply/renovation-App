@@ -8,6 +8,7 @@ import com.mckcieply.renovationapp.auth.user.dto.AppUserLoginDTO;
 import com.mckcieply.renovationapp.auth.user.dto.AppUserRegisterDTO;
 import com.mckcieply.renovationapp.auth.user.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,9 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final RoleRepository roleRepository;
+
+    @Value("${app.admin.password}")
+    private String adminPassword;
 
     /**
      * Registers a new user and returns a JWT token.
@@ -84,7 +88,7 @@ public class AuthService {
                     .lastName("Admin")
                     .username("admin")
                     .email("adminoo@gmail.com")
-                    .password(passwordEncoder.encode("zaq1@WSX"))
+                    .password(passwordEncoder.encode(adminPassword))
                     .roles(List.of(
                             roleRepository.findByName("ADMIN"),
                             roleRepository.findByName("USER")

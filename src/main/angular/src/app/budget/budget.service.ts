@@ -11,7 +11,7 @@ import {NotificationService} from "../shared/services/notification.service";
 })
 export class BudgetService {
 
-  private api = "http://localhost:8080/api/budget";
+  private api = "/api/budget";
 
   notificationService = inject(NotificationService)
 

@@ -49,7 +49,7 @@ describe('RoomService', () => {
       expect(rooms).toEqual(mockRooms);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/rooms/all');
+    const req = httpMock.expectOne('/api/rooms/all');
     expect(req.request.method).toBe('GET');
     req.flush(mockRooms);
   });
@@ -57,7 +57,7 @@ describe('RoomService', () => {
   it('should add room and show success notification', () => {
     service.addRoom(mockRoom).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/rooms/add');
+    const req = httpMock.expectOne('/api/rooms/add');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockRoom);
     req.flush({});
@@ -68,7 +68,7 @@ describe('RoomService', () => {
   it('should delete room and show success notification', () => {
     service.deleteRoom(mockRoom).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/rooms/delete/1');
+    const req = httpMock.expectOne('/api/rooms/delete/1');
     expect(req.request.method).toBe('DELETE');
     req.flush({});
 
@@ -78,7 +78,7 @@ describe('RoomService', () => {
   it('should update room and show success notification', () => {
     service.updateRoom(mockRoom).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/rooms/update');
+    const req = httpMock.expectOne('/api/rooms/update');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockRoom);
     req.flush({});
@@ -96,7 +96,7 @@ describe('RoomService', () => {
     expect(paramsBuilder.buildHttpParams).toHaveBeenCalledWith(filter);
 
     const req = httpMock.expectOne(request =>
-      request.url === 'http://localhost:8080/api/rooms/filter' &&
+      request.url === '/api/rooms/filter' &&
       request.params.get('name') === 'Living' &&
       request.params.get('minArea') === '20'
     );
@@ -111,7 +111,7 @@ describe('RoomService', () => {
       expect(rooms).toEqual(minimalRooms);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/rooms/minimal');
+    const req = httpMock.expectOne('/api/rooms/minimal');
     expect(req.request.method).toBe('GET');
     req.flush(minimalRooms);
   });
@@ -124,7 +124,7 @@ describe('RoomService', () => {
       expect(result).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/rooms/1/can-delete');
+    const req = httpMock.expectOne('/api/rooms/1/can-delete');
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });

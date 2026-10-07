@@ -9,7 +9,7 @@ import {NotificationService} from "../shared/services/notification.service";
 })
 export class WorkService {
 
-  api = "http://localhost:8080/api/works";
+  api = "/api/works";
 
   paramsBuilder = inject(HttpParamsBuilderService)
   notificationService = inject(NotificationService)

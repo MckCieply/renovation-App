@@ -43,7 +43,7 @@ describe('WorkTypeService', () => {
       expect(types).toEqual(mockWorkTypes);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/work-types/all');
+    const req = httpMock.expectOne('/api/work-types/all');
     expect(req.request.method).toBe('GET');
     req.flush(mockWorkTypes);
   });
@@ -51,7 +51,7 @@ describe('WorkTypeService', () => {
   it('should add a work type', () => {
     service.addType(mockWorkType).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/work-types/add');
+    const req = httpMock.expectOne('/api/work-types/add');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockWorkType);
     req.flush({});
@@ -62,7 +62,7 @@ describe('WorkTypeService', () => {
   it('should update a work type', () => {
     service.updateType(mockWorkType).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/work-types/update');
+    const req = httpMock.expectOne('/api/work-types/update');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockWorkType);
     req.flush({});
@@ -73,7 +73,7 @@ describe('WorkTypeService', () => {
   it('should delete a work type', () => {
     service.deleteType(mockWorkType).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:8080/api/work-types/delete/1');
+    const req = httpMock.expectOne('/api/work-types/delete/1');
     expect(req.request.method).toBe('DELETE');
     req.flush({});
 
@@ -85,7 +85,7 @@ describe('WorkTypeService', () => {
       expect(types).toEqual(mockWorkTypes);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/work-types/minimal');
+    const req = httpMock.expectOne('/api/work-types/minimal');
     expect(req.request.method).toBe('GET');
     req.flush(mockWorkTypes);
   });

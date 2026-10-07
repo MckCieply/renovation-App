@@ -43,7 +43,7 @@ describe('DashboardService', () => {
       expect(data).toEqual(mockCostBreakdown);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/analytics/costs');
+    const req = httpMock.expectOne('/api/analytics/costs');
     expect(req.request.method).toBe('GET');
     req.flush(mockCostBreakdown);
   });
@@ -53,7 +53,7 @@ describe('DashboardService', () => {
       expect(data).toEqual(mockRoomHealth);
     });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/analytics/roomsHealth');
+    const req = httpMock.expectOne('/api/analytics/roomsHealth');
     expect(req.request.method).toBe('GET');
     req.flush(mockRoomHealth);
   });
