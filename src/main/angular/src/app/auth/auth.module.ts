@@ -15,9 +15,9 @@ import {RegisterComponent} from './register/register.component';
 import {WelcomeBannerComponent} from './welcome-banner/welcome-banner.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'Login', pathMatch: 'full'},
-  {path: 'Login', component: LoginComponent},
-  {path: 'Register', component: RegisterComponent}
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent}
 ];
 
 @NgModule({

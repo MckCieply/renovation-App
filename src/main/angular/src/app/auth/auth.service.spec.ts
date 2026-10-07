@@ -122,7 +122,7 @@ describe('AuthService', () => {
     service.logout();
 
     expect(service.getToken()).toBeNull();
-    expect(router.navigate).toHaveBeenCalledWith(['Auth/Login']);
+    expect(router.navigate).toHaveBeenCalledWith(['/auth/login']);
   });
 
   it('should handle auth success', () => {

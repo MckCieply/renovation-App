@@ -6,10 +6,11 @@ import {adminGuard} from "./auth/guards/admin.guard";
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    redirectTo: 'auth/login',
+    pathMatch: 'full'
   },
   {
-    path: 'Auth',
+    path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
     path: 'Admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [adminGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'auth/login'
   }
 ];
 
