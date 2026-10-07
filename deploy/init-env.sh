@@ -1,14 +1,18 @@
 #!/usr/bin/env sh
-# Generates .env with random secrets. Usage: deploy/init-env.sh [http-port]
-# http-port: host port the app is published on, default 8090
+# Generates .env with random secrets. Usage: deploy/init-env.sh <site-address>
+# site-address: domain for automatic HTTPS (e.g. demo.example.com), or ":80" for plain HTTP
 set -e
 cd "$(dirname "$0")/.."
+if [ -z "$1" ]; then
+  echo "usage: deploy/init-env.sh <domain>|:80" >&2
+  exit 1
+fi
 if [ -f .env ]; then
   echo ".env already exists, not overwriting" >&2
   exit 1
 fi
 cat > .env <<ENV
-HTTP_PORT=${1:-8090}
+SITE_ADDRESS=$1
 DB_PASSWORD=$(openssl rand -hex 16)
 APP_JWT_SECRET=$(openssl rand -base64 32)
 APP_ADMIN_PASSWORD=$(openssl rand -base64 12 | tr -d '/+=')

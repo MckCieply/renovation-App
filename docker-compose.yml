@@ -1,6 +1,6 @@
-# Lightweight stack meant to share a server with other apps: it only publishes
-# HTTP_PORT (default 8090, never 80/443) and every container has a memory and
-# CPU cap.
+# Lightweight stack meant to share a server with other apps: every container
+# has a memory and CPU cap. Caddy publishes 80/443 and gets the HTTPS
+# certificate for SITE_ADDRESS on its own.
 services:
   db:
     image: postgres:16-alpine
@@ -46,8 +46,13 @@ services:
       context: .
       dockerfile: Dockerfile.web
     restart: unless-stopped
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?set SITE_ADDRESS in .env}
     ports:
-      - "${HTTP_PORT:-8090}:80"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
     depends_on:
       - app
     mem_limit: 64m
@@ -55,3 +60,4 @@ services:
 
 volumes:
   db_data:
+  caddy_data:

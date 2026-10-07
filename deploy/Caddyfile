@@ -1,5 +1,5 @@
-# Plain HTTP inside the container; the host port is set by HTTP_PORT in .env.
-:80 {
+# SITE_ADDRESS: a domain (e.g. demo.example.com) for automatic HTTPS, or ":80" for plain HTTP
+{$SITE_ADDRESS} {
 	encode gzip
 
 	handle /api/* {
